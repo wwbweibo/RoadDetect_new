@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbwiebo.CrackDetect.Kafka", "Wwbwiebo.CrackDetect.Kafka\Wwbwiebo.CrackDetect.Kafka.csproj", "{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Kafka.Test", "Wwbweibo.CrackDetect.Kafka.Test\Wwbweibo.CrackDetect.Kafka.Test.csproj", "{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Tools", "Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj", "{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BCBFF105-EE51-449B-95F4-CC853BDFA8A2}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF1321E0-CDE3-4B5F-A7F0-EDB832E161C8}
+	EndGlobalSection
+EndGlobal
