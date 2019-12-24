@@ -30,7 +30,8 @@ namespace Wwbwiebo.CrackDetect.Kafka
             {
                 try
                 {
-                    var dr = await p.ProduceAsync("test-topic", new Message<Null, string> { Value = "test" });
+                    p.Produce(topic, new Message<Null, string>(){Value = message});
+                    var dr = await p.ProduceAsync(topic, new Message<Null, string> { Value = message });
                     Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
                 }
                 catch (ProduceException<Null, string> e)
@@ -50,40 +51,43 @@ namespace Wwbwiebo.CrackDetect.Kafka
                 BootstrapServers = $"{Server}:{Port}",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
-
-            using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
+            Task.Run(() =>
             {
-                foreach (var topic in topics)
+                using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
                 {
-                    c.Subscribe(topic);
-                }
-                
-                CancellationTokenSource cts = new CancellationTokenSource();
-                Console.CancelKeyPress += (_, e) => {
-                    e.Cancel = true; // prevent the process from terminating.
-                    cts.Cancel();
-                };
-
-                try
-                {
-                    while (true)
+                    foreach (var topic in topics)
                     {
-                        try
+                        c.Subscribe(topic);
+                    }
+
+                    CancellationTokenSource cts = new CancellationTokenSource();
+                    Console.CancelKeyPress += (_, e) =>
+                    {
+                        e.Cancel = true; // prevent the process from terminating.
+                        cts.Cancel();
+                    };
+
+                    try
+                    {
+                        while (true)
                         {
-                            var cr = c.Consume(cts.Token);
-                            OnMessage(this, cr.Value);
-                        }
-                        catch (ConsumeException e)
-                        {
-                            Console.WriteLine($"Error occured: {e.Error.Reason}");
+                            try
+                            {
+                                var cr = c.Consume(cts.Token);
+                                OnMessage?.Invoke(this, cr.Value);
+                            }
+                            catch (ConsumeException e)
+                            {
+                                Console.WriteLine($"Error occured: {e.Error.Reason}");
+                            }
                         }
                     }
+                    catch (OperationCanceledException)
+                    {
+                        c.Close();
+                    }
                 }
-                catch (OperationCanceledException)
-                {
-                    c.Close();
-                }
-            }
+            });
         }
     }
 }
