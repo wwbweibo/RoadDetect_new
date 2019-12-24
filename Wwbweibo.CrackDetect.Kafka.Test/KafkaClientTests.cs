@@ -9,14 +9,22 @@ namespace Wwbwiebo.CrackDetect.Kafka.Tests
     [TestClass()]
     public class KafkaClientTests
     {
-        [TestMethod()]
-        public void ConnectTest()
+        [TestMethod]
+        public void SendMessageTest()
         {
-            string server = "ali.wwbweibo.me";
-            string port = "9092";
-            var topics = new List<string>(){ "test"};
-            var client = new KafkaClient(server, port, "test", topics);
-            Assert.IsTrue(client.Connect());
+            KafkaClient client = new KafkaClient("ali.wwbweibo.me","9092");
+            Assert.IsTrue(client.SendMessageAsync("test", "testMessage").Result);
+        }
+
+        [TestMethod]
+        public void ListenMessageTest()
+        {
+
+            KafkaClient client = new KafkaClient("ali.wwbweibo.me", "9092");
+            client.OnMessage += (sender, message) => { Assert.IsTrue(true); };
+            client.ListenMessage(new string[]{"test"},"test" );
+            
+            Assert.Fail();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Wwbweibo.CrackDetect.Tools.String
 {
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public static bool IsNullOrEmpty(this string s)
         {
