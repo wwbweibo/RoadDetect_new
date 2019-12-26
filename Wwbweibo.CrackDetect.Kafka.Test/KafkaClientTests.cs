@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Wwbwiebo.CrackDetect.Kafka;
+using Wwbweibo.CrackDetect.Kafka;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
-namespace Wwbwiebo.CrackDetect.Kafka.Tests
+namespace Wwbweibo.CrackDetect.Kafka.Tests
 {
     [TestClass()]
     public class KafkaClientTests
@@ -12,19 +13,23 @@ namespace Wwbwiebo.CrackDetect.Kafka.Tests
         [TestMethod]
         public void SendMessageTest()
         {
-            KafkaClient client = new KafkaClient("47.98.170.195", "9092");
+            KafkaClient client = new KafkaClient("ali.wwbweibo.me", "9092");
             Assert.IsTrue(client.SendMessageAsync("test", "testMessage").Result);
         }
 
         [TestMethod]
         public void ListenMessageTest()
         {
-
-            KafkaClient client = new KafkaClient("localhost", "9092");
-            client.OnMessage += (sender, message) => { Assert.IsTrue(true); };
+            var result = false;
+            KafkaClient client = new KafkaClient("ali.wwbweibo.me", "9092");
+            client.OnMessage += (sender, message) => {
+                result = true;
+            };
             client.ListenMessage(new string[]{"test"},"test" );
-            
-            Assert.Fail();
+            // send a message to test the evnet is trigger
+            client.SendMessageAsync("test", "test").GetAwaiter().GetResult();
+            Thread.Sleep(10000);
+            Assert.IsTrue(result);
         }
     }
 }

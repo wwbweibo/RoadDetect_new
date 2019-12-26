@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Wwbweibo.CrackDetect.Tools.String;
 
-namespace Wwbwiebo.CrackDetect.Kafka
+namespace Wwbweibo.CrackDetect.Kafka
 {
     public class KafkaClient
     {

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj" />
+    <ProjectReference Include="..\Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj" />
+  </ItemGroup>
+
+</Project>
