@@ -27,7 +27,6 @@ namespace Wwbweibo.CrackDetect.Kafka
             {
                 try
                 {
-                    p.Produce(topic, new Message<Null, string>() { Value = message });
                     var dr = await p.ProduceAsync(topic, new Message<Null, string> { Value = message });
                     Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
                 }
@@ -46,16 +45,13 @@ namespace Wwbweibo.CrackDetect.Kafka
             {
                 GroupId = groupId,
                 BootstrapServers = $"{Server}:{Port}",
-                AutoOffsetReset = AutoOffsetReset.Earliest
+                AutoOffsetReset = AutoOffsetReset.Latest,
+                EnableAutoCommit = true
             };
 
             using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
             {
-                foreach (var topic in topics)
-                {
-                    c.Subscribe(topic);
-                }
-
+                c.Subscribe(topics);
                 try
                 {
                     while (true)
@@ -63,6 +59,10 @@ namespace Wwbweibo.CrackDetect.Kafka
                         try
                         {
                             var cr = c.Consume(cts.Token);
+                            if (cr.IsPartitionEOF)
+                            {
+                                continue;
+                            }
                             OnMessage?.Invoke(this, cr.Value);
                         }
                         catch (ConsumeException e)

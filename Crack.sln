@@ -15,9 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KafkaTestClient", "KafkaTestClient\KafkaTestClient.csproj", "{18D5D4E9-3CC6-4E4F-8B0D-172191A6E2F7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.PerProcess", "Wwbweibo.CrackDetect.PerProcess\Wwbweibo.CrackDetect.PerProcess.csproj", "{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.PerProcess", "Wwbweibo.CrackDetect.PerProcess\Wwbweibo.CrackDetect.PerProcess.csproj", "{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18D5D4E9-3CC6-4E4F-8B0D-172191A6E2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18D5D4E9-3CC6-4E4F-8B0D-172191A6E2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18D5D4E9-3CC6-4E4F-8B0D-172191A6E2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18D5D4E9-3CC6-4E4F-8B0D-172191A6E2F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Release|Any CPU.ActiveCfg = Release|Any CPU
