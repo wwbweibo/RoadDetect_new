@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Confluent.Kafka;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Confluent.Kafka;
-using Wwbweibo.CrackDetect.Tools.String;
 
 namespace Wwbweibo.CrackDetect.Kafka
 {
@@ -30,7 +27,7 @@ namespace Wwbweibo.CrackDetect.Kafka
             {
                 try
                 {
-                    p.Produce(topic, new Message<Null, string>(){Value = message});
+                    p.Produce(topic, new Message<Null, string>() { Value = message });
                     var dr = await p.ProduceAsync(topic, new Message<Null, string> { Value = message });
                     Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
                 }
@@ -43,7 +40,7 @@ namespace Wwbweibo.CrackDetect.Kafka
             return true;
         }
 
-        public void ListenMessage(string[] topics, string groupId)
+        public void ListenMessage(string[] topics, string groupId, CancellationTokenSource cts)
         {
             var conf = new ConsumerConfig
             {
@@ -51,43 +48,34 @@ namespace Wwbweibo.CrackDetect.Kafka
                 BootstrapServers = $"{Server}:{Port}",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
-            Task.Run(() =>
+
+            using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
             {
-                using (var c = new ConsumerBuilder<Ignore, string>(conf).Build())
+                foreach (var topic in topics)
                 {
-                    foreach (var topic in topics)
-                    {
-                        c.Subscribe(topic);
-                    }
+                    c.Subscribe(topic);
+                }
 
-                    CancellationTokenSource cts = new CancellationTokenSource();
-                    Console.CancelKeyPress += (_, e) =>
+                try
+                {
+                    while (true)
                     {
-                        e.Cancel = true; // prevent the process from terminating.
-                        cts.Cancel();
-                    };
-
-                    try
-                    {
-                        while (true)
+                        try
                         {
-                            try
-                            {
-                                var cr = c.Consume(cts.Token);
-                                OnMessage?.Invoke(this, cr.Value);
-                            }
-                            catch (ConsumeException e)
-                            {
-                                Console.WriteLine($"Error occured: {e.Error.Reason}");
-                            }
+                            var cr = c.Consume(cts.Token);
+                            OnMessage?.Invoke(this, cr.Value);
+                        }
+                        catch (ConsumeException e)
+                        {
+                            Console.WriteLine($"Error occured: {e.Error.Reason}");
                         }
                     }
-                    catch (OperationCanceledException)
-                    {
-                        c.Close();
-                    }
                 }
-            });
+                catch (OperationCanceledException)
+                {
+                    c.Close();
+                }
+            }
         }
     }
 }

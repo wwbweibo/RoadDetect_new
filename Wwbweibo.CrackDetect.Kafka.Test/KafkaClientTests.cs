@@ -20,15 +20,16 @@ namespace Wwbweibo.CrackDetect.Kafka.Tests
         [TestMethod]
         public void ListenMessageTest()
         {
+            var cts = new CancellationTokenSource();
             var result = false;
             KafkaClient client = new KafkaClient("ali.wwbweibo.me", "9092");
             client.OnMessage += (sender, message) => {
+                cts.Cancel();
                 result = true;
             };
-            client.ListenMessage(new string[]{"test"},"test" );
+            client.ListenMessage(new string[]{"test"},"test",cts);
             // send a message to test the evnet is trigger
             client.SendMessageAsync("test", "test").GetAwaiter().GetResult();
-            Thread.Sleep(10000);
             Assert.IsTrue(result);
         }
     }
