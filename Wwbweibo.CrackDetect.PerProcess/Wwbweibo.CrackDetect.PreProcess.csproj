@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj" />
     <ProjectReference Include="..\Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj" />
   </ItemGroup>
 
