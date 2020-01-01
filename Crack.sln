@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Kafka", "Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj", "{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Kafka.Test", "Wwbweibo.CrackDetect.Kafka.Test\Wwbweibo.CrackDetect.Kafka.Test.csproj", "{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Test", "Wwbweibo.CrackDetect.Kafka.Test\Wwbweibo.CrackDetect.Test.csproj", "{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Tools", "Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj", "{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}"
 EndProject
