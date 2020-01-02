@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.PrePro
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCoreLib", "CrackCoreLib\CrackCoreLib.pyproj", "{39867D87-70F7-4D62-8A90-A567DAABA8CB}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackPreProcess", "CrackPreProcess\CrackPreProcess.pyproj", "{B252FA25-52E7-4045-9CCB-2850A0656791}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39867D87-70F7-4D62-8A90-A567DAABA8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39867D87-70F7-4D62-8A90-A567DAABA8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B252FA25-52E7-4045-9CCB-2850A0656791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B252FA25-52E7-4045-9CCB-2850A0656791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B252FA25-52E7-4045-9CCB-2850A0656791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B252FA25-52E7-4045-9CCB-2850A0656791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>39867d87-70f7-4d62-8a90-a567daaba8cb</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>CrackCoreLib.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +22,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CrackCoreLib.py" />
     <Compile Include="Kafka\Client.py">
       <SubType>Code</SubType>
     </Compile>
