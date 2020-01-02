@@ -6,10 +6,12 @@ from datetime import datetime
 from flask import render_template
 from CrackPreProcess import app
 from CrackPreProcess.Kafka  import Client
+from CrackPreProcess.Utils import Decodeb64String
 
 @app.route('/')
 @app.route('/home')
 def home():
+   
     """Renders the home page."""
     return render_template(
         'index.html',
