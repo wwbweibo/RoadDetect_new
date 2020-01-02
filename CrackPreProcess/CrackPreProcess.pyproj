@@ -27,12 +27,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CrackPreProcess\Kafka\Client.py" />
+    <Compile Include="CrackPreProcess\Kafka\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="CrackPreProcess\__init__.py" />
     <Compile Include="CrackPreProcess\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CrackPreProcess\" />
+    <Folder Include="CrackPreProcess\Kafka\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />

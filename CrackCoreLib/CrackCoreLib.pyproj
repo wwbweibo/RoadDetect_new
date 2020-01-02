@@ -25,6 +25,9 @@
     <Compile Include="Kafka\Client.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Kafka\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Kafka\" />
