@@ -31,6 +31,12 @@
     <Compile Include="CrackPreProcess\Kafka\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CrackPreProcess\Service\PreProcessService.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Service\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CrackPreProcess\Utils\Utils.py" />
     <Compile Include="CrackPreProcess\Utils\__init__.py" />
     <Compile Include="runserver.py" />
@@ -40,6 +46,7 @@
   <ItemGroup>
     <Folder Include="CrackPreProcess\" />
     <Folder Include="CrackPreProcess\Kafka\" />
+    <Folder Include="CrackPreProcess\Service\" />
     <Folder Include="CrackPreProcess\Utils\" />
   </ItemGroup>
   <ItemGroup>

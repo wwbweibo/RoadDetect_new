@@ -38,3 +38,8 @@ def about():
         year=datetime.now().year,
         message='Your application description page.'
     )
+
+@app.route("/perprocess", methods=['POST'])
+def PreProcess(imageb64data):
+    bytedata = Decodeb64String(imageb64data)
+
