@@ -39,5 +39,17 @@ namespace Wwbweibo.CrackDetect.Tools.String
                 throw new ApplicationException("the input data can not be null");
             return Convert.ToBase64String(data);
         }
+
+        public static string Format(this string s, params string[] args)
+        {
+            try
+            {
+                return string.Format(s, args);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }
