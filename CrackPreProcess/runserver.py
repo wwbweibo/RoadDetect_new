@@ -13,11 +13,6 @@ def onMessage(message):
 
 if __name__ == '__main__':
     # when server started, start kafka consumer and listen the message
-    kafkaClent = Client("ali.wwbweibo.me", "9092")
-    Client.StartListenMessage("preprocess", onMessage, "python-preprocess")
-    HOST = environ.get('SERVER_HOST', 'localhost')
-    try:
-        PORT = int(environ.get('SERVER_PORT', '5555'))
-    except ValueError:
-        PORT = 5555
-    app.run(HOST, PORT)
+    kafkaClient = Client("ali.wwbweibo.me", "9092")
+    kafkaClient.StartListenMessage("preprocess", onMessage, "python-preprocess")
+    app.run("0.0.0.0", 5555)
