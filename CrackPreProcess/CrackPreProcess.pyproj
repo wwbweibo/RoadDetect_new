@@ -50,6 +50,7 @@
     <Folder Include="CrackPreProcess\Utils\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CrackPreProcess\Utils\test.jpg" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />

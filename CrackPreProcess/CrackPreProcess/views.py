@@ -6,7 +6,8 @@ from datetime import datetime
 from flask import render_template
 from CrackPreProcess import app
 from CrackPreProcess.Kafka  import Client
-from CrackPreProcess.Utils import Decodeb64String
+from CrackPreProcess.Utils import Decodeb64String, DecodeByte2Image
+from CrackPreProcess.Service.PreProcessService import PreProcessService
 
 @app.route('/')
 @app.route('/home')
@@ -41,5 +42,7 @@ def about():
 
 @app.route("/perprocess", methods=['POST'])
 def PreProcess(imageb64data):
-    bytedata = Decodeb64String(imageb64data)
-
+    # basic validation
+    if imageb64data is None or len(imageb64data) <=0:
+        raise("the input data can not be None or empty")
+    service = PreProcessService(imageb64data)
