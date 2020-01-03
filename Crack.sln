@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.PreProcess", "Wwbweibo.CrackDetect.PerProcess\Wwbweibo.CrackDetect.PreProcess.csproj", "{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCoreLib", "CrackCoreLib\CrackCoreLib.pyproj", "{39867D87-70F7-4D62-8A90-A567DAABA8CB}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackPreProcess", "CrackPreProcess\CrackPreProcess.pyproj", "{B252FA25-52E7-4045-9CCB-2850A0656791}"
@@ -39,10 +37,6 @@ Global
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58C4CCA8-E2A4-4582-9C71-0FED5AA4473B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{39867D87-70F7-4D62-8A90-A567DAABA8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{39867D87-70F7-4D62-8A90-A567DAABA8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B252FA25-52E7-4045-9CCB-2850A0656791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
