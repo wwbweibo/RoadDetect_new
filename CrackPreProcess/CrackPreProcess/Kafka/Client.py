@@ -33,7 +33,7 @@ class Client:
             if self.Client.topics[topic] is not None:
                 tList.append(self.Client.topics[topic])
             else:
-                aise("Can not find Such Topic:[%s]" % topic)
+                raise("Can not find Such Topic:[%s]" % topic)
         for t in tList:
             t = t.get_simple_consumer(
                     consumer_group=group,
