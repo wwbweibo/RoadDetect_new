@@ -14,5 +14,6 @@ def onMessage(message):
 if __name__ == '__main__':
     # when server started, start kafka consumer and listen the message
     kafkaClient = Client("ali.wwbweibo.me", "9092")
-    kafkaClient.StartListenMessage("preprocess", onMessage, "python-preprocess")
+    kafkaClient.StartListenMessage(["preprocess"], onMessage, "python-preprocess")
+    kafkaClient.sendMessage("preprocess", "testmessage")
     app.run("0.0.0.0", 5555)

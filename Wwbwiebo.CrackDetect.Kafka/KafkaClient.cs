@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Wwbweibo.CrackDetect.Tools;
 
 namespace Wwbweibo.CrackDetect.Kafka
 {
@@ -28,11 +29,10 @@ namespace Wwbweibo.CrackDetect.Kafka
                 try
                 {
                     var dr = await p.ProduceAsync(topic, new Message<Null, string> { Value = message });
-                    Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
                 }
                 catch (ProduceException<Null, string> e)
                 {
-                    Console.WriteLine($"Delivery failed: {e.Error.Reason}");
+                    Logger.Error($"Delivery failed: {e.Error.Reason}", e);
                     return false;
                 }
             }
@@ -63,11 +63,12 @@ namespace Wwbweibo.CrackDetect.Kafka
                             {
                                 continue;
                             }
+                            Logger.Info($"kafka message arrive: {cr.Value}");
                             OnMessage?.Invoke(this, cr.Value);
                         }
                         catch (ConsumeException e)
                         {
-                            Console.WriteLine($"Error occured: {e.Error.Reason}");
+                            Logger.Error($"Error occured: {e.Error.Reason}", e);
                         }
                     }
                 }
