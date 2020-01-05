@@ -1,5 +1,9 @@
-# ��Ŀ���������л���������docker��
+# 基于分布式和微服务的路面裂缝识别系统
 
-��Ŀ¼�а�������Ŀ���еĻ�����������������Ҫʹ�õĻ�����������Щ������
-����������ʹ�� `docker-compose up -d --build`
-�״���������ض������ļ������޸ģ���֤zookeeper��kafka�ܹ�����ʹ��
+该项目基于分布式和微服务搭建
+
+## 项目基本的运行环境（基于docker）
+
+base-env中包含了项目运行的基本环境，请首先在要使用的环境中启动这些容器。
+启动容器请使用 `docker-compose up -d --build`
+首次启动后务必对配置文件进行修改，保证zookeeper和kafka能够正常使用

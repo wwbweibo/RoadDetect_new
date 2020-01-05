@@ -1,5 +1,5 @@
-# ÏîÄ¿»ù±¾µÄÔËÐÐ»·¾³£¨»ùÓÚdocker£©
+# é¡¹ç›®åŸºæœ¬çš„è¿è¡ŒçŽ¯å¢ƒï¼ˆåŸºäºŽdockerï¼‰
 
-¸ÃÄ¿Â¼ÖÐ°üº¬ÁËÏîÄ¿ÔËÐÐµÄ»ù±¾»·¾³£¬ÇëÊ×ÏÈÔÚÒªÊ¹ÓÃµÄ»·¾³ÖÐÆô¶¯ÕâÐ©ÈÝÆ÷¡£
-Æô¶¯ÈÝÆ÷ÇëÊ¹ÓÃ `docker-compose run -d --build`
-Ê×´ÎÆô¶¯ºóÎñ±Ø¶ÔÅäÖÃÎÄ¼þ½øÐÐÐÞ¸Ä£¬±£Ö¤zookeeperºÍkafkaÄÜ¹»Õý³£Ê¹ÓÃ
+è¯¥ç›®å½•ä¸­åŒ…å«äº†é¡¹ç›®è¿è¡Œçš„åŸºæœ¬çŽ¯å¢ƒï¼Œè¯·é¦–å…ˆåœ¨è¦ä½¿ç”¨çš„çŽ¯å¢ƒä¸­å¯åŠ¨è¿™äº›å®¹å™¨ã€‚
+å¯åŠ¨å®¹å™¨è¯·ä½¿ç”¨ `docker-compose run -d --build`
+é¦–æ¬¡å¯åŠ¨åŽåŠ¡å¿…å¯¹é…ç½®æ–‡ä»¶è¿›è¡Œä¿®æ”¹ï¼Œä¿è¯zookeeperå’Œkafkaèƒ½å¤Ÿæ­£å¸¸ä½¿ç”¨
