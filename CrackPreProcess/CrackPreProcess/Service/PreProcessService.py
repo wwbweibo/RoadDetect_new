@@ -1,5 +1,7 @@
 import cv2
 from CrackPreProcess.Utils.Utils import Decodeb64String, DecodeByte2Image
+from CrackPreProcess.Kafka.Client import Client
+import numpy as np
 
 '''
 流程待定
@@ -20,9 +22,16 @@ class PreProcessService(object):
     def ExecuteWorkFlow(self):
         return self.image.shape
 
-    def CutImage():
+    def CutImage(self):
         im_list = []
         for i in range(64):
             for j in  range(64):
                 im_list.append(self.image[i * 16: (i+1) * 16, j * 16: (j+1) * 16, :])
+        # conver the image blocks to a numpy array 
+        
         self.image_block = im_list
+
+    def sendTodo(self):
+        client = Client("ali.wwbweibo.me", "9092")
+
+        client.sendMessage("calc-image", )

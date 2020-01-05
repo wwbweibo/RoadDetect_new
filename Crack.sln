@@ -19,6 +19,13 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCoreLib", "CrackCoreLi
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackPreProcess", "CrackPreProcess\CrackPreProcess.pyproj", "{B252FA25-52E7-4045-9CCB-2850A0656791}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base-env", "base-env", "{7AC07FD5-3682-4AB4-9D36-B29172541A16}"
+	ProjectSection(SolutionItems) = preProject
+		base-env\docker-compose.yml = base-env\docker-compose.yml
+		base-env\Dockerfile = base-env\Dockerfile
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +53,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7AC07FD5-3682-4AB4-9D36-B29172541A16} = {BCBFF105-EE51-449B-95F4-CC853BDFA8A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF1321E0-CDE3-4B5F-A7F0-EDB832E161C8}
