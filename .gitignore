@@ -5,3 +5,4 @@ __pycache__
 base-env/zk*
 base-env/redis
 base-env/kafka*
+env/
