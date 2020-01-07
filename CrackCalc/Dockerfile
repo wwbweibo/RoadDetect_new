@@ -8,5 +8,6 @@
 
 FROM tensorflow/tensorflow
 ADD . /work
-RUN pip install -r requirements.txt
-CMD "python" "runserver.py"
+WORKDIR /work
+RUN pip3 install -r requirements.txt
+CMD "python3" "runserver.py"
