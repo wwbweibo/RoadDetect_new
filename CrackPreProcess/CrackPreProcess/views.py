@@ -4,7 +4,7 @@ Routes and views for the flask application.
 
 from datetime import datetime
 from flask import render_template, request
-from CrackPreProcess import app
+from CrackPreProcess import app, service
 from CrackPreProcess.Kafka  import Client
 from CrackPreProcess.Service.PreProcessService import PreProcessService
 
@@ -19,8 +19,6 @@ def PreProcess():
         # basic validation
         if imageb64data is None or len(imageb64data) <=0:
             raise("the input data can not be None or empty")
-        service = PreProcessService(imageb64data)
-        shape = service.ExecuteWorkFlow()
-        return '{%d,%d,%d}' % (shape[0], shape[1], shape[2])
+        service.execute_workflow()
     except e:
         print(e)

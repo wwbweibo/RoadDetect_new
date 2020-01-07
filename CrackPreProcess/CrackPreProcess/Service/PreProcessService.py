@@ -1,21 +1,35 @@
 import cv2
+import json
 from CrackPreProcess.Utils.Utils import Decodeb64String, DecodeByte2Image, EncodeData2b64
 from CrackPreProcess.Kafka.Client import Client
+from CrackPreProcess.Service.TaskModel import TaskModel, TaskDetail
+from CrackPreProcess.Redis.RedisClient import RedisClient
 import numpy as np
 
 class PreProcessService:
     """description of class"""
-    def __init__(self, base64string):
-        self.imageb64String = base64string
-        self.image = None
-        self.client = None
-        self.__decode_image__()
-        
-    def __decode_image__(self):
-        bytedata = Decodeb64String(self.imageb64String)
-        self.image = DecodeByte2Image(bytedata)
+    def __init__(self, conf):
+        self.conf = conf
+        self.redis = RedisClient(conf['redis_host'], conf['redis_port'])
 
-    def execute_workflow(self):
+    def __decode_image__(self, taskDetail):
+        self.image = Decodeb64String(taskDetail.Image)
+
+    def __load_data__(self, task):
+        task = json.loads(task)
+        if task is None or task.TaskId is None:
+            raise Exception("Error while try to load task data: %s" % task)
+        if task.TaskDetail is None:
+            # todo try to get data from redis using the given id
+            detail = redis.get(task.TaskId)
+            if detail is None:
+                raise Exception("Error while get data from redis: %s", task.TaskId)
+            taskDetail = json.loads(detail)
+        
+        image = self.__decode_image__(taskDetail)
+
+    def execute_workflow(self, task):
+        self.__load_data__(task)
         if(self.image.shape[0] != self.image.shape[1] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
         self.cut_image()
