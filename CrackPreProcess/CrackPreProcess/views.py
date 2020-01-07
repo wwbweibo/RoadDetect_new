@@ -10,7 +10,7 @@ from CrackPreProcess.Service.PreProcessService import PreProcessService
 
 @app.route('/')
 def home():
-    return "anc"
+    return "index"
 
 @app.route("/preprocess", methods=['POST'])
 def PreProcess():
