@@ -55,6 +55,12 @@
     </Compile>
     <Compile Include="CrackPreProcess\Utils\Utils.py" />
     <Compile Include="CrackPreProcess\Utils\__init__.py" />
+    <Compile Include="CrackPreProcess\Zookeeper\ZkClient.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Zookeeper\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="CrackPreProcess\__init__.py" />
     <Compile Include="CrackPreProcess\views.py" />
@@ -66,6 +72,7 @@
     <Folder Include="CrackPreProcess\Redis\" />
     <Folder Include="CrackPreProcess\Service\" />
     <Folder Include="CrackPreProcess\Utils\" />
+    <Folder Include="CrackPreProcess\Zookeeper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore">
@@ -74,7 +81,7 @@
     </Content>
     <Content Include="CrackPreProcess\Utils\test.jpg" />
     <None Include="Dockerfile" />
-    <Content Include="mypy.ini" />
+    <Content Include="conf.ini" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
