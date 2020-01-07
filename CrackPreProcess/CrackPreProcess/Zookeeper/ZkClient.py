@@ -5,7 +5,7 @@ class ZkClient(object):
         server = ''
         for host,port in zip(hosts, ports):
             server = server + '%s:%s,' % (host, port)
-        server = server[:len(server) - 2]
+        server = server[:len(server) - 1]
         self.zk = KazooClient(server)
         self.zk.start()
 
@@ -36,7 +36,7 @@ class ZkClient(object):
 
     def create_task(self, task_type, task_id):
         todopath = "/%s/todo/%s" % (task_type, task_id)
-        self.zk.create(todopath)
+        self.zk.create(todopath, makepath=True)
 
     def require_task(self, task_type, task_id, service_id):
         '''
@@ -50,12 +50,13 @@ class ZkClient(object):
         try:
             # 首先确认待办中存在对应的节点
             if self.zk.exists(todopath):
-                self.zk.create(path, service_id, ephemeral=True)
+                self.zk.create(path, service_id.encode('UTF-8'), ephemeral=True, makepath=True)
                 return True
             # 任务节点不存在，则任务已经被执行了
             else:
                 return False
-        except:
+        except Exception as e:
+            print(e)
             # 出现异常，任务请求失败
             return False
 
@@ -65,3 +66,17 @@ class ZkClient(object):
         self.zk.delete(todopath)
         self.zk.delete(path)
         
+
+
+
+if __name__ == "__main__":
+    from threading import Thread
+    def test():
+        print(client.require_task("testTask", "1", "1"))
+    client = ZkClient(['localhost'], ['2181'])
+    th1 = Thread(target=test)
+    th2 = Thread(target=test)
+    th3 = Thread(target=test)
+    th1.start()
+    th2.start()
+    th3.start()
