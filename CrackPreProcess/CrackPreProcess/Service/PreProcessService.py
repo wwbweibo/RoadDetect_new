@@ -2,48 +2,51 @@ import cv2
 import json
 from CrackPreProcess.Utils.Utils import Decodeb64String, DecodeByte2Image, EncodeData2b64
 from CrackPreProcess.Kafka.Client import Client
-from CrackPreProcess.Service.TaskModel import TaskModel, TaskDetail
 from CrackPreProcess.Redis.RedisClient import RedisClient
 import numpy as np
+import uuid
 
 class PreProcessService:
     """description of class"""
     def __init__(self, conf):
         self.conf = conf
         self.redis = RedisClient(conf['redis_host'], conf['redis_port'])
+        self.kafka = Client(conf['kafka_host'], conf['kafka_port'])
 
-    def __decode_image__(self, taskDetail):
-        self.image = Decodeb64String(taskDetail.Image)
+    def __decode_image__(self, b64image):
+        image = Decodeb64String(b64image)
+        image = DecodeByte2Image(image)
 
-    def __load_data__(self, task):
-        task = json.loads(task)
-        if task is None or task.TaskId is None:
-            raise Exception("Error while try to load task data: %s" % task)
-        if task.TaskDetail is None:
-            # todo try to get data from redis using the given id
-            detail = redis.get(task.TaskId)
-            if detail is None:
-                raise Exception("Error while get data from redis: %s", task.TaskId)
-            taskDetail = json.loads(detail)
-        
-        image = self.__decode_image__(taskDetail)
+    def __load_data__(self, task, datatype):
+        if datatype == 'taskmodel':
+            task = json.loads(task)
+            if task is None:
+                raise Exception("The given task is error or empty, task:" % task)
+            imageb64 = redis.get(task.TaskId)
+            if imageb64 is None:
+                raise Exception("trying to ge image error")
+            image = self.__decode_image__(imageb64)
+        else:
+            image = self.__decode_image__(task)
+        return image
 
-    def execute_workflow(self, task):
-        self.__load_data__(task)
-        if(self.image.shape[0] != self.image.shape[1] != 1024):
+    def execute_workflow(self, task, datatype='taskmodel'):
+        image = self.__load_data__(task)
+        if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
-        self.cut_image()
+        image_block, serailized_image_block = self.cut_image()
         self.send_todo()
 
-    def cut_image(self):
+    def cut_image(self, image):
         im_list = []
         for i in range(64):
             for j in  range(64):
-                im_list.append(self.image[i * 16: (i+1) * 16, j * 16: (j+1) * 16, :])
+                im_list.append(image[i * 16: (i+1) * 16, j * 16: (j+1) * 16, :])
         # conver the image blocks to a numpy array 
         im_list = np.asarray(im_list, dtype=np.uint8)
-        self.image_block = im_list
-        self.serailized_image_block = im_list.tobytes()
+        image_block = im_list
+        serailized_image_block = im_list.tobytes()
+        return image_block, serailized_image_block
 
     def convert_color_gray(self):
         """
@@ -171,16 +174,8 @@ class PreProcessService:
         ret, new_im = cv2.threshold(img, min_index[0][0], 255, cv.THRESH_BINARY)
         return new_im
 
-
     def send_todo(self):
-        if self.client is None:
-            self.client = Client("ali.wwbweibo.me", "9092")
-            self.client.sendMessage("calc-image", EncodeData2b64(self.serailized_image_block))
-
-if __name__ == "__main__":
-    from CrackPreProcess.Utils import Utils
-    file = open("D:\\OneDrive\\Pictures\\47526064_p0.png.jpg", 'rb').read()
-    b64string = Utils.EncodeData2b64(file)
-    service = PreProcessService(b64string)
-    service.resize_img1()
-    service.execute_workflow()
+        taskId = str(uuid.uuid1())
+        if self.kafka is None:
+            self.kafka = Client(self.conf['kafka_host'], self.kafka['kafka_port'])
+        self.kafka.sendMessage("calc-image", taskId)    # send taskid only
