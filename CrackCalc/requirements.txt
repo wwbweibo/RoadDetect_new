@@ -1,5 +1,4 @@
 Flask<1
 pykafka
 opencv-python
-tensorflow-cpu
 keras
