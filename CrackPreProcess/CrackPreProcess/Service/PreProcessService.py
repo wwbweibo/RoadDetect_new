@@ -18,7 +18,7 @@ class PreProcessService:
         image = DecodeByte2Image(image)
 
     def __load_data__(self, task, datatype):
-        if datatype == 'taskmodel':
+        if datatype == 'taskId':
             task = json.loads(task)
             if task is None:
                 raise Exception("The given task is error or empty, task:" % task)
@@ -30,12 +30,17 @@ class PreProcessService:
             image = self.__decode_image__(task)
         return image
 
-    def execute_workflow(self, task, datatype='taskmodel'):
+    def execute_workflow(self, task, datatype='taskId'):
+        '''
+        执行预处理工作流
+        task：任务Id或者任务数据
+        datatype: taskId->输入的数据是任务ID，taskData->输入的是任务数据
+        '''
         image = self.__load_data__(task)
         if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
         image_block, serailized_image_block = self.cut_image()
-        self.send_todo()
+        self.send_todo(serailized_image_block)
 
     def cut_image(self, image):
         im_list = []
@@ -174,8 +179,10 @@ class PreProcessService:
         ret, new_im = cv2.threshold(img, min_index[0][0], 255, cv.THRESH_BINARY)
         return new_im
 
-    def send_todo(self):
+    def send_todo(self, data):
         taskId = str(uuid.uuid1())
+        b64Data = EncodeData2b64(data)
+        self.redis.set(taskId, b64Data)
         if self.kafka is None:
             self.kafka = Client(self.conf['kafka_host'], self.kafka['kafka_port'])
         self.kafka.sendMessage("calc-image", taskId)    # send taskid only
