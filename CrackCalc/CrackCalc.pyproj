@@ -32,6 +32,8 @@
     <Compile Include="CrackCalc\Kafka\__init__.py" />
     <Compile Include="CrackCalc\Logger\Logger.py" />
     <Compile Include="CrackCalc\Logger\__init__.py" />
+    <Compile Include="CrackCalc\Redis\RedisClient.py" />
+    <Compile Include="CrackCalc\Redis\__init__.py" />
     <Compile Include="CrackCalc\Services\CalcService.py">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +45,8 @@
     </Compile>
     <Compile Include="CrackCalc\Utils\Utils.py" />
     <Compile Include="CrackCalc\Utils\__init__.py" />
+    <Compile Include="CrackCalc\Zookeeper\ZkClient.py" />
+    <Compile Include="CrackCalc\Zookeeper\__init__.py" />
     <Compile Include="runserver.py" />
     <Compile Include="CrackCalc\__init__.py" />
     <Compile Include="CrackCalc\views.py" />
@@ -51,16 +55,18 @@
     <Folder Include="CrackCalc\" />
     <Folder Include="CrackCalc\Kafka\" />
     <Folder Include="CrackCalc\Logger\" />
+    <Folder Include="CrackCalc\Redis\" />
     <Folder Include="CrackCalc\Services\" />
     <Folder Include="CrackCalc\Utils\" />
+    <Folder Include="CrackCalc\Zookeeper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore">
       <SubType>Content</SubType>
       <DependentUpon>Dockerfile</DependentUpon>
     </Content>
-    <Content Include="CrackCalc\Utils\test.jpg" />
     <None Include="Dockerfile" />
+    <Content Include="CrackCalc\Utils\test.jpg" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
