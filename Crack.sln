@@ -30,9 +30,11 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCalc", "CrackCalc\Crac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{3849845A-318E-4C65-9FB9-50299CE6A7E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Redis", "Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj", "{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Redis", "Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj", "{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +78,10 @@ Global
 		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
