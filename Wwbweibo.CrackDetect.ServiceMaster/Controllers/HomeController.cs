@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
+using Wwbweibo.CrackDetect.ServiceMaster.Services;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly MasterService service = new MasterService();
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
