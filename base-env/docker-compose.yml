@@ -3,34 +3,46 @@ services:
 # the zookeeper server
     zookeeper1:
         image: zookeeper:latest
-        expose: 
-            - "2181"
         ports:
             - "2181:2181"
+            - "2881:2888"
+            - "3881:3888"
+        container_name: zookeeper1
         volumes: 
             - "./zk1/conf:/conf"
             - "./zk1/data:/data"
             - "./zk1/datalog:/datalog"
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
     zookeeper2:
         image: zookeeper:latest
-        expose: 
-            - "2182"
+        container_name: zookeeper2
         ports:
-            - "2182:2182"
+            - "2182:2181"
+            - "2882:2888"
+            - "3882:3888"
         volumes: 
             - "./zk2/conf:/conf"
             - "./zk2/data:/data"
             - "./zk2/datalog:/datalog"    
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
     zookeeper3:
         image: zookeeper:latest
-        expose: 
-            - "2183"
+        container_name: zookeeper3
         ports:
-            - "2183:2183"
+            - "2183:2181"
+            - "2883:2888"
+            - "3883:3888"
         volumes: 
             - "./zk3/conf:/conf"
             - "./zk3/data:/data"
             - "./zk3/datalog:/datalog"
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
 # kafka server
     kafka:
         build: 
@@ -51,5 +63,6 @@ services:
             - "6379"
         ports:
             - "6379:6379"
+        restart: always
         volumes:
-            - "./redis:/usr/local/etc/redis"
+            - "./redis:/data"

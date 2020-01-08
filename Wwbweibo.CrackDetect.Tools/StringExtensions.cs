@@ -51,5 +51,10 @@ namespace Wwbweibo.CrackDetect.Tools.String
                 throw;
             }
         }
+
+        public static int ToInt(this string s)
+        {
+            return int.Parse(s);
+        }
     }
 }

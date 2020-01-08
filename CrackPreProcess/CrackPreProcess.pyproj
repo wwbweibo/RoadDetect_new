@@ -38,7 +38,16 @@
     <Compile Include="CrackPreProcess\Logger\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CrackPreProcess\Redis\RedisClient.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Redis\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CrackPreProcess\Service\PreProcessService.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Service\TaskModel.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CrackPreProcess\Service\__init__.py">
@@ -46,6 +55,12 @@
     </Compile>
     <Compile Include="CrackPreProcess\Utils\Utils.py" />
     <Compile Include="CrackPreProcess\Utils\__init__.py" />
+    <Compile Include="CrackPreProcess\Zookeeper\ZkClient.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Zookeeper\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="CrackPreProcess\__init__.py" />
     <Compile Include="CrackPreProcess\views.py" />
@@ -54,8 +69,10 @@
     <Folder Include="CrackPreProcess\" />
     <Folder Include="CrackPreProcess\Kafka\" />
     <Folder Include="CrackPreProcess\Logger\" />
+    <Folder Include="CrackPreProcess\Redis\" />
     <Folder Include="CrackPreProcess\Service\" />
     <Folder Include="CrackPreProcess\Utils\" />
+    <Folder Include="CrackPreProcess\Zookeeper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore">
@@ -64,6 +81,7 @@
     </Content>
     <Content Include="CrackPreProcess\Utils\test.jpg" />
     <None Include="Dockerfile" />
+    <Content Include="conf.ini" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

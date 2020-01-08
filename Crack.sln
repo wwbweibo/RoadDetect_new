@@ -24,9 +24,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base-env", "base-env", "{7A
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.DataWebsite", "Wwbweibo.CrackDetect.DataWebsite\Wwbweibo.CrackDetect.DataWebsite.csproj", "{6A827726-ABBA-4554-83A5-96BB8FCF3F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.DataWebsite", "Wwbweibo.CrackDetect.DataWebsite\Wwbweibo.CrackDetect.DataWebsite.csproj", "{6A827726-ABBA-4554-83A5-96BB8FCF3F85}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCalc", "CrackCalc\CrackCalc.pyproj", "{A3AE835E-D199-4FBE-9952-3B2662EF04E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{3849845A-318E-4C65-9FB9-50299CE6A7E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Redis", "Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj", "{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +64,18 @@ Global
 		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
