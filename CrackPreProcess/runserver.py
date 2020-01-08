@@ -5,10 +5,13 @@ from CrackPreProcess.Service.PreProcessService import PreProcessService
 import json
 
 def onMessage(message):
+    taskId = message.value.decode('utf-8')
     # 通过异步消息触发，需要请求任务
-    if zkClient.require_task("preprocess", message.value, serviceId.encode('utf-8')):
-        task = json.loads(message.value)
-        service.execute_workflow(task)
+    if zkClient.require_task("preprocess", taskId, serviceId):
+        try:
+            service.execute_workflow(taskId)
+        except Exception as e:
+            zkClient.finish_task("preprocess", taskId)
 
 if __name__ == '__main__':
     # when server started, start kafka consumer and listen the message

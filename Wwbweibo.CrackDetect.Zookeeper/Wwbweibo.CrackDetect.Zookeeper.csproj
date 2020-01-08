@@ -8,4 +8,8 @@
     <PackageReference Include="ZooKeeperNetEx" Version="3.4.12.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj" />
+  </ItemGroup>
+
 </Project>

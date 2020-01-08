@@ -16,13 +16,13 @@ class PreProcessService:
     def __decode_image__(self, b64image):
         image = Decodeb64String(b64image)
         image = DecodeByte2Image(image)
+        return image
 
     def __load_data__(self, task, datatype):
         if datatype == 'taskId':
-            task = json.loads(task)
             if task is None:
                 raise Exception("The given task is error or empty, task:" % task)
-            imageb64 = redis.get(task.TaskId)
+            imageb64 = self.redis.get(task)
             if imageb64 is None:
                 raise Exception("trying to ge image error")
             image = self.__decode_image__(imageb64)
@@ -36,7 +36,7 @@ class PreProcessService:
         task：任务Id或者任务数据
         datatype: taskId->输入的数据是任务ID，taskData->输入的是任务数据
         '''
-        image = self.__load_data__(task)
+        image = self.__load_data__(task, datatype)
         if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
         image_block, serailized_image_block = self.cut_image()
