@@ -16,7 +16,8 @@ def onMessage(message):
 if __name__ == '__main__':
     # when server started, start kafka consumer and listen the message
     kafkaClient = Client(conf['kafka_host'], conf['kafka_port'])
-    kafkaClient.StartListenMessage(["preprocess"], onMessage, "python-preprocess")
+    # 使用唯一的GroupID确保所有的服务都能够能接受到消息
+    kafkaClient.StartListenMessage(["preprocess"], onMessage, "python-preprocess-"+serviceId)
     # 注册该服务
     zkClient.register_service(serviceId, "python-preprocess-service")
     app.run("0.0.0.0", 5555)
