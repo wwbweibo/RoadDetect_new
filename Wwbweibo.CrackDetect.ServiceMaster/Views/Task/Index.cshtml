@@ -1,0 +1,43 @@
+﻿@{ ViewData["Title"] = "任务管理";}
+
+<div>
+    <h2>
+        任务管理
+    </h2>
+</div>
+
+
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <td>#</td>
+        <td>任务ID</td>
+        <td>任务类型</td>
+        </thead>
+        @{ int index = 0;}
+        @foreach (var tasks in ViewData["tasks"] as Dictionary<string, List<string>>)
+        {
+            @foreach (var service in tasks.Value)
+            {
+                index = index + 1;
+                <tr>
+                    <td>@index</td>
+                    <td>
+                        @service
+                    </td>
+                    <td>
+                        @if (tasks.Key == ConstData.PreProcessTaskName)
+                        {
+                            <label>图像预处理任务</label>
+                        }
+                        else if (tasks.Key == ConstData.CrackCalcTaskName)
+                        {
+                            <label>图像计算任务</label>
+                        }
+
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
