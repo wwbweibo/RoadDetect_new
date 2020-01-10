@@ -20,4 +20,4 @@ if __name__ == '__main__':
     kafkaClient.StartListenMessage(["preprocess"], onMessage, "python-preprocess-"+serviceId)
     # 注册该服务
     zkClient.register_service(serviceId, "python-preprocess-service")
-    app.run("0.0.0.0", 5555)
+    app.run("0.0.0.0", conf['service_inner_port'])
