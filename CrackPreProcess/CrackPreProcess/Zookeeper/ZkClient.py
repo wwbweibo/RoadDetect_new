@@ -73,6 +73,8 @@ class ZkClient(object, on_failure_action=None):
     def __zk_status_listener__(self, state):
         if state == KazooState.LOST:
             self.zk.start()
+    def stop_service(self):
+        self.zk.stop()
 
 if __name__ == "__main__":
     from threading import Thread

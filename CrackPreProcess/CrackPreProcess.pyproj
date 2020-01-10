@@ -32,6 +32,12 @@
     <Compile Include="CrackPreProcess\Kafka\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CrackPreProcess\Models\ControlMessageModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackPreProcess\Models\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CrackPreProcess\Redis\RedisClient.py">
       <SubType>Code</SubType>
     </Compile>
@@ -65,6 +71,7 @@
   <ItemGroup>
     <Folder Include="CrackPreProcess\" />
     <Folder Include="CrackPreProcess\Kafka\" />
+    <Folder Include="CrackPreProcess\Models\" />
     <Folder Include="CrackPreProcess\Redis\" />
     <Folder Include="CrackPreProcess\Service\" />
     <Folder Include="CrackPreProcess\Utils\" />

@@ -12,6 +12,7 @@ class Client:
         self.Host = host
         self.Port = port
         self.Client = pykafka.KafkaClient("%s:%s" % (self.Host, self.Port))
+        self.RunningThread = None
 
     def sendMessage(self, topic, message):
         '''
@@ -41,12 +42,18 @@ class Client:
                     auto_commit_enable=True
                 )
             runt = Thread(target=self.__onMessage__, args=(t, callback))
-            runt.start()
+            self.RunningThread = runt
+            self.RunningThread.start()
 
     def __onMessage__(self, consumer, callback):
             while True:
                 message = consumer.consume()
                 callback(message)
+
+    def StopListen(self):
+        if self.RunningThread is not None:
+            self.RunningThread.setDaemon(True)
+
 
 if __name__ == "__main__":
     client = Client("ali.wwbweibo.me","9092")
