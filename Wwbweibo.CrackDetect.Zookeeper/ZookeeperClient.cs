@@ -83,7 +83,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
 
                 if (zkClient.existsAsync(path).GetAwaiter().GetResult() == null)
                 {
-                    ensurePath(path).GetAwaiter().GetResult();
+                    ensurePath(path);
                     zkClient.createAsync(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter().GetResult();
                     return true;
                 }
@@ -109,7 +109,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
                 var taskPath = $"/{taskType}/todo/{taskId}";
                 if (zkClient.existsAsync(taskPath).GetAwaiter().GetResult() == null)
                 {
-                    ensurePath(taskPath).GetAwaiter().GetResult();
+                    ensurePath(taskPath);
                     zkClient.createAsync(taskPath, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT).GetAwaiter().GetResult();
                     return true;
                 }
@@ -142,11 +142,25 @@ namespace Wwbweibo.CrackDetect.Zookeeper
             zkClient = null;
         }
 
+        public async Task<List<string>> ListChildren(string path)
+        {
+            var result = await zkClient.getChildrenAsync(path);
+            return result.Children;
+        }
+
+        public void RegisterService(string serviceType, Guid serviceId)
+        {
+            var path = $"/{serviceType}/{serviceId.ToString()}";
+            ensurePath(path);
+            zkClient.createAsync(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
+                .GetResult();
+        }
+
         /// <summary>
         /// 确保给定的路径存在, 如果不存在将会创建节点
         /// </summary>
         /// <param name="path"></param>
-        private async Task ensurePath(string path)
+        private void ensurePath(string path)
         {
             var nodes = path.Split('/');
             nodes = nodes.Take(nodes.Length - 1).ToArray();

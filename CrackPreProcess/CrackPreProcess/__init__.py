@@ -5,6 +5,7 @@ The flask application package.
 from flask import Flask
 from CrackPreProcess.Service.PreProcessService import PreProcessService
 from CrackPreProcess.Zookeeper.ZkClient import ZkClient
+from CrackPreProcess.Kafka.Client import Client
 import uuid
 
 def load_conf():
@@ -24,5 +25,6 @@ app = Flask(__name__)
 service = PreProcessService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = str(uuid.uuid1())
+kafkaClient = Client(conf['kafka_host'], conf['kafka_port'])
 
 import CrackPreProcess.views

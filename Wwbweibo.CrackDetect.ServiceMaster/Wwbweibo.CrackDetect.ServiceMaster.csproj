@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj" />
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj" />
+    <ProjectReference Include="..\Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj" />
+    <ProjectReference Include="..\Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj" />
+  </ItemGroup>
+
+
+
+</Project>
