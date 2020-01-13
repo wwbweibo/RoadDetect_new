@@ -30,8 +30,8 @@
   <ItemGroup>
     <Compile Include="CrackCalc\Kafka\Client.py" />
     <Compile Include="CrackCalc\Kafka\__init__.py" />
-    <Compile Include="CrackCalc\Logger\Logger.py" />
-    <Compile Include="CrackCalc\Logger\__init__.py" />
+    <Compile Include="CrackCalc\Models\ControlMessageModel.py" />
+    <Compile Include="CrackCalc\Models\__init__.py" />
     <Compile Include="CrackCalc\Redis\RedisClient.py" />
     <Compile Include="CrackCalc\Redis\__init__.py" />
     <Compile Include="CrackCalc\Services\CalcService.py">
@@ -43,6 +43,7 @@
     <Compile Include="CrackCalc\Services\Net.py">
       <Subtype>Code</Subtype>
     </Compile>
+    <Compile Include="CrackCalc\Utils\Logging.py" />
     <Compile Include="CrackCalc\Utils\Utils.py" />
     <Compile Include="CrackCalc\Utils\__init__.py" />
     <Compile Include="CrackCalc\Zookeeper\ZkClient.py" />
@@ -54,7 +55,7 @@
   <ItemGroup>
     <Folder Include="CrackCalc\" />
     <Folder Include="CrackCalc\Kafka\" />
-    <Folder Include="CrackCalc\Logger\" />
+    <Folder Include="CrackCalc\Models\" />
     <Folder Include="CrackCalc\Redis\" />
     <Folder Include="CrackCalc\Services\" />
     <Folder Include="CrackCalc\Utils\" />

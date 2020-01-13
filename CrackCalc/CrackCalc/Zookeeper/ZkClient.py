@@ -1,12 +1,16 @@
 from kazoo.client import KazooClient, KazooState
 
-class ZkClient(object):
+class ZkClient(object, on_failure_action=None):
     def __init__(self, hosts, ports):
         server = ''
         for host,port in zip(hosts, ports):
             server = server + '%s:%s,' % (host, port)
+        
         server = server[:len(server) - 1]
         self.zk = KazooClient(server)
+        if on_failure_action is not None:
+            if on_failure_action_ == 'RECONN':
+                self.zk.add_listener(self.__zk_status_listener__)
         self.zk.start()
 
     def get_children(self, node):
@@ -65,9 +69,12 @@ class ZkClient(object):
         path = "/%s/inprogress/%s" % (task_type, task_id)
         self.zk.delete(todopath)
         self.zk.delete(path)
-        
-
-
+       
+    def __zk_status_listener__(self, state):
+        if state == KazooState.LOST:
+            self.zk.start()
+    def stop_service(self):
+        self.zk.stop()
 
 if __name__ == "__main__":
     from threading import Thread
