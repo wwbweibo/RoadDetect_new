@@ -31,4 +31,3 @@ if __name__ == '__main__':
     # 注册该服务
     zkClient.register_service(serviceId, "python-crackcalc-service")
     app.run("0.0.0.0", conf['service_inner_port'])
-

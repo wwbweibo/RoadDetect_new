@@ -26,6 +26,7 @@ service = CalcService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = str(uuid.uuid1())
 kafkaClient = Client(conf['kafka_host'], conf['kafka_port'])
+redisClient = RedisCliant(conf['redis_host'], conf['redis_client'])
 app = Flask(__name__)
 
 serviceProcessTask = "crackcalc"

@@ -37,11 +37,20 @@
     <Compile Include="CrackCalc\Services\CalcService.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CrackCalc\Services\__init__.py">
+    <Compile Include="CrackCalc\Services\DeepLearningModel\Cluster.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CrackCalc\Services\Net.py">
-      <Subtype>Code</Subtype>
+    <Compile Include="CrackCalc\Services\DeepLearningModel\MainModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackCalc\Services\DeepLearningModel\new_ae.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackCalc\Services\DeepLearningModel\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CrackCalc\Services\__init__.py">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="CrackCalc\Utils\Logging.py" />
     <Compile Include="CrackCalc\Utils\Utils.py" />
@@ -58,6 +67,7 @@
     <Folder Include="CrackCalc\Models\" />
     <Folder Include="CrackCalc\Redis\" />
     <Folder Include="CrackCalc\Services\" />
+    <Folder Include="CrackCalc\Services\DeepLearningModel\" />
     <Folder Include="CrackCalc\Utils\" />
     <Folder Include="CrackCalc\Zookeeper\" />
   </ItemGroup>
