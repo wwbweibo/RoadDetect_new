@@ -12,6 +12,7 @@ services:
             - "./zk1/conf:/conf"
             - "./zk1/data:/data"
             - "./zk1/datalog:/datalog"
+        restart: always
         environment:
             ZOO_MY_ID: 1
             ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
@@ -26,6 +27,7 @@ services:
             - "./zk2/conf:/conf"
             - "./zk2/data:/data"
             - "./zk2/datalog:/datalog"    
+        restart: always
         environment:
             ZOO_MY_ID: 1
             ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
@@ -40,6 +42,7 @@ services:
             - "./zk3/conf:/conf"
             - "./zk3/data:/data"
             - "./zk3/datalog:/datalog"
+        restart: always
         environment:
             ZOO_MY_ID: 1
             ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
@@ -54,6 +57,7 @@ services:
             - zookeeper3
         ports: 
             - "9092:9092"
+        restart: always
         volumes: 
             - ./kafka:/kafka
 # redis server
