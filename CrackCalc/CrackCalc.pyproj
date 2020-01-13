@@ -67,6 +67,7 @@
       <DependentUpon>Dockerfile</DependentUpon>
     </Content>
     <None Include="Dockerfile" />
+    <Content Include="conf.ini" />
     <Content Include="CrackCalc\Utils\test.jpg" />
     <Content Include="requirements.txt" />
   </ItemGroup>

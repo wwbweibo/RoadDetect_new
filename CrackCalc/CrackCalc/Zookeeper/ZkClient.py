@@ -65,9 +65,19 @@ class ZkClient(object, on_failure_action=None):
             return False
 
     def finish_task(self, task_type, task_id):
+        '''
+        完成任务
+        '''
         todopath = "/%s/todo/%s" % (task_type, task_id)
         path = "/%s/inprogress/%s" % (task_type, task_id)
         self.zk.delete(todopath)
+        self.zk.delete(path)
+
+    def task_execute_error(self, task_type, task_id):
+        '''
+        任务处理过程中出现失败，取消任务占用
+        '''
+        path = "/%s/inprogress/%s" % (task_type, task_id)
         self.zk.delete(path)
        
     def __zk_status_listener__(self, state):
