@@ -2,48 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4221b0a-621a-4988-b63a-4f912d30a4e4" name="Default Changelist" comment="计算服务">
-      <change beforePath="$PROJECT_DIR$/Crack.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Crack.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/.dockerignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc.pyproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc.pyproj.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/CalcService.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/Conv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/DeepLearningModel/Cluster.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/DeepLearningModel/MainModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/DeepLearningModel/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/DeepLearningModel/new_ae.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/Services/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/CrackCalc/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/conf.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackCalc/runserver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/.dockerignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess.pyproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess.pyproj.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess/Service/PreProcessService.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess/Service/TaskModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess/Service/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/CrackPreProcess/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/conf.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrackPreProcess/runserver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Kafka/KafkaClient.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Kafka/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Models/ControlMessageModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/PythonCoreLib.pyproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Redis/RedisClient.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Redis/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Utils/Logging.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Utils/Utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Utils/test.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Zookeeper/ZkClient.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonCoreLib/Zookeeper/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Crack/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Crack/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonProjects/CrackPreProcess/conf.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PythonProjects/CrackPreProcess/conf.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +52,8 @@
         <option value="$PROJECT_DIR$/PythonProjects/CrackCalc/__init__.py" />
         <option value="$PROJECT_DIR$/PythonProjects/runCrackPreProcessService.py" />
         <option value="$PROJECT_DIR$/PythonProjects/CrackPreProcess/Dockerfile" />
+        <option value="$PROJECT_DIR$/PythonProjects/CrackCalc/Dockerfile" />
+        <option value="$PROJECT_DIR$/PythonProjects/CrackPreProcess/conf.ini" />
       </list>
     </option>
   </component>
@@ -239,7 +201,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1578980639257</updated>
-      <workItem from="1578980648751" duration="9564000" />
+      <workItem from="1578980648751" duration="11431000" />
     </task>
     <task id="LOCAL-00001" summary="计算服务">
       <created>1578982436804</created>
