@@ -2,7 +2,8 @@ import pykafka
 from threading import Thread
 from pykafka.simpleconsumer import OffsetType
 
-class Client:
+
+class KafkaClient:
     def __init__(self, host, port):
         '''
         init a new KafkaClient using given host and port
@@ -14,7 +15,7 @@ class Client:
         self.Client = pykafka.KafkaClient("%s:%s" % (self.Host, self.Port))
         self.RunningThread = None
 
-    def sendMessage(self, topic, message):
+    def send_message(self, topic, message):
         '''
         send a message to the given topic using default client
         if the client do not have the topic, an  error will raise
@@ -25,7 +26,7 @@ class Client:
         procuder = t.get_producer()
         procuder.produce(message.encode("UTF-8"))
 
-    def StartListenMessage(self, topics, callback, group):
+    def start_listen_message(self, topics, callback, group):
         '''
         start to listen message from topics when message arrived the callback will be called
         '''
@@ -45,17 +46,17 @@ class Client:
             self.RunningThread = runt
             self.RunningThread.start()
 
-    def __onMessage__(self, consumer, callback):
+    def __on_message__(self, consumer, callback):
             while True:
                 message = consumer.consume()
                 callback(message)
 
-    def StopListen(self):
+    def stop_listen(self):
         if self.RunningThread is not None:
             self.RunningThread.setDaemon(True)
 
 
 if __name__ == "__main__":
     client = Client("ali.wwbweibo.me","9092")
-    client.StartListenMessage(["test"], lambda msg: print(msg.value),'test')
-    client.sendMessage("test", "test message from python")
+    client.start_listen_message(["test"], lambda msg: print(msg.value),'test')
+    client.send_message("test", "test message from python")

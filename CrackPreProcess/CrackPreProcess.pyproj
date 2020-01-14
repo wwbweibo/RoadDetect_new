@@ -28,22 +28,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CrackPreProcess\Kafka\Client.py" />
-    <Compile Include="CrackPreProcess\Kafka\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Models\ControlMessageModel.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Models\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Redis\RedisClient.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Redis\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="CrackPreProcess\Service\PreProcessService.py">
       <SubType>Code</SubType>
     </Compile>
@@ -53,36 +37,19 @@
     <Compile Include="CrackPreProcess\Service\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CrackPreProcess\Utils\Logging.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Utils\Utils.py" />
-    <Compile Include="CrackPreProcess\Utils\__init__.py" />
-    <Compile Include="CrackPreProcess\Zookeeper\ZkClient.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CrackPreProcess\Zookeeper\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="CrackPreProcess\__init__.py" />
     <Compile Include="CrackPreProcess\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CrackPreProcess\" />
-    <Folder Include="CrackPreProcess\Kafka\" />
-    <Folder Include="CrackPreProcess\Models\" />
-    <Folder Include="CrackPreProcess\Redis\" />
     <Folder Include="CrackPreProcess\Service\" />
-    <Folder Include="CrackPreProcess\Utils\" />
-    <Folder Include="CrackPreProcess\Zookeeper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore">
       <SubType>Content</SubType>
       <DependentUpon>Dockerfile</DependentUpon>
     </Content>
-    <Content Include="CrackPreProcess\Utils\test.jpg" />
     <None Include="Dockerfile" />
     <Content Include="conf.ini" />
     <Content Include="requirements.txt" />

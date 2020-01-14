@@ -28,12 +28,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CrackCalc\Kafka\Client.py" />
-    <Compile Include="CrackCalc\Kafka\__init__.py" />
-    <Compile Include="CrackCalc\Models\ControlMessageModel.py" />
-    <Compile Include="CrackCalc\Models\__init__.py" />
-    <Compile Include="CrackCalc\Redis\RedisClient.py" />
-    <Compile Include="CrackCalc\Redis\__init__.py" />
     <Compile Include="CrackCalc\Services\CalcService.py">
       <SubType>Code</SubType>
     </Compile>
@@ -52,24 +46,14 @@
     <Compile Include="CrackCalc\Services\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CrackCalc\Utils\Logging.py" />
-    <Compile Include="CrackCalc\Utils\Utils.py" />
-    <Compile Include="CrackCalc\Utils\__init__.py" />
-    <Compile Include="CrackCalc\Zookeeper\ZkClient.py" />
-    <Compile Include="CrackCalc\Zookeeper\__init__.py" />
     <Compile Include="runserver.py" />
     <Compile Include="CrackCalc\__init__.py" />
     <Compile Include="CrackCalc\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CrackCalc\" />
-    <Folder Include="CrackCalc\Kafka\" />
-    <Folder Include="CrackCalc\Models\" />
-    <Folder Include="CrackCalc\Redis\" />
     <Folder Include="CrackCalc\Services\" />
     <Folder Include="CrackCalc\Services\DeepLearningModel\" />
-    <Folder Include="CrackCalc\Utils\" />
-    <Folder Include="CrackCalc\Zookeeper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".dockerignore">
@@ -78,7 +62,6 @@
     </Content>
     <None Include="Dockerfile" />
     <Content Include="conf.ini" />
-    <Content Include="CrackCalc\Utils\test.jpg" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

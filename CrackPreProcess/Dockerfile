@@ -1,5 +1,6 @@
-From python
-Copy . /work
+FROM python
+ADD /CrackPreProcess /work/CrackPreProcess
+ADD /PythonCoreLib /work/PythonCoreLib
 WORKDIR /work
-RUN pip install -r requirements.txt
-CMD "python" "runserver.py"
+RUN pip install -r CrackPreProcess/requirements.txt
+CMD "python" "CrackPreProcess/runserver.py"

@@ -34,7 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Redis"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonCoreLib", "PythonCoreLib\PythonCoreLib.pyproj", "{701F8880-1AE9-40AE-A207-213282404A5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,8 @@ Global
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701F8880-1AE9-40AE-A207-213282404A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{701F8880-1AE9-40AE-A207-213282404A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
