@@ -1,5 +1,4 @@
-from os import environ
-from CrackPreProcess.CrackPreProcess import app, service, conf, zkClient, serviceId, kafkaClient
+from CrackPreProcess import app, service, conf, zkClient, serviceId, kafkaClient
 from PythonCoreLib.Models.ControlMessageModel import ControlMessageModel
 import json
 
@@ -23,9 +22,9 @@ def OnControllMessage(message):
 
 
 if __name__ == '__main__':
-    kafkaClient.StartListenMessage(["preprocess"], onMessage, "python-preprocess-"+serviceId)
+    kafkaClient.start_listen_message(["preprocess"], onMessage, "python-preprocess-"+serviceId)
     # 接受控制消息
-    kafkaClient.StartListenMessage(['ControllMessage'], OnControllMessage, "python-preprocess-"+serviceId)
+    kafkaClient.start_listen_message(['ControllMessage'], OnControllMessage, "python-preprocess-"+serviceId)
     # 注册该服务
     zkClient.register_service(serviceId, "python-preprocess-service")
-    app.run("0.0.0.0", conf['service_inner_port'])
+    app.run("0.0.0.0", int(conf['service_inner_port']))

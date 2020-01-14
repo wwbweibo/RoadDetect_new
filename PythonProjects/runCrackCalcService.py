@@ -3,7 +3,7 @@ This script runs the CrackCalc application using a development server.
 """
 
 from os import environ
-from CrackCalc.CrackCalc import app, service, zkClient, serviceId, kafkaClient, serviceName, serviceTaskListenTopic, serviceProcessTask, conf
+from CrackCalc import app, service, zkClient, serviceId, kafkaClient, serviceName, serviceTaskListenTopic, serviceProcessTask, conf
 from PythonCoreLib.Models.ControlMessageModel import  ControlMessageModel
 import json
 

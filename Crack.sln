@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackPreProcess", "CrackPreProcess\CrackPreProcess.pyproj", "{B252FA25-52E7-4045-9CCB-2850A0656791}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base-env", "base-env", "{7AC07FD5-3682-4AB4-9D36-B29172541A16}"
 	ProjectSection(SolutionItems) = preProject
 		base-env\docker-compose.yml = base-env\docker-compose.yml
@@ -26,8 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base-env", "base-env", "{7A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.DataWebsite", "Wwbweibo.CrackDetect.DataWebsite\Wwbweibo.CrackDetect.DataWebsite.csproj", "{6A827726-ABBA-4554-83A5-96BB8FCF3F85}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CrackCalc", "CrackCalc\CrackCalc.pyproj", "{A3AE835E-D199-4FBE-9952-3B2662EF04E3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{3849845A-318E-4C65-9FB9-50299CE6A7E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Redis", "Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj", "{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}"
@@ -35,8 +31,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonCoreLib", "PythonCoreLib\PythonCoreLib.pyproj", "{701F8880-1AE9-40AE-A207-213282404A5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,18 +50,10 @@ Global
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B252FA25-52E7-4045-9CCB-2850A0656791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B252FA25-52E7-4045-9CCB-2850A0656791}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B252FA25-52E7-4045-9CCB-2850A0656791}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B252FA25-52E7-4045-9CCB-2850A0656791}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3AE835E-D199-4FBE-9952-3B2662EF04E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -84,8 +70,6 @@ Global
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{701F8880-1AE9-40AE-A207-213282404A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{701F8880-1AE9-40AE-A207-213282404A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,18 +3,19 @@ The flask application package.
 """
 
 from flask import Flask
-from CrackPreProcess.CrackPreProcess.Service.PreProcessService import PreProcessService
-from PythonCoreLib.Zookeeper.ZkClient import ZkClient
+from PythonCoreLib.Redis.RedisClient import RedisClient
 from PythonCoreLib.Kafka.KafkaClient import KafkaClient
+from PythonCoreLib.Zookeeper.ZkClient import ZkClient
+from CrackCalc.Services.CalcService import CalcService
 import uuid
-import CrackPreProcess.CrackPreProcess.views
+
 
 
 def load_conf():
     '''
     load conf from load file system
     '''
-    conf = open('CrackPreprocess/conf.ini', 'r').readlines()
+    conf = open('CrackCalc/conf.ini', 'r').readlines()
     conf_dict = dict()
     for line in conf:
         conf_name, conf_value = line.split('=')
@@ -23,9 +24,18 @@ def load_conf():
 
 
 conf = load_conf()
-app = Flask(__name__)
-service = PreProcessService(conf)
+
+
+service = CalcService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = str(uuid.uuid1())
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
+redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
+app = Flask(__name__)
+
+serviceProcessTask = "crackcalc"
+serviceName = "python-crackcalc-"+serviceId
+serviceTaskListenTopic = ['crackcalc']
+
+import CrackCalc.views
 

@@ -1,5 +1,5 @@
-from CrackCalc.CrackCalc.Services.DeepLearningModel.Cluster import ClusteringLayer
-from CrackCalc.CrackCalc.Services.DeepLearningModel.new_ae import gen_model
+from CrackCalc.Services.DeepLearningModel.Cluster import ClusteringLayer
+from CrackCalc.Services.DeepLearningModel.new_ae import gen_model
 from keras.layers import Input, Flatten, Dense
 from keras.models import Model
 import numpy as np

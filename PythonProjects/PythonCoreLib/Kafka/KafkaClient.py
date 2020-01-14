@@ -42,7 +42,7 @@ class KafkaClient:
                     auto_offset_reset = pykafka.common.OffsetType.LATEST,
                     auto_commit_enable=True
                 )
-            runt = Thread(target=self.__onMessage__, args=(t, callback))
+            runt = Thread(target=self.__on_message__, args=(t, callback))
             self.RunningThread = runt
             self.RunningThread.start()
 
@@ -57,6 +57,6 @@ class KafkaClient:
 
 
 if __name__ == "__main__":
-    client = Client("ali.wwbweibo.me","9092")
+    client = KafkaClient("ali.wwbweibo.me","9092")
     client.start_listen_message(["test"], lambda msg: print(msg.value),'test')
     client.send_message("test", "test message from python")
