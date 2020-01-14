@@ -1,10 +1,8 @@
 """
 This script runs the CrackCalc application using a development server.
 """
-
-from os import environ
-from CrackCalc import app, service, zkClient, serviceId, kafkaClient, serviceName, serviceTaskListenTopic, serviceProcessTask, conf
-from PythonCoreLib.Models.ControlMessageModel import  ControlMessageModel
+from CrackCalc import app, service, zkClient, serviceId, kafkaClient, serviceName, serviceTaskListenTopic, serviceProcessTask, conf, logManager
+from PythonCoreLib.Models.ControlMessageModel import ControlMessageModel
 import json
 
 
@@ -18,6 +16,7 @@ def onMessage(message):
         except Exception as e:
             zkClient.task_execute_error(serviceProcessTask, taskId)
             kafkaClient.send_message(serviceProcessTask, taskId)
+            logManager.info("CrackCalc Service execute work flow error" , serviceId, "python-crackcalc-service")
 
 
 def OnControllMessage(message):
@@ -26,9 +25,11 @@ def OnControllMessage(message):
         if model.ControlType == 'STOP':
             kafkaClient.stop_listen()
             zkClient.stop_service()
+            logManager.info("CrackCalc service stopped since receive stop signal", serviceId, "python-crackcalc-service")
 
 
 if __name__ == '__main__':
+    logManager.info("CrackCalc Service Online", serviceId, "python-crackcalc-service")
     kafkaClient.start_listen_message(serviceTaskListenTopic, onMessage, serviceName)
     # 接受控制消息
     kafkaClient.start_listen_message(['ControllMessage'], OnControllMessage, serviceName)

@@ -26,6 +26,11 @@ class CalcService:
                 raise Exception("CalcService: the input task is None")
             return self.__decode_image__(task)
 
+    def __draw_bbox__(self, imageBlockNumber):
+        pass
+
     def execute_calc(self, task, dataType):
         data = self.__load_data__(task, dataType)
-        self.Model.execute_calc(data)
+        result = self.Model.execute_calc(data)
+        crackNumbers = result.where(result == 0)[0]
+        

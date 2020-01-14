@@ -5,6 +5,7 @@ from flask import Flask
 from CrackPreProcess.Service.PreProcessService import PreProcessService
 from PythonCoreLib.Zookeeper.ZkClient import ZkClient
 from PythonCoreLib.Kafka.KafkaClient import KafkaClient
+from PythonCoreLib.Utils.Logging import LogManager
 import uuid
 
 
@@ -26,6 +27,11 @@ service = PreProcessService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = str(uuid.uuid1())
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
+logManager = LogManager(conf)
+
+serviceProcessTask = "preprocess"
+serviceName = "python-preprocess-"+serviceId
+serviceTaskListenTopic = ['preprocess']
 
 import CrackPreProcess.views
 

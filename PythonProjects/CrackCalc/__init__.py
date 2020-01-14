@@ -6,6 +6,7 @@ from flask import Flask
 from PythonCoreLib.Redis.RedisClient import RedisClient
 from PythonCoreLib.Kafka.KafkaClient import KafkaClient
 from PythonCoreLib.Zookeeper.ZkClient import ZkClient
+from PythonCoreLib.Utils.Logging import LogManager
 from CrackCalc.Services.CalcService import CalcService
 import uuid
 
@@ -31,6 +32,7 @@ zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = str(uuid.uuid1())
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
+logManager = LogManager(conf)
 app = Flask(__name__)
 
 serviceProcessTask = "crackcalc"

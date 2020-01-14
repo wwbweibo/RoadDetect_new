@@ -71,6 +71,10 @@ class ZkClient:
         self.zk.delete(todopath)
         self.zk.delete(path)
 
+    def task_execute_error(self, task_type, task_id):
+        path = "/%s/inprogress/%s" % (task_type, task_id)
+        self.zk.delete(path)
+
     def __zk_status_listener__(self, state):
         if state == KazooState.LOST:
             self.zk.start()

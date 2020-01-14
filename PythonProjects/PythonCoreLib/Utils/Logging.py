@@ -1,18 +1,43 @@
 import logging
 import datetime
+from PythonCoreLib.Redis.RedisClient import RedisClient
+from PythonCoreLib.Models.LogMessageModel import LogMessageModel
+import json
+
 
 class LogManager:
     def __init__(self, config):
-        logging.basicConfig(filename = "crackpreprocess.log", level=config['log_level'])
-    def info(self, message):
-        loggingTime = str(datetime.datetime.now())
-        logstr = '%s\t%s' % (loggingTime, message)
-        logging.info(logstr)
+        self.redisClient = RedisClient(config['redis_host'], config['redis_port'])
 
-if __name__ == "__main__":
-    lm = LogManager({'log_level':'DEBUG'})
-    lm.info("test-log")
-    try:
-        raise Exception("asdad").with_traceback()
-    except Exception as e:
-        lm.debug("error", e)
+    def info(self, message, serviceId, serviceType):
+        model = LogMessageModel()
+        model.LogLevel = "INFO"
+        model.LogTime = str(datetime.datetime.now())
+        model.LogMessage = message
+        model.OriginServiceId = serviceId
+        model.OriginServiceType = serviceType
+        model.Exception = None
+        self.__send_data__(model)
+
+    def warning(self, message, serviceId, serviceType):
+        model = LogMessageModel()
+        model.LogLevel = "WARNING"
+        model.LogTime = str(datetime.datetime.now())
+        model.LogMessage = message
+        model.OriginServiceId = serviceId
+        model.OriginServiceType = serviceType
+        model.Exception = None
+        self.__send_data__(model)
+
+    def error(self, message, serviceId, serviceType, exception=None):
+        model = LogMessageModel()
+        model.LogLevel = "INFO"
+        model.LogTime = str(datetime.datetime.now())
+        model.LogMessage = message
+        model.OriginServiceId = serviceId
+        model.OriginServiceType = serviceType
+        model.Exception = exception
+        self.__send_data__(model)
+
+    def __send_data__(self, model):
+        self.redisClient.lpush(model.OriginServiceType + model.LogLevel, json.dumps(model.parse2json()))
