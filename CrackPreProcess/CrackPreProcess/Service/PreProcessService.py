@@ -1,8 +1,7 @@
 import cv2
 import json
-from CrackPreProcess.Utils.Utils import Decodeb64String, DecodeByte2Image, EncodeData2b64
-from CrackPreProcess.Kafka.Client import Client
-from CrackPreProcess.Redis.RedisClient import RedisClient
+from PythonCoreLib.Utils.Utils import decode_b64_to_bytes, decode_bytes_image
+from PythonCoreLib.Redis.RedisClient import RedisClient
 import numpy as np
 import uuid
 
@@ -11,11 +10,10 @@ class PreProcessService:
     def __init__(self, conf):
         self.conf = conf
         self.redis = RedisClient(conf['redis_host'], conf['redis_port'])
-        self.kafka = Client(conf['kafka_host'], conf['kafka_port'])
 
     def __decode_image__(self, b64image):
-        image = Decodeb64String(b64image)
-        image = DecodeByte2Image(image)
+        image = decode_b64_to_bytes(b64image)
+        image = decode_bytes_image(image)
         return image
 
     def __load_data__(self, task, datatype):

@@ -23,8 +23,6 @@ def load_conf():
 
 
 conf = load_conf()
-
-
 app = Flask(__name__)
 service = PreProcessService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])

@@ -1,19 +1,16 @@
-import sklearn.metrics
-from Cluster import ClusteringLayer
-from new_ae import gen_model
-import numpy as np
+from CrackCalc.CrackCalc.Services.DeepLearningModel.Cluster import ClusteringLayer
+from CrackCalc.CrackCalc.Services.DeepLearningModel.new_ae import gen_model
 from keras.layers import Input, Flatten, Dense
 from keras.models import Model
-from sklearn.cluster import KMeans
+import numpy as np
 
-import time
 
 class URD:
     def __init__(self, ae_weights, URD_weights=None):
-        '''
-        URD Model 
+        """
+        URD Model
         param ae_weights: the path to auto_encoder's weight file 
-        '''
+        """
         self.ae = gen_model()
         self.ae.load_weights(ae_weights)
         self.encoder = Model(self.ae.inputs, self.ae.get_layer('encoder_output').output)
@@ -33,7 +30,8 @@ class URD:
         weight = q ** 2 / q.sum(0)
         return (weight.T / weight.sum(1)).T
 
-if __name__ == "__main__":
-    urd = URD('models/ae_0112_new.h5')
-    urd.train()
-    urd.speed_test()
+    def execute_calc(self, data):
+        data = np.reshape(data, (data.shape[0], 16, 16, 1))
+        predictResult = self.model.predict(data)
+        result = predictResult.argmax(1)
+        return result

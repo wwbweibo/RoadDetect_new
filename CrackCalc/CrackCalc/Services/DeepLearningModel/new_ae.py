@@ -42,29 +42,3 @@ def gen_model():
     model.add(Conv2D(1, (3, 3), padding='same', activation='relu'))
     model.compile(optimizer='sgd', loss='mae')
     return model
-
-
-def train():
-    model = gen_model()
-    # model.load_weights("models/ae_0112.h5")
-    batch = np.load('images/x.npy')
-    data = np.load('images/16px_image_x.npy')
-    data = np.reshape(data, (40000, 16,16,1))
-    data = np.concatenate((batch, data))
-    model.fit(x=data, y=data, epochs=100, batch_size=40, validation_split=0.1)
-    model.save_weights("models/ae_0112_new.h5")
-    idx = np.random.randint(0, data.shape[0], size=8)
-    x = data[idx]
-    x = np.reshape(x, (8, 16, 16, 1))
-    ret = model.predict(x)
-    for i in range(4):
-        for j in range(2):
-            plt.subplot(4, 4, (i*4+j*2+1))
-            plt.imshow(x[i*2+j, :, :, 0], cmap='gray')
-            plt.subplot(4, 4, (i*4+j*2+2))
-            plt.imshow(ret[i*2+j, :, :, 0], cmap='gray')
-    plt.show()
-
-
-if __name__ == "__main__":
-    train()
