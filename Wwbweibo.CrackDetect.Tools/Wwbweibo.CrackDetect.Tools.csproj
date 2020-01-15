@@ -4,9 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="OpenCvSharp4" Version="4.2.0.20191223" />
-    <PackageReference Include="OpenCvSharp4.Windows" Version="4.2.0.20191223" />
-  </ItemGroup>
-
 </Project>
