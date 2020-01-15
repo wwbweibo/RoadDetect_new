@@ -142,10 +142,16 @@ namespace Wwbweibo.CrackDetect.Zookeeper
             zkClient = null;
         }
 
-        public async Task<List<string>> ListChildren(string path)
+        public List<string> ListChildren(string path)
         {
-            var result = await zkClient.getChildrenAsync(path);
-            return result.Children;
+            try
+            {
+                return zkClient.getChildrenAsync(path).Result.Children;
+            }
+            catch (Exception e)
+            {
+                return new List<string>();
+            }
         }
 
         public void RegisterService(string serviceType, Guid serviceId)

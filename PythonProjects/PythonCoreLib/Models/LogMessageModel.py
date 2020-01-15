@@ -7,8 +7,8 @@ class LogMessageModel:
         self.LogMessage = None
         self.LogTime = None
         self.Exception = None
-        self.OriginServiceId=None
-        self.OriginServiceType=None
+        self.OriginServiceId = None
+        self.OriginServiceType = None
 
     def parse2json(self, self_1):
         return {

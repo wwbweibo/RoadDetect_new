@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Wwbweibo.CrackDetect.Kafka;
+using Wwbweibo.CrackDetect.Redis;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
 using Wwbweibo.CrackDetect.Zookeeper;
 
@@ -16,12 +17,14 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
     {
         private static KafkaClient kafkaClient;
         private static ZookeeperClient zkClient;
+        private static RedisClient redisClient;
         private static readonly Guid ServiceId = Guid.NewGuid();
 
         public static void Main(string[] args)
         {
-            kafkaClient = new KafkaClient("ali.wwbweibo.me", "6379");
+            kafkaClient = new KafkaClient("ali.wwbweibo.me", "9092");
             zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
+            redisClient = new RedisClient("ali.wwbweibo.me", "6379");
             RegisterSelf();
             CreateHostBuilder(args).Build().Run();
         }
@@ -29,6 +32,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         public static KafkaClient GetKafkaClient()
         {
             return kafkaClient;
+        }
+
+        public static RedisClient GetRedisClient()
+        {
+            return redisClient;
         }
 
         public static ZookeeperClient GetZookeeperClient()

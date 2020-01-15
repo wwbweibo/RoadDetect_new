@@ -31,7 +31,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 
             foreach (var task in ConstData.TaskTypes)
             {
-                result.Add(task, zkClient.ListChildren("/" + task + "/todo").GetAwaiter().GetResult());
+                result.Add(task, zkClient.ListChildren("/" + task + "/todo"));
             }
 
             return result;
@@ -53,7 +53,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             foreach (var todoTasks in result)
             {
                 var inProgressTask =
-                    zkClient.ListChildren("/" + todoTasks.Key + "/inprogress").GetAwaiter().GetResult();
+                    zkClient.ListChildren("/" + todoTasks.Key + "/inprogress");
                 todoTasks.Value.Except(inProgressTask);
             }
 
@@ -74,7 +74,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var result = new Dictionary<string, List<string>>();
             foreach (var serviceType in ConstData.ServiceTypes)
             {
-                var services = zkClient.ListChildren("/" + serviceType).GetAwaiter().GetResult();
+                var services = zkClient.ListChildren("/" + serviceType);
                 result.Add(serviceType, services);
             }
 

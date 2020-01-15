@@ -16,7 +16,7 @@ class LogManager:
         model.LogMessage = message
         model.OriginServiceId = serviceId
         model.OriginServiceType = serviceType
-        model.Exception = None
+        model.Exception = ""
         self.__send_data__(model)
 
     def warning(self, message, serviceId, serviceType):
@@ -26,10 +26,10 @@ class LogManager:
         model.LogMessage = message
         model.OriginServiceId = serviceId
         model.OriginServiceType = serviceType
-        model.Exception = None
+        model.Exception = ""
         self.__send_data__(model)
 
-    def error(self, message, serviceId, serviceType, exception=None):
+    def error(self, message, serviceId, serviceType, exception=""):
         model = LogMessageModel()
         model.LogLevel = "INFO"
         model.LogTime = str(datetime.datetime.now())
@@ -40,4 +40,4 @@ class LogManager:
         self.__send_data__(model)
 
     def __send_data__(self, model):
-        self.redisClient.lpush(model.OriginServiceType + model.LogLevel, json.dumps(model.parse2json()))
+        self.redisClient.lpush(model.OriginServiceType + model.LogLevel, json.dumps(model, default=model.parse2json))
