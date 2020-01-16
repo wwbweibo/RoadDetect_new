@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+
+package Wwbweibo.CrackDetect.Models;
+
+message LogModel{
+	string LogTime=1;
+	string LogMessage=2;
+	string LogLevel = 3;
+	string OriginServiceId = 4;
+	string OriginServiceType = 5;
+	string Exception = 6;
+} 

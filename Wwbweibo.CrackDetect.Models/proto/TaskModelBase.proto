@@ -2,9 +2,13 @@
 
 package Wwbweibo.CrackDetect.Models;
 
-message TaskModel{
+message TaskModelBase{
 	string taskId=1;
 	bytes TaskData = 2;
 	bytes TaslResult = 3;
 	string TaskType = 4;
+}
+
+message PreprocessTaskModel{
+	TaskModelBase baseData = 1;
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using Wwbweibo.CrackDetect.Redis;
-using Wwbweibo.CrackDetect.ServiceMaster.Models;
+using Wwbweibo.CrackDetect.Models;
 using Newtonsoft.Json;
+using Wwbweibo.CrackDetect.ServiceMaster.Models;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
@@ -28,12 +30,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 }
             }
 
-            return data.Select(JsonConvert.DeserializeObject<LogModel>).ToArray();
+            return data.Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
         }
 
         public LogModel[] GetSpecifyLog(string logLevel, string serviceType)
         {
-            return redisClient.LPop(serviceType + logLevel).Select(JsonConvert.DeserializeObject<LogModel>).ToArray();
+            return redisClient.LPop(serviceType + logLevel).Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
         }
     }
 }
