@@ -1,0 +1,10 @@
+﻿syntax = "proto3";
+
+package Wwbweibo.CrackDetect.Models;
+
+message TaskModel{
+	string taskId=1;
+	bytes TaskData = 2;
+	bytes TaslResult = 3;
+	string TaskType = 4;
+}
