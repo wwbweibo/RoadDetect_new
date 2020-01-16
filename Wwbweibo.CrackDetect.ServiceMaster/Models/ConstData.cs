@@ -15,7 +15,9 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Models
         public static string PythonPreprocessServiceName = "python-preprocess-service";
         public static string ServiceMasterServiceName = "service-master-service";
         public static string PythonCrackCalcServiceName = "python-crackcalc-service";
-        public static string[] ServiceTypes = new[] { PythonPreprocessServiceName, ServiceMasterServiceName, PythonCrackCalcServiceName };
+
+        public static string[] ServiceTypes = new[]
+            {ServiceMasterServiceName, PythonPreprocessServiceName, PythonCrackCalcServiceName};
 
         public static string LogInfo = "INFO";
         public static string LogWarning = "WARNING";

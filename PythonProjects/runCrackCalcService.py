@@ -35,4 +35,4 @@ if __name__ == '__main__':
     kafkaClient.start_listen_message(['ControllMessage'], OnControllMessage, serviceName)
     # 注册该服务
     zkClient.register_service(serviceId, "python-crackcalc-service")
-    app.run("0.0.0.0", conf['service_inner_port'])
+    app.run("0.0.0.0", int(conf['service_inner_port']))
