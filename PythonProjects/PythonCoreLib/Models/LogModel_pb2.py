@@ -13,6 +13,8 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import PythonCoreLib.Models.LogLevel_pb2 as LogLevel__pb2
+import PythonCoreLib.Models.ServiceType_pb2 as ServiceType__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,8 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='PythonCoreLib.Models',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0eLogModel.proto\x12\x14PythonCoreLib.Models\"\x88\x01\n\x08LogModel\x12\x0f\n\x07LogTime\x18\x01 \x01(\t\x12\x12\n\nLogMessage\x18\x02 \x01(\t\x12\x10\n\x08LogLevel\x18\x03 \x01(\t\x12\x17\n\x0fOriginServiceId\x18\x04 \x01(\t\x12\x19\n\x11OriginServiceType\x18\x05 \x01(\t\x12\x11\n\tException\x18\x06 \x01(\tb\x06proto3')
-)
+  serialized_pb=_b('\n\x0eLogModel.proto\x12\x14PythonCoreLib.Models\x1a\x0eLogLevel.proto\x1a\x11ServiceType.proto\"\xcb\x01\n\x08LogModel\x12\x0f\n\x07LogTime\x18\x01 \x01(\t\x12\x12\n\nLogMessage\x18\x02 \x01(\t\x12\x30\n\x08LogLevel\x18\x03 \x01(\x0e\x32\x1e.PythonCoreLib.Models.LogLevel\x12\x17\n\x0fOriginServiceId\x18\x04 \x01(\t\x12<\n\x11OriginServiceType\x18\x05 \x01(\x0e\x32!.PythonCoreLib.Models.ServiceType\x12\x11\n\tException\x18\x06 \x01(\tb\x06proto3')
+  ,
+  dependencies=[LogLevel__pb2.DESCRIPTOR,ServiceType__pb2.DESCRIPTOR,])
 
 
 
@@ -49,8 +52,8 @@ _LOGMODEL = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='LogLevel', full_name='PythonCoreLib.Models.LogModel.LogLevel', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -63,8 +66,8 @@ _LOGMODEL = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='OriginServiceType', full_name='PythonCoreLib.Models.LogModel.OriginServiceType', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -87,10 +90,12 @@ _LOGMODEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=41,
-  serialized_end=177,
+  serialized_start=76,
+  serialized_end=279,
 )
 
+_LOGMODEL.fields_by_name['LogLevel'].enum_type = LogLevel__pb2._LOGLEVEL
+_LOGMODEL.fields_by_name['OriginServiceType'].enum_type = ServiceType__pb2._SERVICETYPE
 DESCRIPTOR.message_types_by_name['LogModel'] = _LOGMODEL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Wwbweibo.CrackDetect.Redis;
 using Wwbweibo.CrackDetect.Models;
-using Newtonsoft.Json;
-using Wwbweibo.CrackDetect.ServiceMaster.Models;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
@@ -22,20 +20,20 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public LogModel[] GetAllLogMessages()
         {
             var data = new List<string>();
-            foreach (var serviceType in ConstData.ServiceTypes)
+            foreach (int serviceType in Enum.GetValues(typeof(ServiceType)))
             {
-                foreach (var logLevel in ConstData.LogLevelList)
+                foreach (int logLevel in Enum.GetValues(typeof(LogLevel)))
                 {
-                    data.AddRange(redisClient.LPop(serviceType + logLevel));
+                    data.AddRange(redisClient.LPop( serviceType.ToString()+ logLevel.ToString()));
                 }
             }
 
             return data.Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
         }
 
-        public LogModel[] GetSpecifyLog(string logLevel, string serviceType)
+        public LogModel[] GetSpecifyLog(int logLevel, int serviceType)
         {
-            return redisClient.LPop(serviceType + logLevel).Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
+            return redisClient.LPop(serviceType.ToString() + logLevel.ToString()).Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
         }
     }
 }

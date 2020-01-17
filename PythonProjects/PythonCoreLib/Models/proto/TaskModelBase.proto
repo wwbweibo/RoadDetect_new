@@ -1,6 +1,6 @@
 ﻿syntax = "proto3";
 
-package Wwbweibo.CrackDetect.Models;
+package PythonCoreLib.Models;
 
 message TaskModel{
 	string taskId=1;

@@ -1,8 +1,7 @@
-import logging
 import datetime
 from PythonCoreLib.Redis.RedisClient import RedisClient
 from PythonCoreLib.Models.LogModel_pb2 import LogModel
-import json
+import PythonCoreLib.Models.LogLevel_pb2 as LogLevel
 
 
 class LogManager:
@@ -11,7 +10,7 @@ class LogManager:
 
     def info(self, message, serviceId, serviceType):
         model = LogModel()
-        model.LogLevel = "INFO"
+        model.LogLevel = LogLevel.Info
         model.LogTime = str(datetime.datetime.now())
         model.LogMessage = message
         model.OriginServiceId = serviceId
@@ -21,7 +20,7 @@ class LogManager:
 
     def warning(self, message, serviceId, serviceType):
         model = LogModel()
-        model.LogLevel = "WARNING"
+        model.LogLevel = LogLevel.Warning
         model.LogTime = str(datetime.datetime.now())
         model.LogMessage = message
         model.OriginServiceId = serviceId
@@ -31,7 +30,7 @@ class LogManager:
 
     def error(self, message, serviceId, serviceType, exception=""):
         model = LogModel()
-        model.LogLevel = "INFO"
+        model.LogLevel = LogLevel.Error
         model.LogTime = str(datetime.datetime.now())
         model.LogMessage = message
         model.OriginServiceId = serviceId
@@ -40,4 +39,4 @@ class LogManager:
         self.__send_data__(model)
 
     def __send_data__(self, model):
-        self.redisClient.lpush(model.OriginServiceType + model.LogLevel, model.SerializeToString())
+        self.redisClient.lpush(str(model.OriginServiceType) + str(model.LogLevel), model.SerializeToString())

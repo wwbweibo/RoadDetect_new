@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="proto\LogLevel.proto" />
     <None Remove="proto\LogModel.proto" />
+    <None Remove="proto\ServiceType.proto" />
     <None Remove="proto\TaskModelBase.proto" />
   </ItemGroup>
 
@@ -19,8 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="proto\LogLevel.proto" />
     <Protobuf Include="proto\LogModel.proto" />
-    <Protobuf Include="proto\TaskModelBase.proto" GrpcServices="None">
+    <Protobuf Include="proto\ServiceType.proto" />
+    <Protobuf Include="proto\TaskModelBase.proto" GrpcServices="Both">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Protobuf>
   </ItemGroup>

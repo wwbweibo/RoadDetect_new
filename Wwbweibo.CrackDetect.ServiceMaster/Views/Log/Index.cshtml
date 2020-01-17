@@ -24,14 +24,14 @@
             <tr>
                 <td>@index</td>
                 <td>
-                    @log.LogLevel
+                    @log.LogLevel.ToString()
                 </td>
                 <td>
-                    @if (log.OriginServiceType == ConstData.PythonPreprocessServiceName)
+                    @if (log.OriginServiceType == ServiceType.PreProcessService)
                     {
                         <label>图像预处理服务</label>
                     }
-                    else if (log.OriginServiceType == ConstData.PythonCrackCalcServiceName)
+                    else if (log.OriginServiceType == ServiceType.CrackCalcService)
                     {
                         <label>图像计算服务</label>
                     }

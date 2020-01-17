@@ -1,5 +1,6 @@
 from CrackPreProcess import app, service, conf, zkClient, serviceId, kafkaClient, logManager, serviceName, serviceProcessTask, serviceTaskListenTopic
 from PythonCoreLib.Models.ControlMessageModel import ControlMessageModel
+import PythonCoreLib.Models.ServiceType_pb2 as ServiceType
 import json
 
 
@@ -12,7 +13,7 @@ def onMessage(message):
         except Exception as e:
             zkClient.task_execute_error(serviceProcessTask, taskId)
             kafkaClient.send_message(serviceProcessTask, serviceId)
-            logManager.error("Preprocess service execute work flow error", serviceId, "python-preprocess-service")
+            logManager.error("Preprocess service execute work flow error", serviceId, ServiceType.PreProcessService)
 
 
 def OnControllMessage(message):
@@ -21,14 +22,14 @@ def OnControllMessage(message):
         if model.ControlType == 'STOP':
             kafkaClient.StopListen()
             zkClient.stop_service()
-            logManager.info("Preprocess service stopped since receive stop signal", serviceId, "python-preprocess-service")
+            logManager.info("Preprocess service stopped since receive stop signal", serviceId, ServiceType.PreProcessService)
 
 
 if __name__ == '__main__':
-    logManager.info("Preprocess Service Online", serviceId, "python-preprocess-service")
+    logManager.info("Preprocess Service Online", serviceId, ServiceType.PreProcessService)
     kafkaClient.start_listen_message(serviceTaskListenTopic, onMessage, "python-preprocess-"+serviceId)
     # 接受控制消息
     kafkaClient.start_listen_message(['ControllMessage'], OnControllMessage, "python-preprocess-"+serviceId)
     # 注册该服务
-    zkClient.register_service(serviceId, "python-preprocess-service")
+    zkClient.register_service(serviceId, ServiceType.PreProcessService)
     app.run("0.0.0.0", int(conf['service_inner_port']))

@@ -1,0 +1,9 @@
+syntax="proto3";
+
+package PythonCoreLib.Models;
+
+enum ServiceType{
+    MasterService=0;
+    PreProcessService=1;
+    CrackCalcService=2;
+}

@@ -1,12 +1,15 @@
 syntax = "proto3";
 
+import "LogLevel.proto";
+import "ServiceType.proto";
+
 package PythonCoreLib.Models;
 
 message LogModel{
 	string LogTime=1;
 	string LogMessage=2;
-	string LogLevel = 3;
+	.PythonCoreLib.Models.LogLevel LogLevel = 3;
 	string OriginServiceId = 4;
-	string OriginServiceType = 5;
+	.PythonCoreLib.Models.ServiceType OriginServiceType = 5;
 	string Exception = 6;
 }

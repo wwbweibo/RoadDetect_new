@@ -1,12 +1,15 @@
 ﻿syntax = "proto3";
 
+import "proto/LogLevel.proto";
+import "proto/ServiceType.proto";
+
 package Wwbweibo.CrackDetect.Models;
 
 message LogModel{
 	string LogTime=1;
 	string LogMessage=2;
-	string LogLevel = 3;
+	.Wwbweibo.CrackDetect.Models.LogLevel  LogLevel = 3;
 	string OriginServiceId = 4;
-	string OriginServiceType = 5;
+	.Wwbweibo.CrackDetect.Models.ServiceType OriginServiceType = 5;
 	string Exception = 6;
 } 

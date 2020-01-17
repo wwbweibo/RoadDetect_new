@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Wwbweibo.CrackDetect.Models
+@{
     ViewData["Title"] = "服务管理";
 }
 <div>
@@ -13,7 +14,7 @@
         <td>服务类型</td>
         </thead>
         @{ int index = 0;}
-        @foreach (var services in ViewData["services"] as Dictionary<string, List<string>>)
+        @foreach (var services in ViewData["services"] as Dictionary<ServiceType, List<string>>)
         {
             @foreach (var service in services.Value)
             {
@@ -24,16 +25,16 @@
                         @service
                     </td>
                     <td>
-                        @if(services.Key == ConstData.ServiceMasterServiceName)
+                        @if(services.Key == ServiceType.MasterService)
                         {
                             <label>Master主服务</label>
                         }
-                        else if (services.Key == ConstData.PythonPreprocessServiceName)
+                        else if (services.Key == ServiceType.PreProcessService)
                         {
                             <label>Python预处理服务</label>
-                        }else if(services.Key == ConstData.PythonCrackCalcServiceName)
+                        }else if(services.Key == ServiceType.CrackCalcService)
                         {
-                            <label>Python图像计算任务</label>
+                            <label>Python图像计算服务</label>
                         }
 
                     </td>

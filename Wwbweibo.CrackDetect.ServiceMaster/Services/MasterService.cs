@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
 using Wwbweibo.CrackDetect.Kafka;
+using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
 using Wwbweibo.CrackDetect.Zookeeper;
 
@@ -69,13 +70,13 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// 获取所有已经注册的服务
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, List<string>> ListAllRegisteredService()
+        public Dictionary<ServiceType, List<string>> ListAllRegisteredService()
         {
-            var result = new Dictionary<string, List<string>>();
-            foreach (var serviceType in ConstData.ServiceTypes)
+            var result = new Dictionary<ServiceType, List<string>>();
+            foreach (int serviceType in Enum.GetValues(typeof(ServiceType)))
             {
                 var services = zkClient.ListChildren("/" + serviceType);
-                result.Add(serviceType, services);
+                result.Add((ServiceType)serviceType, services);
             }
 
             return result;
@@ -86,7 +87,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="serviceType"></param>
         /// <returns></returns>
-        public List<string> ListRegisteredService(string serviceType)
+        public List<string> ListRegisteredService(ServiceType serviceType)
         {
             return ListAllRegisteredService()[serviceType];
         }

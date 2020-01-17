@@ -1,0 +1,9 @@
+﻿syntax="proto3";
+
+package Wwbweibo.CrackDetect.Models;
+ 
+enum LogLevel{
+	Info=0;
+	Warning=1;
+	Error=2;
+}

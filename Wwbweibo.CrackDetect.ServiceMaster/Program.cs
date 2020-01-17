@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Wwbweibo.CrackDetect.Kafka;
+using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.Redis;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
 using Wwbweibo.CrackDetect.Zookeeper;
@@ -55,7 +56,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         /// </summary>
         public static void RegisterSelf()
         {
-            zkClient.RegisterService(ConstData.ServiceMasterServiceName, ServiceId);
+            zkClient.RegisterService(((int)ServiceType.MasterService).ToString(), ServiceId);
         }
     }
 }
