@@ -29,9 +29,9 @@ serviceId = str(uuid.uuid1())
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 logManager = LogManager(conf)
 
-serviceProcessTask = "preprocess"
+serviceProcessTask = "PreProcess"
 serviceName = "python-preprocess-"+serviceId
-serviceTaskListenTopic = ['preprocess']
+serviceTaskListenTopic = ['PreProcess']
 
 import CrackPreProcess.views
 

@@ -26,11 +26,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public Dictionary<string, List<string>> ListAllTodoTask()
+        public Dictionary<TaskType, List<string>> ListAllTodoTask()
         {
-            var result = new Dictionary<string, List<string>>();
+            var result = new Dictionary<TaskType, List<string>>();
 
-            foreach (var task in ConstData.TaskTypes)
+            foreach (TaskType task in Enum.GetValues( typeof(TaskType)))
             {
                 result.Add(task, zkClient.ListChildren("/" + task + "/todo"));
             }
@@ -38,7 +38,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             return result;
         }
 
-        public List<string> ListAllTodoTask(string taskType)
+        public List<string> ListAllTodoTask(TaskType taskType)
         {
             return ListAllTodoTask()[taskType];
         }
@@ -48,7 +48,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public Dictionary<string, List<string>> ListUndoingTask()
+        public Dictionary<TaskType, List<string>> ListUndoingTask()
         {
             var result = ListAllTodoTask();
             foreach (var todoTasks in result)
@@ -61,7 +61,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             return result;
         }
 
-        public List<string> ListUndoingTask(string taskType)
+        public List<string> ListUndoingTask(TaskType taskType)
         {
             return ListUndoingTask()[taskType];
         }
@@ -73,10 +73,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public Dictionary<ServiceType, List<string>> ListAllRegisteredService()
         {
             var result = new Dictionary<ServiceType, List<string>>();
-            foreach (int serviceType in Enum.GetValues(typeof(ServiceType)))
+            foreach (var serviceType in Enum.GetValues(typeof(ServiceType)))
             {
+                ServiceType s;
+                Enum.TryParse(serviceType.ToString(), out s);
                 var services = zkClient.ListChildren("/" + serviceType);
-                result.Add((ServiceType)serviceType, services);
+                result.Add(s, services);
             }
 
             return result;
@@ -96,12 +98,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// 重新分发待办任务
         /// </summary>
         /// <param name="taskType"></param>
-        public void DistributeTask(string taskType)
+        public void DistributeTask(TaskType taskType)
         {
             var taskList = ListUndoingTask(taskType);
             foreach (var task in taskList)
             {
-                kafkaClient.SendMessageAsync(taskType, task).GetAwaiter().GetResult();
+                kafkaClient.SendMessageAsync(taskType.ToString().ToLower(), task).GetAwaiter().GetResult();
             }
         }
     }

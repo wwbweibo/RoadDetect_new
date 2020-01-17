@@ -5,9 +5,9 @@ import json
 
 
 def onMessage(message):
-    taskId = message.value.decode('utf-8')
+    taskId = message
     # 通过异步消息触发，需要请求任务
-    if zkClient.require_task("preprocess", taskId, serviceId):
+    if zkClient.require_task(serviceProcessTask, taskId, serviceId):
         try:
             service.execute_workflow(taskId)
         except Exception as e:
@@ -31,5 +31,5 @@ if __name__ == '__main__':
     # 接受控制消息
     kafkaClient.start_listen_message(['ControllMessage'], OnControllMessage, "python-preprocess-"+serviceId)
     # 注册该服务
-    zkClient.register_service(serviceId, ServiceType.PreProcessService)
+    zkClient.register_service(serviceId, 'PreProcessService')
     app.run("0.0.0.0", int(conf['service_inner_port']))

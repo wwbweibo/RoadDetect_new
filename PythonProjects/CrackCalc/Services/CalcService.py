@@ -29,8 +29,7 @@ class CalcService:
     def __draw_bbox__(self, imageBlockNumber):
         pass
 
-    def execute_calc(self, task, dataType):
+    def execute_calc(self, task, dataType='taskId'):
         data = self.__load_data__(task, dataType)
         result = self.Model.execute_calc(data)
         crackNumbers = result.where(result == 0)[0]
-        

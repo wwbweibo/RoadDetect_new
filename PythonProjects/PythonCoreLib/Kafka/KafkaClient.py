@@ -1,6 +1,8 @@
 import pykafka
 from threading import Thread
 from pykafka.simpleconsumer import OffsetType
+import json
+import time
 
 
 class KafkaClient:
@@ -23,8 +25,10 @@ class KafkaClient:
         if(self.Client.topics[topic] is None):
             raise("Can not find Such Topic:[%s]" % topic)
         t = self.Client.topics[topic]
+        message_send = dict()
+        message_send = {'data':message, 'CreateTime':int(time.time())}
         procuder = t.get_producer()
-        procuder.produce(message.encode("UTF-8"))
+        procuder.produce(json.dumps(message_send).encode("UTF-8"))
 
     def start_listen_message(self, topics, callback, group):
         '''
@@ -39,7 +43,7 @@ class KafkaClient:
         for t in tList:
             t = t.get_simple_consumer(
                     consumer_group=group,
-                    auto_offset_reset = pykafka.common.OffsetType.LATEST,
+                    auto_offset_reset=OffsetType.LATEST,
                     auto_commit_enable=True
                 )
             runt = Thread(target=self.__on_message__, args=(t, callback))
@@ -49,7 +53,13 @@ class KafkaClient:
     def __on_message__(self, consumer, callback):
             while True:
                 message = consumer.consume()
-                callback(message)
+                try:
+                    data = json.loads(message.value.decode('UTF-8'))
+                    if data['CreateTime'] > (int(time.time()) - 10): # 只处理十秒内的消息
+                        taskThread = Thread(target=callback, args=(data['data'],))
+                        taskThread.start()
+                except:
+                    pass
 
     def stop_listen(self):
         if self.RunningThread is not None:

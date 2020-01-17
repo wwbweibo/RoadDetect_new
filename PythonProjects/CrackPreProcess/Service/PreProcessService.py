@@ -1,9 +1,11 @@
 import cv2
-import json
-from PythonCoreLib.Utils.Utils import decode_b64_to_bytes, decode_bytes_image
+from PythonCoreLib.Utils.Utils import decode_b64_to_bytes, decode_bytes_image, encode_bytes_data_b64, decode_bytes_numpy_array
 from PythonCoreLib.Redis.RedisClient import RedisClient
 import numpy as np
 import uuid
+import CrackPreProcess
+import time
+import json
 
 class PreProcessService:
     """description of class"""
@@ -37,25 +39,27 @@ class PreProcessService:
         image = self.__load_data__(task, datatype)
         if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
-        image_block, serailized_image_block = self.cut_image()
+        image = self.convert_color_gray(image)
+        image_block, serailized_image_block = self.cut_image(image)
         self.send_todo(serailized_image_block)
 
     def cut_image(self, image):
         im_list = []
         for i in range(64):
             for j in  range(64):
-                im_list.append(image[i * 16: (i+1) * 16, j * 16: (j+1) * 16, :])
+                im_list.append(image[i * 16: (i+1) * 16, j * 16: (j+1) * 16])
         # conver the image blocks to a numpy array 
         im_list = np.asarray(im_list, dtype=np.uint8)
+        im_list = im_list.reshape((64*64, 16,16,1))
         image_block = im_list
         serailized_image_block = im_list.tobytes()
         return image_block, serailized_image_block
 
-    def convert_color_gray(self):
+    def convert_color_gray(self, image):
         """
         将bgr的图片转化为灰度图
         """
-        self.gray_img = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
     def resize_img(self, width=1024):
         """
@@ -161,7 +165,7 @@ class PreProcessService:
         index = np.argwhere(pixel == np.max(pixel))
         thresh = index[0][0] / 3
 
-        ret, new_img = cv2.threshold(img, thresh, 255, cv.THRESH_BINARY)
+        ret, new_img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
         new_img = np.abs(new_img - 255)
         return new_img
 
@@ -174,13 +178,12 @@ class PreProcessService:
         max_index = np.where(hist == max(hist))
         mask = hist[0:max_index[0][0]]
         min_index = np.where(mask == min(mask))
-        ret, new_im = cv2.threshold(img, min_index[0][0], 255, cv.THRESH_BINARY)
+        ret, new_im = cv2.threshold(img, min_index[0][0], 255, cv2.THRESH_BINARY)
         return new_im
 
     def send_todo(self, data):
         taskId = str(uuid.uuid1())
-        b64Data = EncodeData2b64(data)
+        b64Data = encode_bytes_data_b64(data)
         self.redis.set(taskId, b64Data)
-        if self.kafka is None:
-            self.kafka = Client(self.conf['kafka_host'], self.kafka['kafka_port'])
-        self.kafka.sendMessage("calc-image", taskId)    # send taskid only
+        CrackPreProcess.kafkaClient.send_message("CrackCalc", taskId)    # send taskid only
+        CrackPreProcess.zkClient.create_task("CrackCalc", taskId)

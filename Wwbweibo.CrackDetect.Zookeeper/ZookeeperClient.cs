@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using org.apache.utils;
 using org.apache.zookeeper;
@@ -36,6 +37,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
             watcher = new ConnectionStatusWatcher(this);
             connectionString = connectionString.Substring(0, connectionString.Length - 1);
             zkClient = new ZooKeeper(connectionString, zkTimeOut, watcher);
+            Thread.Sleep(zkTimeOut);
             sessionId = zkClient.getSessionId();
 
         }

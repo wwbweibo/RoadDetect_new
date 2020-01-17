@@ -9,6 +9,7 @@
     <None Remove="proto\LogModel.proto" />
     <None Remove="proto\ServiceType.proto" />
     <None Remove="proto\TaskModelBase.proto" />
+    <None Remove="proto\TaskType.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
     <Protobuf Include="proto\TaskModelBase.proto" GrpcServices="Both">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Protobuf>
+    <Protobuf Include="proto\TaskType.proto" />
   </ItemGroup>
 
 </Project>

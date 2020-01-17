@@ -56,7 +56,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         /// </summary>
         public static void RegisterSelf()
         {
-            zkClient.RegisterService(((int)ServiceType.MasterService).ToString(), ServiceId);
+            zkClient.RegisterService(ServiceType.MasterService.ToString(), ServiceId);
         }
     }
 }

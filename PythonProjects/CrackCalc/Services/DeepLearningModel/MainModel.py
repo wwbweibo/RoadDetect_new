@@ -3,6 +3,7 @@ from CrackCalc.Services.DeepLearningModel.new_ae import gen_model
 from keras.layers import Input, Flatten, Dense
 from keras.models import Model
 import numpy as np
+import CrackCalc
 
 
 class URD:
@@ -31,7 +32,8 @@ class URD:
         return (weight.T / weight.sum(1)).T
 
     def execute_calc(self, data):
-        data = np.reshape(data, (data.shape[0], 16, 16, 1))
-        predictResult = self.model.predict(data)
-        result = predictResult.argmax(1)
-        return result
+        data = np.reshape(data, (64 * 64, 16, 16, 1))
+        with CrackCalc.graph.as_default():
+            predictResult = self.model.predict(data)
+            result = predictResult.argmax(1)
+            return result

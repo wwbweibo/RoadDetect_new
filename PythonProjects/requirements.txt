@@ -1,5 +1,5 @@
 Flask<1
 pykafka
 opencv-python
-keras
+keras==2.2.4
 redis

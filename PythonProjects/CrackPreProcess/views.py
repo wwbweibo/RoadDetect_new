@@ -17,6 +17,7 @@ def PreProcess():
         # basic validation
         if imageb64data is None or len(imageb64data) <=0:
             raise("the input data can not be None or empty")
-        service.execute_workflow()
+        service.execute_workflow(imageb64data, datatype='HttpPost')
+        return '123'
     except Exception as e:
-        print(e)
+        return e

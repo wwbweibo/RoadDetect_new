@@ -9,6 +9,7 @@ from PythonCoreLib.Zookeeper.ZkClient import ZkClient
 from PythonCoreLib.Utils.Logging import LogManager
 from CrackCalc.Services.CalcService import CalcService
 import uuid
+import tensorflow as tf
 
 
 
@@ -34,10 +35,11 @@ kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 logManager = LogManager(conf)
 app = Flask(__name__)
+graph = tf.get_default_graph()
 
-serviceProcessTask = "crackcalc"
+serviceProcessTask = "CrackCalc"
 serviceName = "python-crackcalc-"+serviceId
-serviceTaskListenTopic = ['crackcalc']
+serviceTaskListenTopic = ['CrackCalc']
 
 import CrackCalc.views
 
