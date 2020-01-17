@@ -3,3 +3,4 @@ pykafka
 opencv-python
 keras==2.2.4
 redis
+protobuf
