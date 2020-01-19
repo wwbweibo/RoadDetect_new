@@ -1,5 +1,5 @@
 from kazoo.client import KazooClient, KazooState
-
+import PythonCoreLib.Models.ConstData as ConstData
 
 class ZkClient:
     def __init__(self, hosts, ports, on_failure_action=None):
@@ -36,11 +36,11 @@ class ZkClient:
         用于向zookeeper注册远程服务
         使用一个临时节点表示一个特定的服务实例
         '''
-        path = '/%s/%s' % (service_type, service_name)
+        path = ConstData.ServicePath % (service_type, service_name)
         self.zk.create(path,None,ephemeral=True, makepath=True)
 
     def create_task(self, task_type, task_id):
-        todopath = "/%s/todo/%s" % (task_type, task_id)
+        todopath = ConstData.TodoTaskPath % (task_type, task_id)
         self.zk.create(todopath, makepath=True)
 
     def require_task(self, task_type, task_id, service_id):
@@ -49,9 +49,8 @@ class ZkClient:
         首先向特定的任务类型节点下请求一个临时节点，如果没有报错，则表示任务请求成功，否则任务请求失败
         service_id指定了执行任务的服务
         '''
-        # 节点路径 /{tasktype}/{inprogress}/{taskid}
-        todopath = "/%s/todo/%s" % (task_type, task_id)
-        path = "/%s/inprogress/%s" % (task_type, task_id)
+        todopath = ConstData.TodoTaskPath % (task_type, task_id)
+        path = ConstData.InProgressPath % (task_type, task_id)
         try:
             # 首先确认待办中存在对应的节点
             if self.zk.exists(todopath):
@@ -66,13 +65,13 @@ class ZkClient:
             return False
 
     def finish_task(self, task_type, task_id):
-        todopath = "/%s/todo/%s" % (task_type, task_id)
-        path = "/%s/inprogress/%s" % (task_type, task_id)
+        todopath = ConstData.TodoTaskPath % (task_type, task_id)
+        path = ConstData.InProgressPath % (task_type, task_id)
         self.zk.delete(todopath)
         self.zk.delete(path)
 
     def task_execute_error(self, task_type, task_id):
-        path = "/%s/inprogress/%s" % (task_type, task_id)
+        path = ConstData.InProgressPath % (task_type, task_id)
         self.zk.delete(path)
 
     def __zk_status_listener__(self, state):

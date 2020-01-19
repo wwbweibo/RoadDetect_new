@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using org.apache.utils;
 using org.apache.zookeeper;
 using org.apache.zookeeper.data;
+using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.Tools.String;
 using ZooKeeperNetEx;
 
@@ -37,6 +38,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
             watcher = new ConnectionStatusWatcher(this);
             connectionString = connectionString.Substring(0, connectionString.Length - 1);
             zkClient = new ZooKeeper(connectionString, zkTimeOut, watcher);
+            // waiting for the connect finish
             Thread.Sleep(zkTimeOut);
             sessionId = zkClient.getSessionId();
 
@@ -75,8 +77,8 @@ namespace Wwbweibo.CrackDetect.Zookeeper
         {
             try
             {
-                var taskTodoPath = $"{taskType}/todo/{taskId}";
-                var path = $"/{taskType}/inprogress/{taskId}";
+                var taskTodoPath = ConstData.TodoTaskPath.Format(taskType, taskId);
+                var path = ConstData.InProgressPath.Format(taskType, taskId);
                 // 待办路径不存在，请求任务失败
                 if (zkClient.existsAsync(taskTodoPath).GetAwaiter().GetResult() == null)
                 {
@@ -92,7 +94,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
 
                 return false;
             }
-            catch
+            catch(KeeperException.NodeExistsException)
             {
                 return false;
             }
@@ -108,7 +110,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
         {
             try
             {
-                var taskPath = $"/{taskType}/todo/{taskId}";
+                var taskPath = ConstData.TodoTaskPath.Format(taskType, taskId);
                 if (zkClient.existsAsync(taskPath).GetAwaiter().GetResult() == null)
                 {
                     ensurePath(taskPath);
@@ -132,8 +134,8 @@ namespace Wwbweibo.CrackDetect.Zookeeper
         /// <returns></returns>
         public void FinishTask(string taskType, string taskId)
         {
-            var todoPath = $"/{taskType}/todo/{taskId}";
-            var inprogressPath = $"/{taskType}/inprogress/{taskId}";
+            var todoPath = ConstData.TodoTaskPath.Format(taskType, taskId);
+            var inprogressPath = ConstData.InProgressPath.Format(taskType, taskId);
             zkClient.deleteAsync(todoPath);
             zkClient.deleteAsync(inprogressPath);
         }
@@ -158,7 +160,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
 
         public void RegisterService(string serviceType, Guid serviceId)
         {
-            var path = $"/{serviceType}/{serviceId.ToString()}";
+            var path = ConstData.ServicePath.Format(serviceType, serviceId.ToString());
             ensurePath(path);
             zkClient.createAsync(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
                 .GetResult();

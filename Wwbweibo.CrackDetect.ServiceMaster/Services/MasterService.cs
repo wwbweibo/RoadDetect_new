@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Wwbweibo.CrackDetect.Kafka;
 using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
+using Wwbweibo.CrackDetect.Tools.String;
 using Wwbweibo.CrackDetect.Zookeeper;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
@@ -32,7 +33,10 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 
             foreach (TaskType task in Enum.GetValues( typeof(TaskType)))
             {
-                result.Add(task, zkClient.ListChildren("/" + task + "/todo"));
+                var path =
+                    ConstData.TodoTaskPath.Format(task.ToString(), "");
+                path = path.Remove(path.LastIndexOf('/'));
+                result.Add(task, zkClient.ListChildren(path));
             }
 
             return result;
@@ -53,8 +57,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var result = ListAllTodoTask();
             foreach (var todoTasks in result)
             {
+                var inProgressTaskPath = ConstData.InProgressPath.Format(todoTasks.Key.ToString(), "");
+                inProgressTaskPath = inProgressTaskPath.Remove(inProgressTaskPath.LastIndexOf('/'));
+
                 var inProgressTask =
-                    zkClient.ListChildren("/" + todoTasks.Key + "/inprogress");
+                    zkClient.ListChildren(inProgressTaskPath);
                 todoTasks.Value.Except(inProgressTask);
             }
 
@@ -73,12 +80,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public Dictionary<ServiceType, List<string>> ListAllRegisteredService()
         {
             var result = new Dictionary<ServiceType, List<string>>();
-            foreach (var serviceType in Enum.GetValues(typeof(ServiceType)))
+            foreach (ServiceType serviceType in Enum.GetValues(typeof(ServiceType)))
             {
-                ServiceType s;
-                Enum.TryParse(serviceType.ToString(), out s);
-                var services = zkClient.ListChildren("/" + serviceType);
-                result.Add(s, services);
+                var servicePath = ConstData.ServicePath.Format(serviceType.ToString(), "");
+                servicePath = servicePath.Remove(servicePath.LastIndexOf('/'));
+                var services = zkClient.ListChildren(servicePath);
+                result.Add(serviceType, services);
             }
 
             return result;
