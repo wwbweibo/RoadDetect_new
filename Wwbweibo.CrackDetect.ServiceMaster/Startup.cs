@@ -23,6 +23,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            CreateService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +49,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void CreateService()
+        {
+            Program.InitServer(Configuration);
         }
     }
 }

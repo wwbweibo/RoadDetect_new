@@ -11,6 +11,7 @@ using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.Redis;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
 using Wwbweibo.CrackDetect.Zookeeper;
+using Newtonsoft.Json;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {
@@ -23,10 +24,6 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
 
         public static void Main(string[] args)
         {
-            kafkaClient = new KafkaClient("ali.wwbweibo.me", "9092");
-            zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
-            redisClient = new RedisClient("ali.wwbweibo.me", "6379");
-            RegisterSelf();
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -43,6 +40,14 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         public static ZookeeperClient GetZookeeperClient()
         {
             return zkClient;
+        }
+
+        public static void InitServer(IConfiguration configuration)
+        {
+            kafkaClient = new KafkaClient("ali.wwbweibo.me", "9092");
+            zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
+            redisClient = new RedisClient(configuration.GetValue<string>("RedisHost"), configuration.GetValue<string>("RedisPort"));
+            RegisterSelf();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
