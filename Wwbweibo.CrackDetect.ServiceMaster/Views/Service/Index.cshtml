@@ -12,6 +12,7 @@
         <td>#</td>
         <td>服务名</td>
         <td>服务类型</td>
+        <td>操作</td>
         </thead>
         @{ int index = 0;}
         @foreach (var services in ViewData["services"] as Dictionary<ServiceType, List<string>>)
@@ -37,6 +38,9 @@
                             <label>Python图像计算服务</label>
                         }
 
+                    </td>
+                    <td>
+                        <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service">停止</a>
                     </td>
                 </tr>
             }

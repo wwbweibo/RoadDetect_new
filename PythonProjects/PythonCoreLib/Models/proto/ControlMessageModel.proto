@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "ServiceType.proto";
+
+package PythonCoreLib.Models;
+
+message ControlMessageModel{
+    string receiveServiceId = 1;
+    .PythonCoreLib.Models.ServiceType serviceType = 2;
+    string data = 3;
+}

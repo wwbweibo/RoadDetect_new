@@ -1,6 +1,7 @@
 from CrackPreProcess import app, service, conf, zkClient, serviceId, kafkaClient, logManager, serviceName, serviceProcessTask, serviceTaskListenTopic
-from PythonCoreLib.Models.ControlMessageModel import ControlMessageModel
 import PythonCoreLib.Models.ServiceType_pb2 as ServiceType
+from PythonCoreLib.Models.ControlMessageModel_pb2 import ControlMessageModel
+from PythonCoreLib.Utils.Utils import decode_b64_to_bytes
 import json
 
 
@@ -17,10 +18,11 @@ def onMessage(message):
 
 
 def OnControllMessage(message):
-    model = json.loads(message.value.decode('utf-8'), object_hook=ControlMessageModel.json2obj)
-    if model.ReciveServiceId == serviceId:
-        if model.ControlType == 'STOP':
-            kafkaClient.StopListen()
+    model = ControlMessageModel()
+    model.ParseFromString(decode_b64_to_bytes(message))
+    if model.receiveServiceId == serviceId:
+        if model.data == 'STOP':
+            kafkaClient.stop_listen()
             zkClient.stop_service()
             logManager.info("Preprocess service stopped since receive stop signal", serviceId, ServiceType.PreProcessService)
 

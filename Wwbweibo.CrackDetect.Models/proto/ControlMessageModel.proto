@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+
+import "proto/ServiceType.proto";
+
+package Wwbweibo.CrackDetect.Models;
+
+message ControlMessageModel{
+	string receiveServiceId = 1;
+	ServiceType serviceType = 2;
+	string data = 3;
+}

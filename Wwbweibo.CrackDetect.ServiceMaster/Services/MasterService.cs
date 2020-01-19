@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Wwbweibo.CrackDetect.Kafka;
 using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
@@ -99,6 +100,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public List<string> ListRegisteredService(ServiceType serviceType)
         {
             return ListAllRegisteredService()[serviceType];
+        }
+
+        public bool StopService(ServiceType serviceType, string serviceId)
+        {
+            ControlMessageModel message = new ControlMessageModel(){Data = "STOP", ReceiveServiceId =  serviceId, ServiceType = serviceType};
+            return kafkaClient.SendMessageAsync("ControllMessage", message.ToByteArray().EncodeBytesToBase64String()).Result;
         }
 
         /// <summary>

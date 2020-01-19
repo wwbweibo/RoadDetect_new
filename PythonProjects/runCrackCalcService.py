@@ -2,8 +2,9 @@
 This script runs the CrackCalc application using a development server.
 """
 from CrackCalc import app, service, zkClient, serviceId, kafkaClient, serviceName, serviceTaskListenTopic, serviceProcessTask, conf, logManager
-from PythonCoreLib.Models.ControlMessageModel import ControlMessageModel
+from PythonCoreLib.Models.ControlMessageModel_pb2 import ControlMessageModel
 import PythonCoreLib.Models.ServiceType_pb2 as ServiceType
+from PythonCoreLib.Utils.Utils import decode_b64_to_bytes
 import json
 
 
@@ -21,12 +22,13 @@ def onMessage(message):
 
 
 def OnControllMessage(message):
-    model = json.loads(message.value.decode('utf-8'), object_hook=ControlMessageModel.json2obj)
-    if model.ReciveServiceId == serviceId:
-        if model.ControlType == 'STOP':
+    model = ControlMessageModel()
+    model.ParseFromString(decode_b64_to_bytes(message))
+    if model.receiveServiceId == serviceId:
+        if model.data == 'STOP':
             kafkaClient.stop_listen()
             zkClient.stop_service()
-            logManager.info("CrackCalc service stopped since receive stop signal", serviceId, ServiceType.CrackCalcService)
+            logManager.info("Preprocess service stopped since receive stop signal", serviceId, ServiceType.PreProcessService)
 
 
 if __name__ == '__main__':

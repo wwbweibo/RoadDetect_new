@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="proto\ControlMessageModel.proto" />
     <None Remove="proto\LogLevel.proto" />
     <None Remove="proto\LogModel.proto" />
     <None Remove="proto\ServiceType.proto" />
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="proto\ControlMessageModel.proto" />
     <Protobuf Include="proto\LogLevel.proto" />
     <Protobuf Include="proto\LogModel.proto" />
     <Protobuf Include="proto\ServiceType.proto" />
