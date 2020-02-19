@@ -17,7 +17,7 @@ namespace TestClient
             image.Read(buffer, 0, (int)image.Length);
             var b64Data = buffer.EncodeBytesToBase64String();
             var taskId = Guid.NewGuid();
-            RedisClient redisClient = new RedisClient("ali.wwbweibo.me", "6379");
+            RedisClient redisClient = new RedisClient("ali.wwbweibo.me", "6793");
             redisClient.Set(taskId.ToString(), b64Data);
             ZookeeperClient zkClient =
                 ZookeeperClient.InitClientConnection(new string[] {"ali.wwbweibo.me"}, new string[] {"2181"});
