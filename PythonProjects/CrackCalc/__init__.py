@@ -8,29 +8,15 @@ from PythonCoreLib.Kafka.KafkaClient import KafkaClient
 from PythonCoreLib.Zookeeper.ZkClient import ZkClient
 from PythonCoreLib.Utils.Logging import LogManager
 from CrackCalc.Services.CalcService import CalcService
+from PythonCoreLib.Utils.Utils import load_conf
 import uuid
 import tensorflow as tf
 
-
-
-def load_conf():
-    '''
-    load conf from load file system
-    '''
-    conf = open('CrackCalc/conf.ini', 'r').readlines()
-    conf_dict = dict()
-    for line in conf:
-        conf_name, conf_value = line.split('=')
-        conf_dict[conf_name.replace(' ', '')] = conf_value.replace(' ', '').replace('\n','') 
-    return conf_dict
-
-
-conf = load_conf()
-
+conf = load_conf('CrackCalc/conf.ini')
 
 service = CalcService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
-serviceId = str(uuid.uuid1())
+serviceId = conf['service_id']
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 logManager = LogManager(conf)

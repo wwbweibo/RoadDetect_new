@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Zookee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.Models", "Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj", "{4773E19F-057A-4C5D-9D76-3D11FD532403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Models", "Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj", "{4773E19F-057A-4C5D-9D76-3D11FD532403}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
