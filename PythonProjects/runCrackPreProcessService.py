@@ -1,4 +1,4 @@
-from CrackPreProcess import app, service, conf, zkClient, serviceId, kafkaClient, logManager, serviceName, serviceProcessTask, serviceTaskListenTopic
+from CrackCalc import app, preProcessService, calcService, conf, zkClient, serviceId, kafkaClient, logManager, serviceName, serviceProcessTask, serviceTaskListenTopic
 import PythonCoreLib.Models.ServiceType_pb2 as ServiceType
 from PythonCoreLib.Models.ControlMessageModel_pb2 import ControlMessageModel
 from PythonCoreLib.Utils.Utils import decode_b64_to_bytes
@@ -10,11 +10,12 @@ def onMessage(message):
     # 通过异步消息触发，需要请求任务
     if zkClient.require_task(serviceProcessTask, taskId, serviceId):
         try:
-            service.execute_workflow(taskId)
-        except Exception as e:
+            image_block, _ = preProcessService.execute_workflow(taskId)
+            calcService.execute_calc(image_block)
+        except Exception:
             zkClient.task_execute_error(serviceProcessTask, taskId)
             kafkaClient.send_message(serviceProcessTask, serviceId)
-            logManager.error("Preprocess service execute work flow error", serviceId, ServiceType.PreProcessService)
+            logManager.error("service execute work flow error", serviceId, ServiceType.CrackCalcService)
 
 
 def OnControllMessage(message):

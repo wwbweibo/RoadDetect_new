@@ -3,7 +3,6 @@ from PythonCoreLib.Utils.Utils import decode_b64_to_bytes, decode_bytes_image, e
 from PythonCoreLib.Redis.RedisClient import RedisClient
 import numpy as np
 import uuid
-import CrackPreProcess
 import time
 import json
 
@@ -19,6 +18,9 @@ class PreProcessService:
         return image
 
     def __load_data__(self, task, datatype):
+        '''
+        从内存或redis中读取数据
+        '''
         if datatype == 'taskId':
             if task is None:
                 raise Exception("The given task is error or empty, task:" % task)
@@ -34,14 +36,15 @@ class PreProcessService:
         '''
         执行预处理工作流
         task：任务Id或者任务数据
-        datatype: taskId->输入的数据是任务ID，taskData->输入的是任务数据
+        @param datatype: taskId->输入的数据是任务ID，taskData->输入的是任务数据
+        @return: 切分后的图像
         '''
         image = self.__load_data__(task, datatype)
         if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
             raise Exception("input image shape error, require 1024 * 1024 image")
         image = self.convert_color_gray(image)
         image_block, serailized_image_block = self.cut_image(image)
-        self.send_todo(serailized_image_block)
+        return image_block, serailized_image_block
 
     def cut_image(self, image):
         im_list = []
@@ -66,7 +69,7 @@ class PreProcessService:
         缩放图像大小，默认为1024
         @param width: 图像缩放至的宽度
         """
-        self.image = cv2.resize(self.image,(width, int(width * img.shape[0] / img.shape[1])))
+        self.image = cv2.resize(self.image,(width, int(width * self.img.shape[0] / self.img.shape[1])))
         # 检查灰度图的大小
         if self.gray_img is not None or self.gray_img.shape[0] != self.gray_img[1] != 1024:
             self.gray_image = cv2.resize(self.gray_image,(width, int(width * img.shape[0] / img.shape[1])))
@@ -81,7 +84,7 @@ class PreProcessService:
         """
         return cv2.cvtColor(image, code)
 
-    def center_avg_imp(img, ksize=10):
+    def center_avg_imp(self, img, ksize=10):
         """
         improve the image pixels by image center pixel average
         """
@@ -110,7 +113,7 @@ class PreProcessService:
                     img[x:x + ksize, y:y + ksize] * (avg / np.average(img[x:x + ksize, y:y + ksize]))
         return new_img
 
-    def equalize_hist(img, flag=False):
+    def equalize_hist(self, img, flag=False):
         """
         直方图均衡化
         """
@@ -119,7 +122,7 @@ class PreProcessService:
         return hist_img
 
 
-    def med_blur(img, ksize=3, flag=False):
+    def med_blur(self, img, ksize=3, flag=False):
         """
         对图像进行中值滤波
         """
@@ -130,14 +133,14 @@ class PreProcessService:
         return new_img
 
 
-    def gauss_blur(img, ksize=[3, 3]):
+    def gauss_blur(self, img, ksize=[3, 3]):
         """
         对图像进行高斯模糊
         """
         cv2.GaussianBlur(img, ksize=ksize)
 
 
-    def adj_gamma(img, flag=False):
+    def adj_gamma(self, img, flag=False):
         """
         对图像进行归一化处理
         :param img: 输入图像
@@ -151,7 +154,7 @@ class PreProcessService:
         return new_image
 
 
-    def binary_image(img, thresh=0.15, flag=False):
+    def binary_image(self, img, thresh=0.15, flag=False):
         """
         对图像进行二值化
         :param img: 输入图形
@@ -170,7 +173,7 @@ class PreProcessService:
         return new_img
 
 
-    def hist_segmentation(img):
+    def hist_segmentation(self, img):
         """
         对图像进行直方图分割
         """
@@ -180,10 +183,3 @@ class PreProcessService:
         min_index = np.where(mask == min(mask))
         ret, new_im = cv2.threshold(img, min_index[0][0], 255, cv2.THRESH_BINARY)
         return new_im
-
-    def send_todo(self, data):
-        taskId = str(uuid.uuid1())
-        b64Data = encode_bytes_data_b64(data)
-        self.redis.set(taskId, b64Data)
-        CrackPreProcess.kafkaClient.send_message("CrackCalc", taskId)    # send taskid only
-        CrackPreProcess.zkClient.create_task("CrackCalc", taskId)

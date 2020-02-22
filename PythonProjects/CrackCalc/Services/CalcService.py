@@ -9,27 +9,7 @@ class CalcService:
         self.Model = URD(conf['auto_encoder_weight'], conf['urd_weight'])
         self.redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 
-    def __decode_image__(self, data):
-        byteData = decode_b64_to_bytes(data)
-        return decode_bytes_numpy_array(byteData)
-
-    def __load_data__(self, task, dataType):
-        if dataType == "taskId":
-            if task is None:
-                raise Exception("CalcService: the input task id is None")
-            data = self.redisClient.get(task)
-            if data is None:
-                raise Exception("CalcService: the data get from redis is None, TaskId"+task)
-            return self.__decode_image__(data)
-        else:
-            if task is None:
-                raise Exception("CalcService: the input task is None")
-            return self.__decode_image__(task)
-
-    def __draw_bbox__(self, imageBlockNumber):
-        pass
-
-    def execute_calc(self, task, dataType='taskId'):
-        data = self.__load_data__(task, dataType)
+    def execute_calc(self, data):
         result = self.Model.execute_calc(data)
         crackNumbers = result.where(result == 0)[0]
+        return crackNumbers

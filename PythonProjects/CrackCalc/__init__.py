@@ -8,13 +8,15 @@ from PythonCoreLib.Kafka.KafkaClient import KafkaClient
 from PythonCoreLib.Zookeeper.ZkClient import ZkClient
 from PythonCoreLib.Utils.Logging import LogManager
 from CrackCalc.Services.CalcService import CalcService
+from CrackCalc.Services.CalcPreprocessService import PreProcessService
 from PythonCoreLib.Utils.Utils import load_conf
 import uuid
 import tensorflow as tf
 
 conf = load_conf('CrackCalc/conf.ini')
 
-service = CalcService(conf)
+calcService = CalcService(conf)
+preProcessService = PreProcessService(conf)
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 serviceId = conf['service_id']
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
