@@ -46,6 +46,7 @@ def load_conf(conf_file):
     conf_file = open(conf_file, 'r+')
     conf = conf_file.readlines()
     conf_dict = dict()
+    service_id = ""
     for line in conf:
         conf_name, conf_value = line.split('=')
         conf_dict[conf_name.replace(' ', '')] = conf_value.replace(' ', '').replace('\n','') 

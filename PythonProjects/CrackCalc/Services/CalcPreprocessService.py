@@ -24,7 +24,7 @@ class PreProcessService:
         if datatype == 'taskId':
             if task is None:
                 raise Exception("The given task is error or empty, task:" % task)
-            imageb64 = self.redis.get(task)
+            imageb64 = self.redis.hget(task.majorTaskId, task.subTaskId)
             if imageb64 is None:
                 raise Exception("trying to ge image error")
             image = self.__decode_image__(imageb64)
