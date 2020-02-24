@@ -1,17 +1,13 @@
-﻿using System;
+﻿using org.apache.zookeeper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
-using System.Threading.Tasks;
-using org.apache.utils;
-using org.apache.zookeeper;
-using org.apache.zookeeper.data;
+using Wwbweibo.CrackDetect.Libs.Tools.String;
+using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
-using Wwbweibo.CrackDetect.Tools.String;
-using ZooKeeperNetEx;
 
-namespace Wwbweibo.CrackDetect.Zookeeper
+namespace Wwbweibo.CrackDetect.Libs.Zookeeper
 {
     public class ZookeeperClient
     {
@@ -21,7 +17,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
         private static readonly int zkTimeOut = 10 * 1000;
         private static string connectionString;
         private static long sessionId;
-        
+
         private ZookeeperClient(string[] hosts, string[] ports)
         {
             if ((hosts.Length != ports.Length) || (hosts.Length <= 0 && ports.Length <= 0))
@@ -94,7 +90,7 @@ namespace Wwbweibo.CrackDetect.Zookeeper
 
                 return false;
             }
-            catch(KeeperException.NodeExistsException)
+            catch (KeeperException.NodeExistsException)
             {
                 return false;
             }
@@ -118,14 +114,14 @@ namespace Wwbweibo.CrackDetect.Zookeeper
                     return true;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
 
             return false;
         }
-        
+
         /// <summary>
         /// 完成一个任务
         /// </summary>

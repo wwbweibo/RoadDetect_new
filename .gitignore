@@ -7,3 +7,4 @@ base-env/redis
 base-env/kafka*
 env/
 *log
+/PythonProjects/.idea

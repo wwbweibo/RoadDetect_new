@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
-namespace Wwbweibo.CrackDetect.Tools
+namespace Wwbweibo.CrackDetect.Libs.Tools
 {
     public static class Tools
     {

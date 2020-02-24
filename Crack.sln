@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Kafka", "Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj", "{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Test", "Wwbweibo.CrackDetect.Kafka.Test\Wwbweibo.CrackDetect.Test.csproj", "{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Tools", "Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj", "{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BCBFF105-EE51-449B-95F4-CC853BDFA8A2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -26,13 +20,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.DataWe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestClient", "TestClient\TestClient.csproj", "{3849845A-318E-4C65-9FB9-50299CE6A7E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Redis", "Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj", "{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Zookeeper", "Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj", "{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.ServiceMaster", "Wwbweibo.CrackDetect.ServiceMaster\Wwbweibo.CrackDetect.ServiceMaster.csproj", "{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Models", "Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj", "{4773E19F-057A-4C5D-9D76-3D11FD532403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwb.wwbweibo.CrackDetect.Libs", "Wwb.wwbweibo.CrackDetect.Libs\Wwb.wwbweibo.CrackDetect.Libs.csproj", "{BF182E7C-A7D0-4153-AF37-EFD5DF32FC4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,18 +32,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CB447BC-B7E5-4CF2-A045-BB8A9E5F315C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5BEF6C1-8303-458C-8FE3-3897122EE5A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37341E7A-1BA2-433B-AF4E-6ABDEDF131B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A827726-ABBA-4554-83A5-96BB8FCF3F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,14 +40,6 @@ Global
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3849845A-318E-4C65-9FB9-50299CE6A7E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F831B5E8-05E7-413E-9D36-CCCA1D4AFAA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58FA1553-6EE4-459F-92DC-4CA7E2E3559D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC45E9C-5189-40ED-AEC2-06FF1D3B918C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -76,6 +48,10 @@ Global
 		{4773E19F-057A-4C5D-9D76-3D11FD532403}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4773E19F-057A-4C5D-9D76-3D11FD532403}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4773E19F-057A-4C5D-9D76-3D11FD532403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF182E7C-A7D0-4153-AF37-EFD5DF32FC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF182E7C-A7D0-4153-AF37-EFD5DF32FC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF182E7C-A7D0-4153-AF37-EFD5DF32FC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF182E7C-A7D0-4153-AF37-EFD5DF32FC4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

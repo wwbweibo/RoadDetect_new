@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
-using System.Threading.Tasks;
-using Google.Protobuf;
-using Wwbweibo.CrackDetect.Kafka;
+using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Models;
-using Wwbweibo.CrackDetect.ServiceMaster.Models;
-using Wwbweibo.CrackDetect.Tools.String;
-using Wwbweibo.CrackDetect.Zookeeper;
+using Wwbweibo.CrackDetect.Libs.Tools.String;
+using Wwbweibo.CrackDetect.Libs.Zookeeper;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
@@ -32,7 +29,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         {
             var result = new Dictionary<TaskType, List<string>>();
 
-            foreach (TaskType task in Enum.GetValues( typeof(TaskType)))
+            foreach (TaskType task in Enum.GetValues(typeof(TaskType)))
             {
                 var path =
                     ConstData.TodoTaskPath.Format(task.ToString(), "");
@@ -104,7 +101,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 
         public bool StopService(ServiceType serviceType, string serviceId)
         {
-            ControlMessageModel message = new ControlMessageModel(){Data = "STOP", ReceiveServiceId =  serviceId, ServiceType = serviceType};
+            ControlMessageModel message = new ControlMessageModel() { Data = "STOP", ReceiveServiceId = serviceId, ServiceType = serviceType };
             return kafkaClient.SendMessageAsync("ControllMessage", message.ToByteArray().EncodeBytesToBase64String()).Result;
         }
 

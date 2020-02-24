@@ -13,11 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wwb.wwbweibo.CrackDetect.Libs\Wwb.wwbweibo.CrackDetect.Libs.csproj" />
     <ProjectReference Include="..\Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj" />
-    <ProjectReference Include="..\Wwbweibo.CrackDetect.Redis\Wwbweibo.CrackDetect.Redis.csproj" />
-    <ProjectReference Include="..\Wwbweibo.CrackDetect.Tools\Wwbweibo.CrackDetect.Tools.csproj" />
-    <ProjectReference Include="..\Wwbweibo.CrackDetect.Zookeeper\Wwbweibo.CrackDetect.Zookeeper.csproj" />
-    <ProjectReference Include="..\Wwbwiebo.CrackDetect.Kafka\Wwbweibo.CrackDetect.Kafka.csproj" />
   </ItemGroup>
 
 

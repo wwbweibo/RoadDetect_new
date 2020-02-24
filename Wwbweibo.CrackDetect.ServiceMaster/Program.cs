@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Wwbweibo.CrackDetect.Kafka;
+using System;
+using Wwbweibo.CrackDetect.Libs.Kafka;
+using Wwbweibo.CrackDetect.Libs.Redis;
+using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
-using Wwbweibo.CrackDetect.Redis;
-using Wwbweibo.CrackDetect.ServiceMaster.Models;
-using Wwbweibo.CrackDetect.Zookeeper;
-using Newtonsoft.Json;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {

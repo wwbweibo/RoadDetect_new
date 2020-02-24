@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text;
 
-namespace Wwbweibo.CrackDetect.Tools.String
+namespace Wwbweibo.CrackDetect.Libs.Tools.String
 {
     public static class StringExtensions
     {

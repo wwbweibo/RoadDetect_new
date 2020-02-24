@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using StackExchange.Redis;
 using System.Linq;
-using System.Text;
-using StackExchange.Redis;
-using Wwbweibo.CrackDetect.Tools.String;
+using Wwbweibo.CrackDetect.Libs.Tools.String;
 
-namespace Wwbweibo.CrackDetect.Redis
+namespace Wwbweibo.CrackDetect.Libs.Redis
 {
     public class RedisClient
     {
@@ -33,8 +29,8 @@ namespace Wwbweibo.CrackDetect.Redis
 
         public string[] LPop(string key, int start = -1, int end = -1)
         {
-            if(start >= 0 && end >= start)
-                return database.ListRange(key,start, end).ConvertValuesToStrings();
+            if (start >= 0 && end >= start)
+                return database.ListRange(key, start, end).ConvertValuesToStrings();
             return database.ListRange(key).ConvertValuesToStrings();
         }
 
@@ -42,6 +38,16 @@ namespace Wwbweibo.CrackDetect.Redis
         {
 
             database.ListRightPush(key, values.ConvertStringsToRedisValues());
+        }
+
+        public void HSet(string key, string name, string value)
+        {
+            database.HashSet(key, name, value);
+        }
+
+        public string HGet(string key, string name)
+        {
+            return database.HashGet(key, name);
         }
     }
 

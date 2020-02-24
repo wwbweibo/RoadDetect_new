@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Confluent.Kafka;
-using Wwbweibo.CrackDetect.Redis;
+using Wwbweibo.CrackDetect.Libs.Redis;
 using Wwbweibo.CrackDetect.Models;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
@@ -24,7 +22,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             {
                 foreach (int logLevel in Enum.GetValues(typeof(LogLevel)))
                 {
-                    data.AddRange(redisClient.LPop( serviceType.ToString()+ logLevel.ToString()));
+                    data.AddRange(redisClient.LPop(serviceType.ToString() + logLevel.ToString()));
                 }
             }
 

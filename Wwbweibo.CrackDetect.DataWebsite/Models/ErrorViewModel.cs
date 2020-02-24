@@ -1,5 +1,3 @@
-using System;
-
 namespace Wwbweibo.CrackDetect.DataWebsite.Models
 {
     public class ErrorViewModel

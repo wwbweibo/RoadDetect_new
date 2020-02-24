@@ -2,11 +2,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Google.Protobuf.WellKnownTypes;
+using Wwbweibo.CrackDetect.Libs.Tools;
 using Wwbweibo.CrackDetect.Models;
-using Wwbweibo.CrackDetect.Tools;
 
-namespace Wwbweibo.CrackDetect.Kafka
+namespace Wwbweibo.CrackDetect.Libs.Kafka
 {
     public class KafkaClient
     {
@@ -30,7 +29,7 @@ namespace Wwbweibo.CrackDetect.Kafka
             {
                 try
                 {
-                    var msg = new KafkaMessageModel() {data = message, CreateTime = Tools.Tools.GetTimeStamp()};
+                    var msg = new KafkaMessageModel() { data = message, CreateTime = Tools.Tools.GetTimeStamp() };
                     var dr = await p.ProduceAsync(topic, new Message<Null, string> { Value = Tools.Tools.Parse2Json(msg) });
                 }
                 catch (ProduceException<Null, string> e)

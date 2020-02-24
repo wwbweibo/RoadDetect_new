@@ -9,7 +9,7 @@
     <None Remove="proto\LogLevel.proto" />
     <None Remove="proto\LogModel.proto" />
     <None Remove="proto\ServiceType.proto" />
-    <None Remove="proto\TaskModelBase.proto" />
+    <None Remove="proto\TaskModel.proto" />
     <None Remove="proto\TaskType.proto" />
   </ItemGroup>
 
@@ -27,7 +27,7 @@
     <Protobuf Include="proto\LogLevel.proto" />
     <Protobuf Include="proto\LogModel.proto" />
     <Protobuf Include="proto\ServiceType.proto" />
-    <Protobuf Include="proto\TaskModelBase.proto" GrpcServices="Both">
+    <Protobuf Include="proto\TaskModel.proto" GrpcServices="Both">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Protobuf>
     <Protobuf Include="proto\TaskType.proto" />

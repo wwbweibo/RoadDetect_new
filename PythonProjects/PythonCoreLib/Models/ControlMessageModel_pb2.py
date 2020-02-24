@@ -13,7 +13,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import PythonCoreLib.Models.ServiceType_pb2 as ServiceType__pb2
+import ServiceType_pb2 as ServiceType__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
