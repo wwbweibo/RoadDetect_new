@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MySql.Data.EntityFrameworkCore.Extensions;
+using Wwbweibo.CrackDetect.Libs.MySql;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {
@@ -19,6 +22,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<CrackDbContext>(options =>
+                options.UseMySQL(Configuration.GetConnectionString("CrackDetect")));
             CreateService();
         }
 

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='PythonCoreLib.Models',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0fTaskModel.proto\x12\x14PythonCoreLib.Models\"\xbf\x01\n\tTaskModel\x12\x13\n\x0bmajorTaskId\x18\x01 \x01(\t\x12\x15\n\rtaksStartTime\x18\x02 \x01(\t\x12\x11\n\tsubTaskId\x18\x03 \x01(\t\x12\x13\n\x0bsubTaskData\x18\x04 \x01(\t\x12\x13\n\x0bsubTaskTime\x18\x05 \x01(\t\x12\x11\n\tlongitude\x18\x06 \x01(\t\x12\x10\n\x08latitude\x18\x07 \x01(\t\x12\x12\n\nresultData\x18\x08 \x01(\t\x12\x10\n\x08resultId\x18\t \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\x0fTaskModel.proto\x12\x14PythonCoreLib.Models\"\xcc\x01\n\tTaskModel\x12\x13\n\x0bmajorTaskId\x18\x01 \x01(\t\x12\x15\n\rtaksStartTime\x18\x02 \x01(\t\x12\x11\n\tsubTaskId\x18\x03 \x01(\t\x12\x13\n\x0bsubTaskData\x18\x04 \x01(\t\x12\x13\n\x0bsubTaskTime\x18\x05 \x01(\t\x12\x30\n\x08position\x18\x06 \x01(\x0b\x32\x1e.PythonCoreLib.Models.Position\x12\x12\n\nresultData\x18\x08 \x01(\t\x12\x10\n\x08resultId\x18\t \x01(\t\"/\n\x08Position\x12\x11\n\tlongitude\x18\x01 \x01(\x01\x12\x10\n\x08latitude\x18\x02 \x01(\x01\x62\x06proto3')
 )
 
 
@@ -69,28 +69,21 @@ _TASKMODEL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='longitude', full_name='PythonCoreLib.Models.TaskModel.longitude', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='position', full_name='PythonCoreLib.Models.TaskModel.position', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='latitude', full_name='PythonCoreLib.Models.TaskModel.latitude', index=6,
-      number=7, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='resultData', full_name='PythonCoreLib.Models.TaskModel.resultData', index=7,
+      name='resultData', full_name='PythonCoreLib.Models.TaskModel.resultData', index=6,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='resultId', full_name='PythonCoreLib.Models.TaskModel.resultId', index=8,
+      name='resultId', full_name='PythonCoreLib.Models.TaskModel.resultId', index=7,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -109,10 +102,50 @@ _TASKMODEL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=42,
-  serialized_end=233,
+  serialized_end=246,
 )
 
+
+_POSITION = _descriptor.Descriptor(
+  name='Position',
+  full_name='PythonCoreLib.Models.Position',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='longitude', full_name='PythonCoreLib.Models.Position.longitude', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='latitude', full_name='PythonCoreLib.Models.Position.latitude', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=248,
+  serialized_end=295,
+)
+
+_TASKMODEL.fields_by_name['position'].message_type = _POSITION
 DESCRIPTOR.message_types_by_name['TaskModel'] = _TASKMODEL
+DESCRIPTOR.message_types_by_name['Position'] = _POSITION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 TaskModel = _reflection.GeneratedProtocolMessageType('TaskModel', (_message.Message,), {
@@ -121,6 +154,13 @@ TaskModel = _reflection.GeneratedProtocolMessageType('TaskModel', (_message.Mess
   # @@protoc_insertion_point(class_scope:PythonCoreLib.Models.TaskModel)
   })
 _sym_db.RegisterMessage(TaskModel)
+
+Position = _reflection.GeneratedProtocolMessageType('Position', (_message.Message,), {
+  'DESCRIPTOR' : _POSITION,
+  '__module__' : 'TaskModel_pb2'
+  # @@protoc_insertion_point(class_scope:PythonCoreLib.Models.Position)
+  })
+_sym_db.RegisterMessage(Position)
 
 
 # @@protoc_insertion_point(module_scope)

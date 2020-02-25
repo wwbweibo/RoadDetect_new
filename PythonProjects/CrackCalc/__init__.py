@@ -27,7 +27,7 @@ graph = tf.get_default_graph()
 
 serviceProcessTask = "CrackCalc"
 serviceName = "python-crackcalc-"+serviceId
-serviceTaskListenTopic = ['CrackCalc']
+serviceTaskListenTopic = ['TaskData']
 
 import CrackCalc.views
 

@@ -13,12 +13,14 @@ message TaskModel{
 	string subTaskData=4;
 	// 子任务时间
 	string subTaskTime=5;
-	// 经度
-	string longitude=6;
-	// 纬度
-	string latitude=7;
+	PythonCoreLib.Models.Position position=6;
 	// 最终结果图片
 	string resultData=8;
 	// 最终结果ID
 	string resultId=9;
+}
+
+message Position{
+    double longitude=1;
+    double latitude=2;
 }

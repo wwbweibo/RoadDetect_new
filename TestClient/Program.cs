@@ -24,8 +24,7 @@ namespace TestClient
             var taskModel = new TaskModel()
             {
                 MajorTaskId = majorTaskId.ToString(),
-                Latitude = "",
-                Longitude = "",
+                Position = new Position() { Latitude = 123.31, Longitude = 232.4232},
                 ResultData = "",
                 ResultId = "",
                 SubTaskData = "",
