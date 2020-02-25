@@ -14,10 +14,5 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
     {
         private readonly CrackDbContext dbContext;
 
-        public async Task<bool> CreateTask(TaskModel taskModel)
-        {
-            var task = new DbTask(){Id = Guid.Parse(taskModel.MajorTaskId), StartTime = DateTime.Parse(taskModel.TaksStartTime)};
-            return await dbContext.CreateTask(task);
-        }
     }
 }

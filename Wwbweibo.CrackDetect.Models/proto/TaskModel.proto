@@ -5,8 +5,6 @@ package Wwbweibo.CrackDetect.Models;
 message TaskModel{
 	// 任务ID
 	string majorTaskId=1;
-	// 任务开始时间
-	string taksStartTime=2;
 	// 子任务ID
 	string subTaskId=3;
 	// 子任务数据

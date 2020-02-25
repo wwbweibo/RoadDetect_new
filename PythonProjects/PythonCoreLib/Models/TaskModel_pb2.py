@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='PythonCoreLib.Models',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0fTaskModel.proto\x12\x14PythonCoreLib.Models\"\xcc\x01\n\tTaskModel\x12\x13\n\x0bmajorTaskId\x18\x01 \x01(\t\x12\x15\n\rtaksStartTime\x18\x02 \x01(\t\x12\x11\n\tsubTaskId\x18\x03 \x01(\t\x12\x13\n\x0bsubTaskData\x18\x04 \x01(\t\x12\x13\n\x0bsubTaskTime\x18\x05 \x01(\t\x12\x30\n\x08position\x18\x06 \x01(\x0b\x32\x1e.PythonCoreLib.Models.Position\x12\x12\n\nresultData\x18\x08 \x01(\t\x12\x10\n\x08resultId\x18\t \x01(\t\"/\n\x08Position\x12\x11\n\tlongitude\x18\x01 \x01(\x01\x12\x10\n\x08latitude\x18\x02 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0fTaskModel.proto\x12\x14PythonCoreLib.Models\"\xb5\x01\n\tTaskModel\x12\x13\n\x0bmajorTaskId\x18\x01 \x01(\t\x12\x11\n\tsubTaskId\x18\x03 \x01(\t\x12\x13\n\x0bsubTaskData\x18\x04 \x01(\t\x12\x13\n\x0bsubTaskTime\x18\x05 \x01(\t\x12\x30\n\x08position\x18\x06 \x01(\x0b\x32\x1e.PythonCoreLib.Models.Position\x12\x12\n\nresultData\x18\x08 \x01(\t\x12\x10\n\x08resultId\x18\t \x01(\t\"/\n\x08Position\x12\x11\n\tlongitude\x18\x01 \x01(\x01\x12\x10\n\x08latitude\x18\x02 \x01(\x01\x62\x06proto3')
 )
 
 
@@ -41,49 +41,42 @@ _TASKMODEL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='taksStartTime', full_name='PythonCoreLib.Models.TaskModel.taksStartTime', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='subTaskId', full_name='PythonCoreLib.Models.TaskModel.subTaskId', index=2,
+      name='subTaskId', full_name='PythonCoreLib.Models.TaskModel.subTaskId', index=1,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='subTaskData', full_name='PythonCoreLib.Models.TaskModel.subTaskData', index=3,
+      name='subTaskData', full_name='PythonCoreLib.Models.TaskModel.subTaskData', index=2,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='subTaskTime', full_name='PythonCoreLib.Models.TaskModel.subTaskTime', index=4,
+      name='subTaskTime', full_name='PythonCoreLib.Models.TaskModel.subTaskTime', index=3,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='position', full_name='PythonCoreLib.Models.TaskModel.position', index=5,
+      name='position', full_name='PythonCoreLib.Models.TaskModel.position', index=4,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='resultData', full_name='PythonCoreLib.Models.TaskModel.resultData', index=6,
+      name='resultData', full_name='PythonCoreLib.Models.TaskModel.resultData', index=5,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='resultId', full_name='PythonCoreLib.Models.TaskModel.resultId', index=7,
+      name='resultId', full_name='PythonCoreLib.Models.TaskModel.resultId', index=6,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -102,7 +95,7 @@ _TASKMODEL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=42,
-  serialized_end=246,
+  serialized_end=223,
 )
 
 
@@ -139,8 +132,8 @@ _POSITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=248,
-  serialized_end=295,
+  serialized_start=225,
+  serialized_end=272,
 )
 
 _TASKMODEL.fields_by_name['position'].message_type = _POSITION

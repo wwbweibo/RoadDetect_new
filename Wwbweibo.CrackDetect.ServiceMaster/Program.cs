@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Threading;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.Redis;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
@@ -42,6 +43,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
             zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
             redisClient = new RedisClient(configuration.GetValue<string>("RedisHost"), configuration.GetValue<string>("RedisPort"));
             RegisterSelf();
+            
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -56,6 +58,18 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         public static void RegisterSelf()
         {
             zkClient.RegisterService(ServiceType.MasterService.ToString(), ServiceId);
+        }
+
+        /// <summary>
+        /// 初始化消息监听
+        /// </summary>
+        public static void InitMessageListener()
+        {
+            kafkaClient.ListenMessage(new String []{((int)MessageTopicEnum.TaskControl).ToString(),
+                ((int)MessageTopicEnum.TaskItemData).ToString(),
+                ((int)MessageTopicEnum.TaskCalc).ToString()
+                }, ((int)ServiceType.MasterService).ToString(), new CancellationTokenSource());
+            kafkaClient.OnMessage += (sender, message) => { };
         }
     }
 }

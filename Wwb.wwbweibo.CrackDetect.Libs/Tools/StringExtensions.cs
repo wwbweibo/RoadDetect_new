@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Google.Protobuf;
 
 namespace Wwbweibo.CrackDetect.Libs.Tools.String
 {
@@ -54,6 +56,15 @@ namespace Wwbweibo.CrackDetect.Libs.Tools.String
         public static int ToInt(this string s)
         {
             return int.Parse(s);
+        }
+
+        public static string ToB64Data(this IMessage message)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                message.WriteTo(ms);
+                return ms.GetBuffer().EncodeBytesToBase64String();
+            }
         }
     }
 }

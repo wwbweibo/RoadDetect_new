@@ -11,10 +11,26 @@ base-env中包含了项目运行的基本环境，请首先在要使用的环境
 ## 微服务消息的基本规约
 
 服务只监听自己感兴趣的消息，任何消息需要携带上消息的发送时间（已经在发送消息之间进行了统一的处理）
+在消息发送和接受时一致使用枚举值。
+
+```protobuf
+消息枚举定义
+enum MessageTopicEnum{
+	// 任务控制消息
+	TaskControl = 0;
+	// 任务数据消息
+	TaskItemData = 1;
+	// 任务计算消息
+	TaskCalc = 2;
+	// 服务控制消息
+	ControlMessage = 4;
+}
+```
+
 图像采集微服务：
 	发送：
 	TaskControl	任务的新建和结束
-	TaskData	任务数据
+	TaskItemData	任务数据
 	接受：
 	ControlMessage	控制消息
 图像计算服务：

@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package PythonCoreLib.Models;
+
+enum MessageTopicEnum{
+	// 任务控制消息
+	TaskControl = 0;
+	// 任务数据消息
+	TaskItemData = 1;
+	// 任务计算消息
+	TaskCalc = 2;
+	// 服务控制消息
+	ControlMessage = 4;
+}
