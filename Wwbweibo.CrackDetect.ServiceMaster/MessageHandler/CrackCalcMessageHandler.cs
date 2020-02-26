@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf;
-using Org.BouncyCastle.Asn1.Crmf;
 using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Models;

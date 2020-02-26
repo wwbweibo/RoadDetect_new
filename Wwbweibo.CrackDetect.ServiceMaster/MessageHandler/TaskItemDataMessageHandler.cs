@@ -25,11 +25,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
             {
                 Area = 0,
                 Data = taskModel.SubTaskData,
-                Id = taskModel.SubTaskId,
+                Id = Guid.Parse(taskModel.SubTaskId),
                 IsCrack = false,
                 Latitude = taskModel.Position.Latitude,
                 Longitude = taskModel.Position.Longitude,
-                MajorTaskId = taskModel.MajorTaskId
+                MajorTaskId = Guid.Parse(taskModel.MajorTaskId),
+                MarkedData = ""
             });
             dbContext.SaveChanges();
 

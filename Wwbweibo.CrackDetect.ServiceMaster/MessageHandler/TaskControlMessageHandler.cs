@@ -33,7 +33,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
         {
             dbContext.Tasks.Add(new DbTask()
             {
-                Id = taskControlModel.Id,
+                Id = Guid.Parse(taskControlModel.Id),
                 CrackTotalCount = 0,
                 DataTotalCount = 0,
                 CreateTime = DateTime.Parse(taskControlModel.Time)
@@ -43,9 +43,13 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 
         private void StopTaskHandler(TaskControlModel taskControlModel)
         {
-            var task = dbContext.Tasks.FirstOrDefault(p => p.Id == taskControlModel.Id);
-            task.EndTime = DateTime.Now;
-            dbContext.SaveChanges();
+            var task = dbContext.Tasks.FirstOrDefault(p => p.Id == Guid.Parse(taskControlModel.Id));
+            if (task != null)
+            {
+                task.EndTime = DateTime.Now;
+                dbContext.Tasks.Update(task);
+                dbContext.SaveChanges();
+            }
         }
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using Org.BouncyCastle.Asn1.Crmf;
 
 namespace Wwbweibo.CrackDetect.Libs.MySql.Entity
 {
     public class TaskItem
     {
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         [Column("data")]
         public String Data { get; set; }
         [Column("area")]
@@ -23,8 +22,9 @@ namespace Wwbweibo.CrackDetect.Libs.MySql.Entity
         public double Longitude { get; set; }
         [Column("latitude")]
         public double Latitude { get; set; }
+        
         [Column("major_task_id")]
-        public string MajorTaskId { get; set; }
+        public Guid MajorTaskId { get; set; }
         [ForeignKey("MajorTaskId")]
         public Task Task { get; set; }
     }
