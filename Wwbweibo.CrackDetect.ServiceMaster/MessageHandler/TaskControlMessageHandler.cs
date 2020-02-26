@@ -31,24 +31,31 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 
         private void StartTaskHandler(TaskControlModel taskControlModel)
         {
-            dbContext.Tasks.Add(new DbTask()
+            lock (CrackDbContext.obj)
             {
-                Id = Guid.Parse(taskControlModel.Id),
-                CrackTotalCount = 0,
-                DataTotalCount = 0,
-                CreateTime = DateTime.Parse(taskControlModel.Time)
-            });
-            dbContext.SaveChanges();
+
+                dbContext.Tasks.Add(new DbTask()
+                {
+                    Id = Guid.Parse(taskControlModel.Id),
+                    CrackTotalCount = 0,
+                    DataTotalCount = 0,
+                    CreateTime = DateTime.Parse(taskControlModel.Time)
+                });
+                dbContext.SaveChanges();
+            }
         }
 
         private void StopTaskHandler(TaskControlModel taskControlModel)
         {
-            var task = dbContext.Tasks.FirstOrDefault(p => p.Id == Guid.Parse(taskControlModel.Id));
-            if (task != null)
+            lock (CrackDbContext.obj)
             {
-                task.EndTime = DateTime.Now;
-                dbContext.Tasks.Update(task);
-                dbContext.SaveChanges();
+                var task = dbContext.Tasks.FirstOrDefault(p => p.Id == Guid.Parse(taskControlModel.Id));
+                if (task != null)
+                {
+                    task.EndTime = DateTime.Now;
+                    dbContext.Tasks.Update(task);
+                    dbContext.SaveChanges();
+                }
             }
         }
     }

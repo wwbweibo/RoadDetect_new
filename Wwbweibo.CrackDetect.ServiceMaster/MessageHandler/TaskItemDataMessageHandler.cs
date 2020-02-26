@@ -21,18 +21,21 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
         {
             TaskModel taskModel = new TaskModel();
             taskModel.MergeFrom(message.DecodeBase64String());
-            dbContext.TaskItems.Add(new TaskItem()
+            lock (CrackDbContext.obj)
             {
-                Area = 0,
-                Data = taskModel.SubTaskData,
-                Id = Guid.Parse(taskModel.SubTaskId),
-                IsCrack = false,
-                Latitude = taskModel.Position.Latitude,
-                Longitude = taskModel.Position.Longitude,
-                MajorTaskId = Guid.Parse(taskModel.MajorTaskId),
-                MarkedData = ""
-            });
-            dbContext.SaveChanges();
+                dbContext.TaskItems.Add(new TaskItem()
+                {
+                    Area = 0,
+                    Data = taskModel.SubTaskData,
+                    Id = Guid.Parse(taskModel.SubTaskId),
+                    IsCrack = false,
+                    Latitude = taskModel.Position.Latitude,
+                    Longitude = taskModel.Position.Longitude,
+                    MajorTaskId = Guid.Parse(taskModel.MajorTaskId),
+                    MarkedData = ""
+                });
+                dbContext.SaveChanges();
+            }
 
         }
     }
