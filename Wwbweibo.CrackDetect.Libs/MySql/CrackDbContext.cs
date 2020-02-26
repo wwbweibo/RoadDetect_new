@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Wwbweibo.CrackDetect.Libs.MySql
             return await SaveChangesAsync() > 1;
         }
 
-        public Entity.Task GetTask(Guid id)
+        public Entity.Task GetTask(string id)
         {
             return Tasks.FirstOrDefault(p => p.Id == id);
         }

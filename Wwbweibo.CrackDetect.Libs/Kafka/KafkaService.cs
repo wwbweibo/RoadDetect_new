@@ -2,20 +2,19 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Wwbweibo.CrackDetect.Libs.Tools;
 using Wwbweibo.CrackDetect.Models;
 
 namespace Wwbweibo.CrackDetect.Libs.Kafka
 {
-    public class KafkaClient
+    public class KafkaService : IKafkaService
     {
         public string Server { get; private set; }
         public string Port { get; private set; }
 
-        public delegate void OnMessageHandler(object sender, string message);
-        public event OnMessageHandler OnMessage;
-
-        public KafkaClient(string server, string port)
+        public KafkaService(string server, string port)
         {
             this.Server = server;
             this.Port = port;
@@ -34,14 +33,13 @@ namespace Wwbweibo.CrackDetect.Libs.Kafka
                 }
                 catch (ProduceException<Null, string> e)
                 {
-                    Logger.Error($"Delivery failed: {e.Error.Reason}", e);
                     return false;
                 }
             }
             return true;
         }
 
-        public void ListenMessage(string[] topics, string groupId, CancellationTokenSource cts)
+        public void ListenMessage(string[] topics, string groupId, CancellationTokenSource cts, Action<object,string> onMessageCallback)
         {
             var conf = new ConsumerConfig
             {
@@ -65,12 +63,12 @@ namespace Wwbweibo.CrackDetect.Libs.Kafka
                             {
                                 continue;
                             }
-                            Logger.Info($"kafka message arrive: {cr.Value}");
-                            OnMessage?.Invoke(this, cr.Value);
+
+                            var message = JsonConvert.DeserializeObject<KafkaMessageModel>(cr.Value);
+                            onMessageCallback.Invoke(this, message.data);
                         }
                         catch (ConsumeException e)
                         {
-                            Logger.Error($"Error occured: {e.Error.Reason}", e);
                         }
                     }
                 }

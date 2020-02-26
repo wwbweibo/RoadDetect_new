@@ -15,5 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj" />
   </ItemGroup>
-
 </Project>

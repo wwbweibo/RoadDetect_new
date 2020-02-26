@@ -11,12 +11,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
     public class MasterService
     {
-        private static KafkaClient kafkaClient;
+        private static KafkaService kafkaClient;
         private static ZookeeperClient zkClient;
 
         public MasterService()
         {
-            kafkaClient = Program.GetKafkaClient();
             zkClient = Program.GetZookeeperClient();
         }
 

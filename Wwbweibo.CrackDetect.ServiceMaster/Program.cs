@@ -3,28 +3,30 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Wwbweibo.CrackDetect.Libs.Kafka;
+using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Redis;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
+using Wwbweibo.CrackDetect.ServiceMaster.Services;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {
     public class Program
     {
-        private static KafkaClient kafkaClient;
         private static ZookeeperClient zkClient;
         private static RedisClient redisClient;
         private static readonly Guid ServiceId = Guid.NewGuid();
 
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static KafkaClient GetKafkaClient()
-        {
-            return kafkaClient;
+            var host  = CreateHostBuilder(args).Build();
+            // 启动消息监听
+            host.Services.GetService<MessageListenerService>()
+                .StartMessageListener(new[] { MessageTopicEnum.TaskItemData, MessageTopicEnum.TaskControl, MessageTopicEnum.TaskCalc });
+            host.StartAsync();
         }
 
         public static RedisClient GetRedisClient()
@@ -39,7 +41,6 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
 
         public static void InitServer(IConfiguration configuration)
         {
-            kafkaClient = new KafkaClient("ali.wwbweibo.me", "9092");
             zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
             redisClient = new RedisClient(configuration.GetValue<string>("RedisHost"), configuration.GetValue<string>("RedisPort"));
             RegisterSelf();
@@ -47,6 +48,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
@@ -60,16 +62,5 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
             zkClient.RegisterService(ServiceType.MasterService.ToString(), ServiceId);
         }
 
-        /// <summary>
-        /// 初始化消息监听
-        /// </summary>
-        public static void InitMessageListener()
-        {
-            kafkaClient.ListenMessage(new String []{((int)MessageTopicEnum.TaskControl).ToString(),
-                ((int)MessageTopicEnum.TaskItemData).ToString(),
-                ((int)MessageTopicEnum.TaskCalc).ToString()
-                }, ((int)ServiceType.MasterService).ToString(), new CancellationTokenSource());
-            kafkaClient.OnMessage += (sender, message) => { };
-        }
     }
 }

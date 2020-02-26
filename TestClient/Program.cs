@@ -14,7 +14,7 @@ namespace TestClient
     {
         static void Main(string[] args)
         {
-            KafkaClient client = new KafkaClient("ali.wwbweibo.me", "9092");
+            KafkaService client = new KafkaService("ali.wwbweibo.me", "9092");
             var majorTaskId = Guid.NewGuid();
             // 首先开始一个任务
             var taskControlMessage = new TaskControlModel(){Id = majorTaskId.ToString(), Action = "START", Time = DateTime.Now.ToString()};

@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.EntityFrameworkCore.Extensions;
 using Wwbweibo.CrackDetect.Libs.MySql;
+using Wwbweibo.CrackDetect.Libs.Kafka;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {
@@ -21,10 +24,15 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddDbContext<CrackDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("CrackDetect")));
-            CreateService();
+            services.AddControllersWithViews();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac, like:
+            builder.RegisterModule(new AutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,11 +58,6 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-        }
-
-        public void CreateService()
-        {
-            Program.InitServer(Configuration);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Wwbweibo.CrackDetect.Libs.Tools.String
             using (MemoryStream ms = new MemoryStream())
             {
                 message.WriteTo(ms);
-                return ms.GetBuffer().EncodeBytesToBase64String();
+                return ms.ToArray().EncodeBytesToBase64String();
             }
         }
     }
