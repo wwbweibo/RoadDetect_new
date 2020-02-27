@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package PythonCoreLib.Models;
+
+message TaskControlModel{
+	// 任务ID
+	string id=1;
+	// 任务操作
+	string action=2;
+	// 操作的时间
+	string time=3;
+}

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package PythonCoreLib.Models;
+
+enum TaskType{
+	DataCollect = 0;
+	PreProcess = 1;
+	CrackCalc = 2;
+}
