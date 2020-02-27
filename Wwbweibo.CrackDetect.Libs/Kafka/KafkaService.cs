@@ -1,10 +1,8 @@
 ﻿using Confluent.Kafka;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Wwbweibo.CrackDetect.Libs.Tools;
 using Wwbweibo.CrackDetect.Models;
 
 namespace Wwbweibo.CrackDetect.Libs.Kafka
@@ -39,7 +37,7 @@ namespace Wwbweibo.CrackDetect.Libs.Kafka
             return true;
         }
 
-        public void ListenMessage(string[] topics, string groupId, CancellationTokenSource cts, Action<object,string> onMessageCallback)
+        public void ListenMessage(string[] topics, string groupId, CancellationTokenSource cts, Action<object, string> onMessageCallback)
         {
             var conf = new ConsumerConfig
             {

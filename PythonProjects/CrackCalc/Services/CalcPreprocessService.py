@@ -41,12 +41,18 @@ class PreProcessService:
         '''
         image = self.__load_data__(task, datatype)
         if(image.shape[0] != image.shape[1] and image.shape[0] != 1024):
-            raise Exception("input image shape error, require 1024 * 1024 image")
-        image = self.convert_color_gray(image)
+            image = self.resize_img1(image)
+        if len(image.shape) == 3:
+            image = self.convert_color_gray(image)
         image_block, serailized_image_block = self.cut_image(image)
-        return image_block, serailized_image_block
+        return image_block, image
 
     def cut_image(self, image):
+        '''
+        图像分割
+        :param image: 输入图像
+        :return:
+        '''
         im_list = []
         for i in range(64):
             for j in  range(64):
@@ -63,30 +69,13 @@ class PreProcessService:
         将bgr的图片转化为灰度图
         """
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    
-    def resize_img(self, width=1024):
-        """
-        缩放图像大小，默认为1024
-        @param width: 图像缩放至的宽度
-        """
-        self.image = cv2.resize(self.image,(width, int(width * self.img.shape[0] / self.img.shape[1])))
-        # 检查灰度图的大小
-        if self.gray_img is not None or self.gray_img.shape[0] != self.gray_img[1] != 1024:
-            self.gray_image = cv2.resize(self.gray_image,(width, int(width * img.shape[0] / img.shape[1])))
 
-    def resize_img1(self, width=1024, height=1024):
-        self.image = cv2.resize(self.image, (width, height))
-             
-
-    def convert_color(self,image, code=cv2.COLOR_BGR2GRAY):
-        """
-        调整图像的色彩空间
-        """
-        return cv2.cvtColor(image, code)
+    def resize_img1(self, image,width=1024, height=1024):
+        return cv2.resize(image, (width, height))
 
     def center_avg_imp(self, img, ksize=10):
         """
-        improve the image pixels by image center pixel average
+        提升图像质量保证图像各部分亮度一致
         """
         new_img = np.copy(img)
 

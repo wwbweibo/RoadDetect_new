@@ -1,7 +1,7 @@
 from CrackCalc.Services.DeepLearningModel.MainModel import URD
 from PythonCoreLib.Redis.RedisClient import RedisClient
-from PythonCoreLib.Utils.Utils import decode_bytes_image, decode_b64_to_bytes, encode_bytes_data_b64, decode_bytes_numpy_array
-
+import numpy as np
+import cv2
 
 class CalcService:
     """description of class"""
@@ -9,7 +9,17 @@ class CalcService:
         self.Model = URD(conf['auto_encoder_weight'], conf['urd_weight'])
         self.redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 
-    def execute_calc(self, data):
+    def execute_calc(self, data, image):
         result = self.Model.execute_calc(data)
-        crackNumbers = result.where(result == 0)[0]
-        return crackNumbers
+        idx = np.where(result == 0)[0]
+        if len(idx) > 0:
+            im = self.draw_bounding_box(image, idx)
+            return True, image
+        return False, None
+
+    def draw_bounding_box(self, image, idx):
+        for i in idx:
+            y = int(i / 64) * 16
+            x = (i % 64) * 16
+            image = cv2.rectangle(image, (x,y), (x+16,y+16),0,2)
+        return image

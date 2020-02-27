@@ -4,7 +4,7 @@ using Wwbweibo.CrackDetect.Libs.Tools.String;
 
 namespace Wwbweibo.CrackDetect.Libs.Redis
 {
-    public class RedisClient
+    public class RedisClient : IRedisClient
     {
         private static ConnectionMultiplexer connection;
         private static IDatabase database;

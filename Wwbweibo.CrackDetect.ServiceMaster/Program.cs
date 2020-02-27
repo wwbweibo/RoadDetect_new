@@ -1,12 +1,9 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Threading;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Wwbweibo.CrackDetect.Libs.Kafka;
-using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Redis;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
@@ -22,7 +19,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
 
         public static void Main(string[] args)
         {
-            var host  = CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
             // Æô¶¯ÏûÏ¢¼àÌý
             host.Services.GetService<MessageListenerService>()
                 .StartMessageListener(new[] { MessageTopicEnum.TaskItemData, MessageTopicEnum.TaskControl, MessageTopicEnum.TaskCalc });
@@ -45,7 +42,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
             zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
             redisClient = new RedisClient(configuration.GetValue<string>("RedisHost"), configuration.GetValue<string>("RedisPort"));
             RegisterSelf();
-            
+
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -60,7 +57,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         /// </summary>
         public static void RegisterSelf()
         {
-            zkClient.RegisterService(ServiceType.MasterService + "", ServiceId);
+            zkClient.RegisterService((int)ServiceType.MasterService + "", ServiceId);
         }
 
     }

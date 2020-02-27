@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Google.Protobuf;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Google.Protobuf;
 using Wwbweibo.CrackDetect.Libs.MySql;
-using DbTask = Wwbweibo.CrackDetect.Libs.MySql.Entity.Task;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Models;
+using DbTask = Wwbweibo.CrackDetect.Libs.MySql.Entity.Task;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 {
-    public class TaskControlMessageHandler:BaseMessageHandler
+    public class TaskControlMessageHandler : BaseMessageHandler
     {
         public TaskControlMessageHandler(CrackDbContext dbContext) : base(dbContext)
         {
@@ -23,7 +21,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
             if (taskControlModel.Action == "START")
             {
                 StartTaskHandler(taskControlModel);
-            }else if (taskControlModel.Action == "STOP")
+            }
+            else if (taskControlModel.Action == "STOP")
             {
                 StopTaskHandler(taskControlModel);
             }

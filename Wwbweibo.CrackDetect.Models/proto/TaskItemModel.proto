@@ -2,21 +2,15 @@
 
 package Wwbweibo.CrackDetect.Models;
 
-message TaskModel{
+message TaskItemModel{
 	// 任务ID
 	string majorTaskId=1;
 	// 子任务ID
 	string subTaskId=3;
-	// 子任务数据
-	string subTaskData=4;
 	// 子任务时间
 	string subTaskTime=5;
 	// 地理位置
 	.Wwbweibo.CrackDetect.Models.Position position=6;
-	// 最终结果图片
-	string resultData=8;
-	// 最终结果ID
-	string resultId=9;
 }
 
 message Position{

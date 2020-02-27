@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
-using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
 
 namespace Wwbweibo.CrackDetect.Libs.Zookeeper

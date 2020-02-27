@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.MySql;
@@ -29,18 +26,18 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 {
                     case MessageTopicEnum.TaskControl:
                         Task.Run(() =>
-                            kafkaService.ListenMessage(new string[] {((int) topic).ToString()},
+                            kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
                                 ServiceType.MasterService.ToString(),
                                 new CancellationTokenSource(), new TaskControlMessageHandler(dbContext).HandelMessage));
                         break;
                     case MessageTopicEnum.TaskItemData:
-                        Task.Run( ()=>
-                        kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
-                            ServiceType.MasterService.ToString(),
-                            new CancellationTokenSource(), new TaskItemDataMessageHandler(dbContext).HandelMessage));
+                        Task.Run(() =>
+                       kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
+                           ServiceType.MasterService.ToString(),
+                           new CancellationTokenSource(), new TaskItemDataMessageHandler(dbContext).HandelMessage));
                         break;
                     case MessageTopicEnum.TaskCalc:
-                        Task.Run(()=>
+                        Task.Run(() =>
                         kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
                             ServiceType.MasterService.ToString(),
                             new CancellationTokenSource(), new CrackCalcMessageHandler(dbContext).HandelMessage));

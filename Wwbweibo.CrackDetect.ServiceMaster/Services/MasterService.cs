@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Wwbweibo.CrackDetect.Libs.Kafka;
-using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
+using Wwbweibo.CrackDetect.Models;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
@@ -31,7 +31,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             foreach (TaskType task in Enum.GetValues(typeof(TaskType)))
             {
                 var path =
-                    ConstData.TodoTaskPath.Format(task.ToString(), "");
+                    ConstData.TodoTaskPath.Format((int)task + "", "");
                 path = path.Remove(path.LastIndexOf('/'));
                 result.Add(task, zkClient.ListChildren(path));
             }
@@ -79,7 +79,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var result = new Dictionary<ServiceType, List<string>>();
             foreach (ServiceType serviceType in Enum.GetValues(typeof(ServiceType)))
             {
-                var servicePath = ConstData.ServicePath.Format(serviceType+"", "");
+                var servicePath = ConstData.ServicePath.Format((int)serviceType + "", "");
                 servicePath = servicePath.Remove(servicePath.LastIndexOf('/'));
                 var services = zkClient.ListChildren(servicePath);
                 result.Add(serviceType, services);
@@ -101,7 +101,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public bool StopService(ServiceType serviceType, string serviceId)
         {
             ControlMessageModel message = new ControlMessageModel() { Data = "STOP", ReceiveServiceId = serviceId, ServiceType = serviceType };
-            return kafkaClient.SendMessageAsync(MessageTopicEnum.ControlMessage +"", message.ToByteArray().EncodeBytesToBase64String()).Result;
+            return kafkaClient.SendMessageAsync((int)MessageTopicEnum.ControlMessage + "", message.ToByteArray().EncodeBytesToBase64String()).Result;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var taskList = ListUndoingTask(taskType);
             foreach (var task in taskList)
             {
-                kafkaClient.SendMessageAsync(MessageTopicEnum.TaskItemData+"", task).GetAwaiter().GetResult();
+                kafkaClient.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", task).GetAwaiter().GetResult();
             }
         }
     }

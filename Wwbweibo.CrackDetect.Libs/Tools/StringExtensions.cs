@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.IO;
-using Google.Protobuf;
 
 namespace Wwbweibo.CrackDetect.Libs.Tools.String
 {

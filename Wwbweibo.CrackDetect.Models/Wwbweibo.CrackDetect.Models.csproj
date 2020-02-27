@@ -11,7 +11,8 @@
     <None Remove="proto\MessageTopicEnum.proto" />
     <None Remove="proto\ServiceType.proto" />
     <None Remove="proto\TaskControlModel.proto" />
-    <None Remove="proto\TaskModel.proto" />
+    <None Remove="proto\TaskItemModel.proto" />
+    <None Remove="proto\TaskResultModel.proto" />
     <None Remove="proto\TaskType.proto" />
   </ItemGroup>
 
@@ -31,9 +32,10 @@
     <Protobuf Include="proto\MessageTopicEnum.proto" />
     <Protobuf Include="proto\ServiceType.proto" />
     <Protobuf Include="proto\TaskControlModel.proto" />
-    <Protobuf Include="proto\TaskModel.proto" GrpcServices="Both">
+    <Protobuf Include="proto\TaskItemModel.proto" GrpcServices="Both">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Protobuf>
+    <Protobuf Include="proto\TaskResultModel.proto" />
     <Protobuf Include="proto\TaskType.proto" />
   </ItemGroup>
 

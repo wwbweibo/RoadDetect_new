@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+
+package Wwbweibo.CrackDetect.Models;
+
+message TaskResultModel{
+	// 任务ID
+	string majorTaskId=1;
+	// 子任务ID
+	string subTaskId=2;
+	// 子任务时间
+	string subTaskTime=3;
+	// 是否时裂缝图片
+	bool isCrack=4;
+	// 面积
+	double crackArea=5;
+}

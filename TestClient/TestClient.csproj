@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Wwbweibo.CrackDetect.Models\Wwbweibo.CrackDetect.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

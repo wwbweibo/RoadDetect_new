@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Wwbweibo.CrackDetect.Libs.MySql.Entity
 {
@@ -22,7 +20,7 @@ namespace Wwbweibo.CrackDetect.Libs.MySql.Entity
         public double Longitude { get; set; }
         [Column("latitude")]
         public double Latitude { get; set; }
-        
+
         [Column("major_task_id")]
         public Guid MajorTaskId { get; set; }
         [ForeignKey("MajorTaskId")]

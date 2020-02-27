@@ -22,6 +22,10 @@ def encode_bytes_data_b64(data):
     return base64.b64encode(data)
 
 
+def encode_image_b64(np_arr):
+    return encode_bytes_data_b64(cv2.imencode(".jpg", np_arr))
+
+
 def decode_bytes_numpy_array(data):
     """
     decode bytes to numpy array

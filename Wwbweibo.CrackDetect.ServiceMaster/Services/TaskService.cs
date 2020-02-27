@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wwbweibo.CrackDetect.Libs.MySql;
-using Wwbweibo.CrackDetect.Libs.MySql.Entity;
-using Wwbweibo.CrackDetect.Models;
-using DbTask = Wwbweibo.CrackDetect.Libs.MySql.Entity.Task;
+﻿using Wwbweibo.CrackDetect.Libs.MySql;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
