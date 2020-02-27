@@ -27,11 +27,7 @@
                     @log.LogLevel.ToString()
                 </td>
                 <td>
-                    @if (log.OriginServiceType == ServiceType.PreProcessService)
-                    {
-                        <label>图像预处理服务</label>
-                    }
-                    else if (log.OriginServiceType == ServiceType.CrackCalcService)
+                    @if (log.OriginServiceType == ServiceType.DataCalc)
                     {
                         <label>图像计算服务</label>
                     }

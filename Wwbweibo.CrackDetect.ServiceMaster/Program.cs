@@ -26,6 +26,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
             // Æô¶¯ÏûÏ¢¼àÌý
             host.Services.GetService<MessageListenerService>()
                 .StartMessageListener(new[] { MessageTopicEnum.TaskItemData, MessageTopicEnum.TaskControl, MessageTopicEnum.TaskCalc });
+            InitServer(host.Services.GetService<IConfiguration>());
             host.StartAsync();
         }
 
@@ -59,7 +60,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
         /// </summary>
         public static void RegisterSelf()
         {
-            zkClient.RegisterService(ServiceType.MasterService.ToString(), ServiceId);
+            zkClient.RegisterService(ServiceType.MasterService + "", ServiceId);
         }
 
     }

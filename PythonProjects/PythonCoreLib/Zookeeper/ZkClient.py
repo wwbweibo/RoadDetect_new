@@ -31,26 +31,26 @@ class ZkClient:
         if self.zk.exists(node):
             return self.zk.get(node)
 
-    def register_service(self, service_name, service_type):
+    def register_service(self, service_type, service_id):
         '''
         用于向zookeeper注册远程服务
         使用一个临时节点表示一个特定的服务实例
         '''
-        path = ConstData.ServicePath % (service_type, service_name)
+        path = ConstData.ServicePath % (service_type, service_id)
         self.zk.create(path,None,ephemeral=True, makepath=True)
 
-    def create_task(self, task_type, task_id):
-        todopath = ConstData.TodoTaskPath % (task_type, task_id)
+    def create_task(self, major_task_id, sub_task_id):
+        todopath = ConstData.TodoTaskPath % (major_task_id, sub_task_id)
         self.zk.create(todopath, makepath=True)
 
-    def require_task(self, task_type, task_id, service_id):
+    def require_task(self, major_task_id, sub_task_id, service_id):
         '''
         向zk请求一个任务
         首先向特定的任务类型节点下请求一个临时节点，如果没有报错，则表示任务请求成功，否则任务请求失败
         service_id指定了执行任务的服务
         '''
-        todopath = ConstData.TodoTaskPath % (task_type, task_id)
-        path = ConstData.InProgressPath % (task_type, task_id)
+        todopath = ConstData.TodoTaskPath % (major_task_id, sub_task_id)
+        path = ConstData.InProgressPath % (major_task_id, sub_task_id)
         try:
             # 首先确认待办中存在对应的节点
             if self.zk.exists(todopath):
@@ -64,9 +64,9 @@ class ZkClient:
             # 出现异常，任务请求失败
             return False
 
-    def finish_task(self, task_type, task_id):
-        todopath = ConstData.TodoTaskPath % (task_type, task_id)
-        path = ConstData.InProgressPath % (task_type, task_id)
+    def finish_task(self, major_task_id, task_id):
+        todopath = ConstData.TodoTaskPath % (major_task_id, task_id)
+        path = ConstData.InProgressPath % (major_task_id, task_id)
         self.zk.delete(todopath)
         self.zk.delete(path)
 

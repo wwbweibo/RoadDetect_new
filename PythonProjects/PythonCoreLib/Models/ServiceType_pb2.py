@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='PythonCoreLib.Models',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x11ServiceType.proto\x12\x14PythonCoreLib.Models*M\n\x0bServiceType\x12\x11\n\rMasterService\x10\x00\x12\x15\n\x11PreProcessService\x10\x01\x12\x14\n\x10\x43rackCalcService\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n\x11ServiceType.proto\x12\x14PythonCoreLib.Models*?\n\x0bServiceType\x12\x11\n\rMasterService\x10\x00\x12\x0f\n\x0b\x44\x61taCollect\x10\x01\x12\x0c\n\x08\x44\x61taCalc\x10\x02\x62\x06proto3')
 )
 
 _SERVICETYPE = _descriptor.EnumDescriptor(
@@ -35,25 +35,25 @@ _SERVICETYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PreProcessService', index=1, number=1,
+      name='DataCollect', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CrackCalcService', index=2, number=2,
+      name='DataCalc', index=2, number=2,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=43,
-  serialized_end=120,
+  serialized_end=106,
 )
 _sym_db.RegisterEnumDescriptor(_SERVICETYPE)
 
 ServiceType = enum_type_wrapper.EnumTypeWrapper(_SERVICETYPE)
 MasterService = 0
-PreProcessService = 1
-CrackCalcService = 2
+DataCollect = 1
+DataCalc = 2
 
 
 DESCRIPTOR.enum_types_by_name['ServiceType'] = _SERVICETYPE

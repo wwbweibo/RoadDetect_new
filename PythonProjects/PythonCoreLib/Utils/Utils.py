@@ -53,10 +53,10 @@ def load_conf(conf_file):
     if not 'service_id' in conf_dict.keys():
         service_id = str(uuid.uuid1())
         conf_dict['service_id'] = service_id
-    # write service_id back;
-    conf_file.writelines("\n%s = %s" %("service_id", service_id))
-    conf_file.flush()
-    conf_file.close()
+        # write service_id back;
+        conf_file.writelines("\n%s = %s" %("service_id", service_id))
+        conf_file.flush()
+        conf_file.close()
     return conf_dict
 
 

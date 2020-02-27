@@ -4,6 +4,6 @@ package Wwbweibo.CrackDetect.Models;
 
 enum ServiceType{
 	MasterService=0;
-	PreProcessService=1;
-	CrackCalcService=2;
+	DataCollect=1;
+	DataCalc=2;
 }

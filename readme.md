@@ -55,6 +55,15 @@ ServiceType:
 	DataCalc		数据计算服务
 	MasterService	Master主服务
 
+```
+服务类型枚举定义
+enum ServiceType{
+	MasterService=0;
+	DataCollect=1;
+	DataCalc=2;
+}
+```
+
 ## 服务发现&任务发布规则
 
 任何服务在启动时必须在Zookeeper对应的服务节点下创建临时节点，节点内容定义为当前服务的状态。
@@ -69,14 +78,16 @@ ServiceType:
 	
 ### Zookeeper节点定义
 
-/----							zookeeper根节点
-	|----CrackDetect			项目主节点
-		|----Service			Service父节点
-			|----DataCollect	数据采集服务父节点
-				|----ServiceId-1
-				|----ServiceId-2
-			|----DataCalc		数据计算服务父节点
-			|----MasterService	Master服务父节点
-		|----Task				任务父节点
-			|----todo			代办任务父节点
-			|----doing			正在处理的任务父节点
+	/----							zookeeper根节点
+		|----CrackDetect			项目主节点
+			|----Service			Service父节点
+				|----1				数据采集服务父节点
+					|----ServiceId-1
+					|----ServiceId-2
+				|----2				数据计算服务父节点
+				|----0				Master服务父节点
+				|----Task				任务父节点
+					|----todo			代办任务父节点
+						|----MajorTaskId
+							|----SubTaskId
+					|----doing			正在处理的任务父节点

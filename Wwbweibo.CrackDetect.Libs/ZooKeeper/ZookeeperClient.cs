@@ -69,12 +69,12 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
         /// <param name="taskType">任务类型</param>
         /// <param name="taskId">任务ID</param>
         /// <returns>是否请求成功</returns>
-        public bool RequireTask(string taskType, string taskId, string serviceId)
+        public bool RequireTask(string majorTaskId, string taskId, string serviceId)
         {
             try
             {
-                var taskTodoPath = ConstData.TodoTaskPath.Format(taskType, taskId);
-                var path = ConstData.InProgressPath.Format(taskType, taskId);
+                var taskTodoPath = ConstData.TodoTaskPath.Format(majorTaskId, taskId);
+                var path = ConstData.InProgressPath.Format(majorTaskId, taskId);
                 // 待办路径不存在，请求任务失败
                 if (zkClient.existsAsync(taskTodoPath).GetAwaiter().GetResult() == null)
                 {
@@ -102,11 +102,11 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
         /// <param name="taskType"></param>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public bool CreateTask(string taskType, string taskId)
+        public bool CreateTask(string majorTaskType, string taskId)
         {
             try
             {
-                var taskPath = ConstData.TodoTaskPath.Format(taskType, taskId);
+                var taskPath = ConstData.TodoTaskPath.Format(majorTaskType, taskId);
                 if (zkClient.existsAsync(taskPath).GetAwaiter().GetResult() == null)
                 {
                     ensurePath(taskPath);
@@ -128,10 +128,10 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
         /// <param name="taskType"></param>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public void FinishTask(string taskType, string taskId)
+        public void FinishTask(string majorTaskId, string taskId)
         {
-            var todoPath = ConstData.TodoTaskPath.Format(taskType, taskId);
-            var inprogressPath = ConstData.InProgressPath.Format(taskType, taskId);
+            var todoPath = ConstData.TodoTaskPath.Format(majorTaskId, taskId);
+            var inprogressPath = ConstData.InProgressPath.Format(majorTaskId, taskId);
             zkClient.deleteAsync(todoPath);
             zkClient.deleteAsync(inprogressPath);
         }

@@ -43,8 +43,8 @@ namespace TestClient
             RedisClient redisClient = new RedisClient("ali.wwbweibo.me", "6793");
             ZookeeperClient zkClient =
                 ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
-            zkClient.CreateTask(TaskType.CrackCalc.ToString(), majorTaskId.ToString() + "/" + taskModel.SubTaskId);
-
+            zkClient.CreateTask( majorTaskId.ToString(), taskModel.SubTaskId);
+            redisClient.HSet(majorTaskId.ToString(), taskModel.SubTaskId.ToString(), b64Data);
             client.SendMessageAsync( ((int)MessageTopicEnum.TaskItemData).ToString(), taskModel.ToB64Data()).GetAwaiter().GetResult();
             
 
