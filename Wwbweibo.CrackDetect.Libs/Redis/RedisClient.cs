@@ -49,6 +49,11 @@ namespace Wwbweibo.CrackDetect.Libs.Redis
         {
             return database.HashGet(key, name);
         }
+
+        public void HDelete(string key, string name)
+        {
+            database.HashDelete(key, name);
+        }
     }
 
     public static class RedisValueExtensions

@@ -39,7 +39,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster
 
         public static void InitServer(IConfiguration configuration)
         {
-            zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.me" }, new string[] { "2181" });
+            zkClient = ZookeeperClient.InitClientConnection(new string[] { "ali.wwbweibo.icu" }, new string[] { "2181" });
             redisClient = new RedisClient(configuration.GetValue<string>("RedisHost"), configuration.GetValue<string>("RedisPort"));
             RegisterSelf();
 

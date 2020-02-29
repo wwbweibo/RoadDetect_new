@@ -25,7 +25,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
                 item.IsCrack = taskModel.IsCrack;
                 item.Area = taskModel.CrackArea;
             }
-
+            // 接收到该信息表明该任务已经被完成了,删除对应的缓存
+            redisClient.HDelete(taskModel.MajorTaskId, taskModel.SubTaskId);
             dbContext.SaveChanges();
         }
     }

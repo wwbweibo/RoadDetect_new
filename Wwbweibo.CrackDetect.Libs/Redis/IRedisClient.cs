@@ -1,4 +1,6 @@
-﻿namespace Wwbweibo.CrackDetect.Libs.Redis
+﻿using System;
+
+namespace Wwbweibo.CrackDetect.Libs.Redis
 {
     public interface IRedisClient
     {
@@ -11,5 +13,6 @@
 
         void HSet(string key, string name, string value);
         string HGet(string key, string name);
+        void HDelete(string key, string name);
     }
 }
