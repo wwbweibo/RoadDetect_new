@@ -5,7 +5,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
 {
     public class TaskController : Controller
     {
-        private MasterService service = new MasterService();
+        private MasterService service;
+
+        public TaskController(MasterService service)
+        {
+            this.service = service;
+        }
         public IActionResult Index()
         {
             ViewData["tasks"] = service.ListAllTodoTask();

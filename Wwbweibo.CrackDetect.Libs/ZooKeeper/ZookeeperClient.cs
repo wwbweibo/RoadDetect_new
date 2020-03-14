@@ -151,7 +151,7 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
                 {
 
                     var nodeData = zkClient.getDataAsync(path + "/" + child).Result.Data.DecodeBytesToString();
-                    data.Append(new Tuple<string, string>(child, nodeData));
+                    data.Add(new Tuple<string, string>(child, nodeData));
                 }
 
                 return data;
@@ -162,11 +162,11 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
             }
         }
 
-        public void RegisterService(string serviceType, Guid serviceId,byte[] data)
+        public void RegisterService(string serviceType, Guid serviceId)
         {
             var path = ConstData.ServicePath.Format(serviceType, serviceId.ToString());
             ensurePath(path);
-            zkClient.createAsync(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
+            zkClient.createAsync(path, ((int)ServiceStatusEnum.Idle + "").EncodeStringToBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
                 .GetResult();
         }
 

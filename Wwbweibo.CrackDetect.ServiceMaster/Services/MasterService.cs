@@ -11,13 +11,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
     public class MasterService
     {
-        private static KafkaService kafkaClient;
-        private static ZookeeperClient zkClient;
-
-        public MasterService()
-        {
-            zkClient = Program.GetZookeeperClient();
-        }
+        public IKafkaService kafkaClient { get; set; }
+        public ZookeeperClient zkClient { get; set; }
 
         /// <summary>
         /// 获取所有待办任务
@@ -74,15 +69,18 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// 获取所有已经注册的服务
         /// </summary>
         /// <returns></returns>
-        public Dictionary<ServiceType, List<string>> ListAllRegisteredService()
+        public Dictionary<ServiceType, List<Tuple<string, Wwbweibo.CrackDetect.Models.ServiceStatusEnum>>> ListAllRegisteredService()
         {
-            var result = new Dictionary<ServiceType, List<string>>();
+            var result = new Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>>();
             foreach (ServiceType serviceType in Enum.GetValues(typeof(ServiceType)))
             {
                 var servicePath = ConstData.ServicePath.Format((int)serviceType + "", "");
                 servicePath = servicePath.Remove(servicePath.LastIndexOf('/'));
                 var services = zkClient.ListChildren(servicePath);
-                result.Add(serviceType, services.Select(p => p.Item1).ToList());
+                if(services == null)
+                    continue;
+                result.Add(serviceType, 
+                    services.Select(p =>new Tuple<string, ServiceStatusEnum>(p.Item1, (ServiceStatusEnum)p.Item2.ToInt())).ToList());
             }
 
             return result;
@@ -93,7 +91,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="serviceType"></param>
         /// <returns></returns>
-        public List<string> ListRegisteredService(ServiceType serviceType)
+        public List<Tuple<string, ServiceStatusEnum>> ListRegisteredService(ServiceType serviceType)
         {
             return ListAllRegisteredService()[serviceType];
         }

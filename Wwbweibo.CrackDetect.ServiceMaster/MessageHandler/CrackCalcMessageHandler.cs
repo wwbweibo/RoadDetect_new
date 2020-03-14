@@ -9,10 +9,6 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 {
     public class CrackCalcMessageHandler : BaseMessageHandler
     {
-        public CrackCalcMessageHandler(CrackDbContext dbContext) : base(dbContext)
-        {
-
-        }
 
         public override void HandelMessage(object sender, string message)
         {

@@ -9,10 +9,11 @@ from PythonCoreLib.Zookeeper.ZkClient import ZkClient
 from PythonCoreLib.Utils.Logging import LogManager
 from CrackCalc.Services.CalcService import CalcService
 from CrackCalc.Services.CalcPreprocessService import PreProcessService
-from PythonCoreLib.Utils.Utils import load_conf
+from PythonCoreLib.Utils.Utils import load_conf, load_cus_conf
 import tensorflow as tf
 
 conf = load_conf('CrackCalc/conf.ini')
+cusConf = load_cus_conf("CrackCalc/cusconf.ini")
 
 # 计算服务
 calcService = CalcService(conf)
@@ -24,7 +25,9 @@ kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 logManager = LogManager(conf)
 
-serviceId = conf['service_id']
+service_name = cusConf['service_name']
+service_id = cusConf['service_id']
+
 app = Flask(__name__)
 graph = tf.get_default_graph()
 

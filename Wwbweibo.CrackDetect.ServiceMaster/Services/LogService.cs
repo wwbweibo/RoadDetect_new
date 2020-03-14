@@ -9,11 +9,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
     public class LogService
     {
-        private static RedisClient redisClient;
-        public LogService(RedisClient redisClient)
-        {
-            LogService.redisClient = redisClient;
-        }
+        public IRedisClient redisClient { get; set; }
 
         public LogModel[] GetAllLogMessages()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
@@ -8,12 +9,13 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MasterService service = new MasterService();
+        private readonly MasterService service;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MasterService masterService)
         {
             _logger = logger;
+            this.service = masterService;
         }
 
         public IActionResult Index()
