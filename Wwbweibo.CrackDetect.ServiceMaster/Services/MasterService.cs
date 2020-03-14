@@ -33,7 +33,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 var path =
                     ConstData.TodoTaskPath.Format((int)task + "", "");
                 path = path.Remove(path.LastIndexOf('/'));
-                result.Add(task, zkClient.ListChildren(path));
+                result.Add(task, zkClient.ListChildren(path).Select(p => p.Item1).ToList());
             }
 
             return result;
@@ -58,7 +58,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 inProgressTaskPath = inProgressTaskPath.Remove(inProgressTaskPath.LastIndexOf('/'));
 
                 var inProgressTask =
-                    zkClient.ListChildren(inProgressTaskPath);
+                    zkClient.ListChildren(inProgressTaskPath).Select(p => p.Item1);
                 todoTasks.Value.Except(inProgressTask);
             }
 
@@ -82,7 +82,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 var servicePath = ConstData.ServicePath.Format((int)serviceType + "", "");
                 servicePath = servicePath.Remove(servicePath.LastIndexOf('/'));
                 var services = zkClient.ListChildren(servicePath);
-                result.Add(serviceType, services);
+                result.Add(serviceType, services.Select(p => p.Item1).ToList());
             }
 
             return result;

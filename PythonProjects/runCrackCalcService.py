@@ -17,7 +17,7 @@ def onMessage(message):
         if zkClient.require_task( model.majorTaskId , model.subTaskId, serviceId):
             try:
                 image_block, image = preProcessService.execute_workflow(model)
-                isCrack,im = calcService.execute_calc(image_block,image )
+                isCrack,im = calcService.execute_calc(image_block, image)
                 if isCrack:
                     import cv2
                     cv2.imshow("11", im)

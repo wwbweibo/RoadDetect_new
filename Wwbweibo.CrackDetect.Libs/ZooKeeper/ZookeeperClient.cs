@@ -141,23 +141,32 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
             zkClient = null;
         }
 
-        public List<string> ListChildren(string path)
+        public List<Tuple<string, string>> ListChildren(string path)
         {
             try
             {
-                return zkClient.getChildrenAsync(path).Result.Children;
+                var data = new List<Tuple<string,string>>();
+                var children = zkClient.getChildrenAsync(path).Result.Children;
+                foreach (var child in children)
+                {
+
+                    var nodeData = zkClient.getDataAsync(path + "/" + child).Result.Data.DecodeBytesToString();
+                    data.Append(new Tuple<string, string>(child, nodeData));
+                }
+
+                return data;
             }
             catch (Exception e)
             {
-                return new List<string>();
+                return null;
             }
         }
 
-        public void RegisterService(string serviceType, Guid serviceId)
+        public void RegisterService(string serviceType, Guid serviceId,byte[] data)
         {
             var path = ConstData.ServicePath.Format(serviceType, serviceId.ToString());
             ensurePath(path);
-            zkClient.createAsync(path, null, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
+            zkClient.createAsync(path, data, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL).GetAwaiter()
                 .GetResult();
         }
 

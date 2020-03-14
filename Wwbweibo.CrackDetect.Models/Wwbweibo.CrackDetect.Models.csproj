@@ -9,6 +9,7 @@
     <None Remove="proto\LogLevel.proto" />
     <None Remove="proto\LogModel.proto" />
     <None Remove="proto\MessageTopicEnum.proto" />
+    <None Remove="proto\ServiceStatusEnum.proto" />
     <None Remove="proto\ServiceType.proto" />
     <None Remove="proto\TaskControlModel.proto" />
     <None Remove="proto\TaskItemModel.proto" />
@@ -37,6 +38,10 @@
     </Protobuf>
     <Protobuf Include="proto\TaskResultModel.proto" />
     <Protobuf Include="proto\TaskType.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="proto\ServiceStatusEnum.proto" />
   </ItemGroup>
 
 </Project>

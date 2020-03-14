@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+
+package Wwbweibo.CrackDetect.Models;
+
+// 服务状态枚举
+enum ServiceStatusEnum{	
+	Idle = 0;		// 服务空闲
+	Running = 1;	// 任务处理中
+	Offline = 3;	// 服务离线
+	Fault = 4;		// 服务失效
+}

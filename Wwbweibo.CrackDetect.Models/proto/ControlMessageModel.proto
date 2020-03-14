@@ -4,8 +4,12 @@ import "proto/ServiceType.proto";
 
 package Wwbweibo.CrackDetect.Models;
 
+// 服务控制消息模型
 message ControlMessageModel{
+	// 接受消息的服务ID
 	string receiveServiceId = 1;
+	// 接受消息的服务类型
 	ServiceType serviceType = 2;
+	// 消息数据
 	string data = 3;
 }
