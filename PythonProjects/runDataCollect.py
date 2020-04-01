@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from DataCollect import app, zkClient, kafkaClient, redisClient, logManager, serviceId, conf, gpsService
+from DataCollect import app, zkClient, kafkaClient, redisClient, logManager, serviceId, conf, collectService
 import PythonCoreLib.Models.ServiceType_pb2 as ServiceType
 from PythonCoreLib.Models.CancellationToken import CancellationToken
 from PythonCoreLib.Models.ControlMessageModel_pb2 import ControlMessageModel
@@ -55,5 +55,5 @@ if __name__ == "__main__":
     kafkaClient.start_listen_message([MessageTopicEnum.ControlMessage], OnControllMessage, "DataCalc-"+serviceId, None)
     # 注册该服务
     zkClient.register_service(ServiceType.DataCalc, serviceId)
-    gpsService.get_location()
+    collectService.data_collect()
     app.run("0.0.0.0", int(conf['service_inner_port']))
