@@ -8,3 +8,4 @@ base-env/kafka*
 env/
 *log
 /PythonProjects/.idea
+PythonProjects/DataCollect/__init__.pyc
