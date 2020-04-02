@@ -2,6 +2,7 @@
 
 package Wwbweibo.CrackDetect.Models;
 
+
 message TaskControlModel{
 	// 任务ID
 	string id=1;

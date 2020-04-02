@@ -9,14 +9,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 {
     public class MessageListenerService
     {
-        private readonly IKafkaService kafkaService;
-        private readonly CrackDbContext dbContext;
+        public IKafkaService kafkaService { get; set; }
+        public CrackDbContext dbContext { get; set; }
 
-        public MessageListenerService(IKafkaService kafka, CrackDbContext dbContext)
-        {
-            this.kafkaService = kafka;
-            this.dbContext = dbContext;
-        }
+        public TaskControlMessageHandler TaskControlMessageHandler { get; set; }
+        public TaskItemDataMessageHandler TaskItemDataMessageHandler { get; set; }
+        public CrackCalcMessageHandler CrackCalcMessageHandler { get; set; }
 
         public void StartMessageListener(MessageTopicEnum[] topics)
         {
@@ -28,19 +26,19 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                         Task.Run(() =>
                             kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
                                 ServiceType.MasterService.ToString(),
-                                new CancellationTokenSource(), new TaskControlMessageHandler(dbContext).HandelMessage));
+                                new CancellationTokenSource(), TaskControlMessageHandler.HandelMessage));
                         break;
                     case MessageTopicEnum.TaskItemData:
                         Task.Run(() =>
                        kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
                            ServiceType.MasterService.ToString(),
-                           new CancellationTokenSource(), new TaskItemDataMessageHandler(dbContext).HandelMessage));
+                           new CancellationTokenSource(), TaskItemDataMessageHandler.HandelMessage));
                         break;
                     case MessageTopicEnum.TaskCalc:
                         Task.Run(() =>
                         kafkaService.ListenMessage(new string[] { ((int)topic).ToString() },
                             ServiceType.MasterService.ToString(),
-                            new CancellationTokenSource(), new CrackCalcMessageHandler(dbContext).HandelMessage));
+                            new CancellationTokenSource(), CrackCalcMessageHandler.HandelMessage));
                         break;
                     default:
                         break;

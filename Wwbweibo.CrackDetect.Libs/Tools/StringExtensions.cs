@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using System;
 using System.IO;
+using System.Text;
 
 namespace Wwbweibo.CrackDetect.Libs.Tools.String
 {
@@ -65,6 +66,16 @@ namespace Wwbweibo.CrackDetect.Libs.Tools.String
                 message.WriteTo(ms);
                 return ms.ToArray().EncodeBytesToBase64String();
             }
+        }
+
+        public static string DecodeBytesToString(this byte[] data)
+        {
+            return Encoding.UTF8.GetString(data);
+        }
+
+        public static byte[] EncodeStringToBytes(this string s)
+        {
+            return Encoding.UTF8.GetBytes(s);
         }
     }
 }

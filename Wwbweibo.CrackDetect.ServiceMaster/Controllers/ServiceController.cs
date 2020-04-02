@@ -7,7 +7,13 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
 {
     public class ServiceController : Controller
     {
-        private MasterService service = new MasterService();
+        private MasterService service;
+
+        public ServiceController(MasterService service)
+        {
+            this.service = service;
+        }
+
         public IActionResult Index()
         {
             var AllService = service.ListAllRegisteredService();

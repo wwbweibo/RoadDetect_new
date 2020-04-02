@@ -1,7 +1,8 @@
 ﻿syntax="proto3";
 
 package Wwbweibo.CrackDetect.Models;
- 
+
+// 日志等级描述
 enum LogLevel{
 	Info=0;
 	Warning=1;

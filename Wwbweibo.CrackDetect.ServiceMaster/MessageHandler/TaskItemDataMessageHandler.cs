@@ -9,10 +9,6 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 {
     public class TaskItemDataMessageHandler : BaseMessageHandler
     {
-        public TaskItemDataMessageHandler(CrackDbContext dbContext) : base(dbContext)
-        {
-
-        }
 
         public override void HandelMessage(object sender, string message)
         {

@@ -5,11 +5,18 @@ import "proto/ServiceType.proto";
 
 package Wwbweibo.CrackDetect.Models;
 
+// 日志消息模型
 message LogModel{
+	// 日志时间
 	string LogTime=1;
+	// 消息
 	string LogMessage=2;
+	// 日志等级
 	.Wwbweibo.CrackDetect.Models.LogLevel  LogLevel = 3;
+	// 日志发出的服务ID
 	string OriginServiceId = 4;
+	// 日志发出的服务类型
 	.Wwbweibo.CrackDetect.Models.ServiceType OriginServiceType = 5;
+	// 异常消息
 	string Exception = 6;
 } 

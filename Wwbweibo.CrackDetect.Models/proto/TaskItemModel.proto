@@ -2,6 +2,7 @@
 
 package Wwbweibo.CrackDetect.Models;
 
+// 任务数据实体
 message TaskItemModel{
 	// 任务ID
 	string majorTaskId=1;

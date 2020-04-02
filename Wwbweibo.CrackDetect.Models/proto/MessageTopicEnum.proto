@@ -2,6 +2,7 @@
 
 package Wwbweibo.CrackDetect.Models;
 
+// 消息主题枚举
 enum MessageTopicEnum{
 	// 任务控制消息
 	TaskControl = 0;

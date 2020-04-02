@@ -12,10 +12,11 @@
         <td>#</td>
         <td>服务名</td>
         <td>服务类型</td>
+        <td>服务状态</td>
         <td>操作</td>
         </thead>
         @{ int index = 0;}
-        @foreach (var services in ViewData["services"] as Dictionary<ServiceType, List<string>>)
+        @foreach (var services in ViewData["services"] as Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>>)
         {
             @foreach (var service in services.Value)
             {
@@ -23,7 +24,7 @@
                 <tr>
                     <td>@index</td>
                     <td>
-                        @service
+                        @service.Item1
                     </td>
                     <td>
                         @if(services.Key == ServiceType.MasterService)
@@ -33,10 +34,12 @@
                         {
                             <label>Python图像计算服务</label>
                         }
-
                     </td>
                     <td>
-                        <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service">停止</a>
+                        @service.Item2.ToString()
+                    </td>
+                    <td>
+                        <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service.Item1">停止</a>
                     </td>
                 </tr>
             }

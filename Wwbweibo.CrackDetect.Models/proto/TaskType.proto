@@ -2,6 +2,7 @@
 
 package Wwbweibo.CrackDetect.Models;
 
+// 任务类型
 enum TaskType{
 	DataCollect = 0;
 	PreProcess = 1;

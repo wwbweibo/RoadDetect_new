@@ -2,6 +2,7 @@
 
 package Wwbweibo.CrackDetect.Models;
 
+// 服务类型枚举
 enum ServiceType{
 	MasterService=0;
 	DataCollect=1;
