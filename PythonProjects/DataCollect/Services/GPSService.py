@@ -2,6 +2,7 @@ from DataCollect.Services.GPS.L76X import L76X
 import math
 import time
 from threading import Thread
+from PythonCoreLib.Models.TaskItemModel_pb2 import Position
 
 class GPSService:
     def __init__(self):
@@ -22,23 +23,24 @@ class GPSService:
         self.Lon = 0.0
         self.Lat = 0.0
 
+
     def get_location(self):
         while True:
-            print("trying to get device location")
             self.x.L76X_Gat_GNRMC()
             if self.x.Status == 1:
-                print("success to get device location")
                 self.x.L76X_Baidu_Coordinates(self.x.Lat, self.x.Lon)
                 print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())), self.x.Lon_Baidu, self.x.Lat_Baidu, '\n'  )
                 self.Lon, self.Lat  = self.x.Lon_Baidu, self.x.Lat_Baidu
             else:
-                print("faild to get device location \n")
                 self.Lon, self.Lat = 0, 0
 
     def start_location(self):
         taskThread = Thread(target=self.get_location)
         taskThread.start()
 
-    def get_current_location(self):
-        return self.Lon, self.Lat
+    def get_current_location(self) -> Position:
+        pos = Position()
+        pos.longitude = self.Lon
+        pos.latitude = self.Lat
+        return pos
     

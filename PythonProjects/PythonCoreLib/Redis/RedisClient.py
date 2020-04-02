@@ -2,6 +2,7 @@ import redis
 
 class RedisClient(object):
     def __init__(self, host, port):
+        # todo: 缓存使用异步操作完成
         self.ConnectionPool = redis.ConnectionPool(host = host, port = port)
         self.client = redis.Redis(connection_pool = self.ConnectionPool)
 

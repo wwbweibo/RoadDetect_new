@@ -9,3 +9,4 @@ env/
 *log
 /PythonProjects/.idea
 PythonProjects/DataCollect/__init__.pyc
+.vscode/

@@ -15,16 +15,17 @@ from DataCollect.Services.CollectService import CollectService
 
 conf = load_conf('DataCollect/conf.ini')
 
-# todo: 添加添加GPS和图像采集的服务
-gpsService = GPSService()
-cameraService = CameraService()
-collectService = CollectService(gpsService, cameraService)
-
 # 启动必要的服务
 zkClient = ZkClient([conf['zookeeper_host']],[conf['zookeeper_port']])
 kafkaClient = KafkaClient(conf['kafka_host'], conf['kafka_port'])
 redisClient = RedisClient(conf['redis_host'], conf['redis_port'])
 logManager = LogManager(conf)
+
+
+# todo: 添加添加GPS和图像采集的服务
+gpsService = GPSService()
+cameraService = CameraService()
+collectService = CollectService(gpsService, cameraService, redisClient, kafkaClient)
 
 serviceId = conf['service_id']
 app = Flask(__name__)

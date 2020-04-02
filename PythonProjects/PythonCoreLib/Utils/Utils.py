@@ -19,11 +19,11 @@ def encode_bytes_data_b64(data):
     :param data: input bytes data
     :return: str
     """
-    return base64.b64encode(data)
+    return base64.b64encode(data).decode("UTF-8")
 
 
 def encode_image_b64(np_arr):
-    return encode_bytes_data_b64(cv2.imencode(".jpg", np_arr))
+    return encode_bytes_data_b64(cv2.imencode(".jpg", np_arr)[1])
 
 
 def decode_bytes_numpy_array(data):
