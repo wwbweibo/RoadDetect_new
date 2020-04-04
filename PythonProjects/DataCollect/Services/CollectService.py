@@ -31,6 +31,7 @@ class CollectService:
 
     def start_data_collect(self, cancelationToken:CancellationToken, interval:int):
         self.majorTaskId = str(uuid1())
+        # todo: 在此处添加创建主任务的代码
         t = Thread(target=self.data_collect, args=(interval, cancelationToken))
         t.start()
         print("DEBUG: 开始图像采集")

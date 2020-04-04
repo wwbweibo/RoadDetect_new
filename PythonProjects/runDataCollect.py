@@ -38,11 +38,4 @@ if __name__ == "__main__":
     kafkaClient.start_listen_message([MessageTopicEnum.ControlMessage], OnControllMessage, "DataCollect-"+serviceId, None)
     # 注册该服务
     zkClient.register_service(ServiceType.DataCollect, serviceId)
-    taskCancellationToken.start_task()
-    collectService.start_data_collect(taskCancellationToken, 1)
-    
-    import time
-
-    time.sleep(10)
-    taskCancellationToken.cancel_task()
     app.run("0.0.0.0", int(conf['service_inner_port']))
