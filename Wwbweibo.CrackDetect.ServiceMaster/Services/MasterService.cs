@@ -28,7 +28,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 var path =
                     ConstData.TodoTaskPath.Format((int)task + "", "");
                 path = path.Remove(path.LastIndexOf('/'));
-                result.Add(task, zkClient.ListChildren(path).Select(p => p.Item1).ToList());
+                var tasks = zkClient.ListChildren(path);
+                result.Add(task, tasks.Select(p => p.Item1).ToList());
             }
 
             return result;
@@ -96,10 +97,35 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             return ListAllRegisteredService()[serviceType];
         }
 
+        /// <summary>
+        /// 停止服务
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <param name="serviceId"></param>
+        /// <returns></returns>
         public bool StopService(ServiceType serviceType, string serviceId)
         {
             ControlMessageModel message = new ControlMessageModel() { Data = "STOP", ReceiveServiceId = serviceId, ServiceType = serviceType };
             return kafkaClient.SendMessageAsync((int)MessageTopicEnum.ControlMessage + "", message.ToByteArray().EncodeBytesToBase64String()).Result;
+        }
+
+        /// <summary>
+        /// 启动服务
+        /// </summary>
+        /// <param name="serviceType"></param>
+        /// <param name="serviceId"></param>
+        public void StartService(ServiceType serviceType, string serviceId)
+        {
+            ControlMessageModel message = new ControlMessageModel(){Data = "START", ReceiveServiceId = serviceId, ServiceType = serviceType};
+            kafkaClient.SendMessageAsync((int) MessageTopicEnum.ControlMessage + "",
+                message.ToByteArray().EncodeBytesToBase64String());
+        }
+
+        public void StartDataCollect(string serviceId)
+        {
+            ControlMessageModel message = new ControlMessageModel(){Data = "START_DATA_COLLECT", ReceiveServiceId = serviceId, ServiceType = ServiceType.DataCollect};
+            kafkaClient.SendMessageAsync((int) MessageTopicEnum.ControlMessage + "",
+                message.ToByteArray().EncodeBytesToBase64String());
         }
 
         /// <summary>

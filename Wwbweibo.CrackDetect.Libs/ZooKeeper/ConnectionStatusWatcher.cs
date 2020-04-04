@@ -1,5 +1,6 @@
 ﻿using org.apache.zookeeper;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace Wwbweibo.CrackDetect.Libs.Zookeeper
 {
@@ -12,12 +13,15 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
         }
         public override Task process(WatchedEvent @event)
         {
-            if (@event.getState() == Event.KeeperState.Disconnected || @event.getState() == Event.KeeperState.Expired)
+            if (@event != null)
             {
-                zkClient.InitClientConnection();
+                if (@event.getState() == Event.KeeperState.Disconnected || @event.getState() == Event.KeeperState.Expired)
+                {
+                   return new Task(() => zkClient.InitClientConnection()); 
+                }
             }
-
-            return null;
+            return new Task(() => {
+            });
         }
     }
 }
