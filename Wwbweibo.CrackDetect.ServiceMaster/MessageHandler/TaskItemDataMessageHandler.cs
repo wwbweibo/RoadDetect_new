@@ -14,7 +14,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
         {
             TaskItemModel taskModel = new TaskItemModel();
             taskModel.MergeFrom(message.DecodeBase64String());
-            lock (CrackDbContext.obj)
+            lock (dbContext.obj)
             {
                 dbContext.TaskItems.Add(new TaskItem()
                 {

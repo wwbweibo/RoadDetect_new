@@ -26,7 +26,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 
         private void StartTaskHandler(TaskControlModel taskControlModel)
         {
-            lock (CrackDbContext.obj)
+            lock (dbContext.obj)
             {
 
                 dbContext.Tasks.Add(new DbTask()
@@ -42,7 +42,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
 
         private void StopTaskHandler(TaskControlModel taskControlModel)
         {
-            lock (CrackDbContext.obj)
+            lock (dbContext.obj)
             {
                 var task = dbContext.Tasks.FirstOrDefault(p => p.Id == Guid.Parse(taskControlModel.Id));
                 if (task != null)
