@@ -3,6 +3,19 @@
 }
 
 <div>
-    <h4>服务管理</h4>
+    @{
+        var tasks = ViewData["tasks"] as List<TaskViewModel>;
+
+    }
+    <div class="row">
+        @foreach (var item in tasks)
+        {
+            <div class="col-sm-3 image-block">
+                <img src="data:image/jpg;base64,@item.ImageData" class="card-img" />
+                <p>任务ID:<a href="/home/detail?id=@item.MajorTaskId">@item.MajorTaskId</a></p>
+                <p>开始时间：@item.StartTime.ToShortTimeString()</p>
+            </div>
+        }
+    </div>
 </div>
 

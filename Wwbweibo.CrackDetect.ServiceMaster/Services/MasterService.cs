@@ -29,7 +29,10 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                     ConstData.TodoTaskPath.Format((int)task + "", "");
                 path = path.Remove(path.LastIndexOf('/'));
                 var tasks = zkClient.ListChildren(path);
-                result.Add(task, tasks.Select(p => p.Item1).ToList());
+                if (tasks != null)
+                {
+                    result.Add(task, tasks.Select(p => p.Item1).ToList());
+                }
             }
 
             return result;

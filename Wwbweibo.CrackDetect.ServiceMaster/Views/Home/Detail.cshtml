@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+<div>
+    @{
+        var tasks = ViewData["item"] as TaskViewModel;
+
+    }
+    <div class="row">
+        @foreach (var item in tasks.TaskItemList)
+        {
+            <div class="col-sm-3 image-block">
+                <img src="data:image/jpg;base64,@item.OriginImageData" class="card-img" />
+                <p>任务ID:<a href="">@item.TaskItemId</a></p>
+                <p>是否裂缝图像：@item.IsCrack.ToString()</p>
+            </div>
+        }
+    </div>
+</div>
