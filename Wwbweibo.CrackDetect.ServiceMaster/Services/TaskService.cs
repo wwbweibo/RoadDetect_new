@@ -76,28 +76,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public Dictionary<TaskType, List<string>> ListAllTodoTask()
+        public  List<string> ListAllTodoTask()
         {
             var result = new Dictionary<TaskType, List<string>>();
 
-            foreach (TaskType task in Enum.GetValues(typeof(TaskType)))
-            {
-                var path =
-                    ConstData.TodoTaskPath.Format((int)task + "", "");
-                path = path.Remove(path.LastIndexOf('/'));
-                var tasks = ZkClient.ListChildren(path);
-                if (tasks != null)
-                {
-                    result.Add(task, tasks.Select(p => p.Item1).ToList());
-                }
-            }
-
-            return result;
-        }
-
-        public List<string> ListAllTodoTask(TaskType taskType)
-        {
-            return ListAllTodoTask()[taskType];
+            var tasks = ZkClient.ListChildren(ConstData.TodoTaskPath);
+            return tasks.Select(p => p.Item1).ToList();
         }
 
         /// <summary>
@@ -105,34 +89,24 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public Dictionary<TaskType, List<string>> ListUndoingTask()
+        public List<string> ListUndoingTask()
         {
             var result = ListAllTodoTask();
-            foreach (var todoTasks in result)
+            if (result.Any())
             {
-                var inProgressTaskPath = ConstData.InProgressPath.Format(todoTasks.Key.ToString(), "");
-                inProgressTaskPath = inProgressTaskPath.Remove(inProgressTaskPath.LastIndexOf('/'));
-
                 var inProgressTask =
-                    ZkClient.ListChildren(inProgressTaskPath).Select(p => p.Item1);
-                todoTasks.Value.Except(inProgressTask);
+                    ZkClient.ListChildren(ConstData.InProgressPath).Select(p => p.Item1);
+                return result.Except(inProgressTask).ToList();
             }
-
             return result;
         }
-
-        public List<string> ListUndoingTask(TaskType taskType)
-        {
-            return ListUndoingTask()[taskType];
-        }
-
         /// <summary>
         /// 重新分发待办任务
         /// </summary>
         /// <param name="taskType"></param>
         public void DistributeTask(TaskType taskType)
         {
-            var taskList = ListUndoingTask(taskType);
+            var taskList = ListUndoingTask();
             foreach (var task in taskList)
             {
                 KafkaService.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", task).GetAwaiter().GetResult();

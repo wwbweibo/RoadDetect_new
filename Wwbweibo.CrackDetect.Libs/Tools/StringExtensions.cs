@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace Wwbweibo.CrackDetect.Libs.Tools.String
 {
@@ -70,6 +71,10 @@ namespace Wwbweibo.CrackDetect.Libs.Tools.String
 
         public static string DecodeBytesToString(this byte[] data)
         {
+            if (data == null || !data.Any())
+            {
+                return "";
+            }
             return Encoding.UTF8.GetString(data);
         }
 

@@ -16,29 +16,13 @@
         <td>任务类型</td>
         </thead>
         @{ int index = 0;}
-        @foreach (var tasks in ViewData["tasks"] as Dictionary<TaskType, List<string>>)
+        @foreach (var task in ViewData["tasks"] as List<string>)
         {
-            @foreach (var service in tasks.Value)
-            {
-                index = index + 1;
-                <tr>
-                    <td>@index</td>
-                    <td>
-                        @service
-                    </td>
-                    <td>
-                        @if (tasks.Key == TaskType.PreProcess)
-                        {
-                            <label>图像预处理任务</label>
-                        }
-                        else if (tasks.Key == TaskType.CrackCalc)
-                        {
-                            <label>图像计算任务</label>
-                        }
-
-                    </td>
-                </tr>
-            }
+            index = index + 1;
+            <tr>
+                <td>@index</td>
+                <td>@task</td>
+            </tr>
         }
     </table>
 </div>

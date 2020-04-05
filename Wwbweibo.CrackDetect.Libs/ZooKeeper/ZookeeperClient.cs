@@ -149,7 +149,6 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
                 var children = zkClient.getChildrenAsync(path).Result.Children;
                 foreach (var child in children)
                 {
-
                     var nodeData = zkClient.getDataAsync(path + "/" + child).Result.Data.DecodeBytesToString();
                     data.Add(new Tuple<string, string>(child, nodeData));
                 }
