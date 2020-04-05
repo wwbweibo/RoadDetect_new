@@ -25,7 +25,7 @@ logManager = LogManager(conf)
 # todo: 添加添加GPS和图像采集的服务
 gpsService = GPSService()
 cameraService = CameraService()
-collectService = CollectService(gpsService, cameraService, redisClient, kafkaClient)
+collectService = CollectService(gpsService, cameraService, redisClient, kafkaClient, zkClient)
 
 serviceId = conf['service_id']
 app = Flask(__name__)
