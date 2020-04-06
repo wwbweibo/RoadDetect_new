@@ -24,11 +24,13 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
                         item.Data = redisClient.HGet(taskModel.MajorTaskId, taskModel.SubTaskId);
                         item.IsCrack = taskModel.IsCrack;
                         item.Area = taskModel.CrackArea;
-                        item.MarkedData = redisClient.HGet(taskModel.MajorTaskId, "result-" + taskModel.SubTaskId);
+                        if(taskModel.IsCrack)
+                            item.MarkedData = redisClient.HGet(taskModel.MajorTaskId, "result-" + taskModel.SubTaskId);
                     }
                     // 接收到该信息表明该任务已经被完成了,删除对应的缓存
                     redisClient.HDelete(taskModel.MajorTaskId, taskModel.SubTaskId);
-                    redisClient.HDelete(taskModel.MajorTaskId, "result-" + taskModel.SubTaskId);
+                    if(taskModel.IsCrack) 
+                        redisClient.HDelete(taskModel.MajorTaskId, "result-" + taskModel.SubTaskId);
                     dbContext.SaveChanges();
                 }
             }
