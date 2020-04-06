@@ -82,11 +82,9 @@ class ZkClient:
         path = ConstData.InProgressPath % (major_task_id, task_id)
         self.zk.delete(todo_path)
         self.zk.delete(path)
-        self.zk.set(self.__service_node, str(ServiceStatusEnum.Running).encode("utf-8"))
 
     def task_execute_error(self, task_type, task_id):
         path = ConstData.InProgressPath % (task_type, task_id)
-        self.zk.set(self.__service_node, str(ServiceStatusEnum.Running).encode("utf-8"))
         self.zk.delete(path)
 
     def __zk_status_listener__(self, state):
@@ -95,6 +93,9 @@ class ZkClient:
 
     def start_service(self):
         self.zk.set(self.__service_node, str(ServiceStatusEnum.Idle).encode("utf-8"))
+
+    def running_service(self):
+        self.zk.set(self.__service_node, str(ServiceStatusEnum.Running).encode("utf-8"))
 
     def stop_service(self):
         # 停止服务其实只是把节点状态设置为了服务下线
