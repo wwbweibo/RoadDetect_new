@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -10,16 +11,25 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
     public class HomeController : Controller
     {
         private readonly MasterService service;
+        private readonly TaskService taskService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, MasterService masterService)
+        public HomeController(ILogger<HomeController> logger, MasterService masterService, TaskService taskService)
         {
             _logger = logger;
             this.service = masterService;
+            this.taskService = taskService;
         }
 
         public IActionResult Index()
         {
+            ViewData["tasks"] = taskService.GetAllTasks();
+            return View();
+        }
+
+        public IActionResult Detail(Guid id)
+        {
+            ViewData["item"] = taskService.GetTaskDetails(id);
             return View();
         }
 
