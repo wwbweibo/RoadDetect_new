@@ -14,12 +14,13 @@ class CalcService:
         idx = np.where(result == 0)[0]
         if len(idx) > 0:
             im = self.draw_bounding_box(image, idx)
-            return True, image
+            return True, im
         return False, None
 
     def draw_bounding_box(self, image, idx):
         for i in idx:
             y = int(i / 64) * 16
             x = (i % 64) * 16
-            image = cv2.rectangle(image, (x,y), (x+16,y+16),0,2)
+            image = cv2.rectangle(image, (x,y), (x+16,y+16),0,1)
+        image = cv2.resize(image, (512,512))
         return image

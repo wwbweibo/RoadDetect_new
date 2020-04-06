@@ -25,7 +25,6 @@ def onMessage(message):
                 resultModel.subTaskId = model.subTaskId
                 resultModel.crackArea = 3.0
                 if isCrack:
-                    import cv2
                     redisClient.hset(model.majorTaskId, "result-"+model.subTaskId, encode_image_b64(im))
                     resultModel.isCrack = True
                 else:
@@ -56,7 +55,7 @@ def OnControllMessage(message):
 
 
 if __name__ == "__main__":
-    kafkaClient.start_listen_message([MessageTopicEnum.TaskItemData], onMessage, "DataCalc-"+service_id, taskCancellationToken)
+    kafkaClient.start_listen_message([MessageTopicEnum.TaskItemData], onMessage, "DataCalc-"+service_id, taskCancellationToken, True)
     # 接受控制消息
     kafkaClient.start_listen_message([MessageTopicEnum.ControlMessage], OnControllMessage, "DataCalc-"+service_id, None)
     # 注册该服务

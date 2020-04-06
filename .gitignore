@@ -10,3 +10,5 @@ env/
 /PythonProjects/.idea
 PythonProjects/DataCollect/__init__.pyc
 .vscode/
+PythonProjects/a.jpg
+cusconf.ini

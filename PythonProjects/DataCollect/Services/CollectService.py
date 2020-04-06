@@ -50,7 +50,6 @@ class CollectService:
         print("DEBUG: 开始图像采集")
 
     def data_sender(self, image, location):
-        print("message send start",time.time())
         # 对图像进行压缩和编码
         img = encode_image_b64(image)
         subTaskId = str(uuid1())
@@ -66,4 +65,4 @@ class CollectService:
         message = encode_bytes_data_b64(taskModel.SerializeToString())
         # 发送消息
         self.kafkaService.send_message(MessageTopicEnum.TaskItemData, message)
-        print("message send end",time.time())
+        print("create task item:", self.majorTaskId, subTaskId)

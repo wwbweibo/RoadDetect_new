@@ -30,7 +30,7 @@ class KafkaClient:
         procuder = t.get_producer()
         procuder.produce(json.dumps(message_send).encode("UTF-8"))
 
-    def start_listen_message(self, topics, callback, group, cancellationToken):
+    def start_listen_message(self, topics, callback, group, cancellationToken, request_queue=False):
         '''
         start to listen message from topics when message arrived the callback will be called
         '''
@@ -46,19 +46,22 @@ class KafkaClient:
                     auto_offset_reset=OffsetType.LATEST,
                     auto_commit_enable=True
                 )
-            runt = Thread(target=self.__on_message__, args=(t, callback, cancellationToken))
+            runt = Thread(target=self.__on_message__, args=(t, callback, cancellationToken, request_queue))
             runt.start()
 
-    def __on_message__(self, consumer, callback, cancellationToken):
+    def __on_message__(self, consumer, callback, cancellationToken, request_queue):
         while True:
             if cancellationToken is not None and cancellationToken.get_task_status():
                 break
             message = consumer.consume()
             try:
                 data = json.loads(message.value.decode('UTF-8'))
-                if data['CreateTime'] > (int(time.time()) - 10): # 只处理十秒内的消息
-                    taskThread = Thread(target=callback, args=(data['data'],))
-                    taskThread.start()
+                if not request_queue:
+                    if data['CreateTime'] > (int(time.time()) - 10): # 只处理十秒内的消息
+                        taskThread = Thread(target=callback, args=(data['data'],))
+                        taskThread.start()
+                else:
+                    callback(data['data'])
             except:
                 pass
 
