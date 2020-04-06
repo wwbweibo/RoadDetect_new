@@ -42,9 +42,10 @@
                         @service.Item2.ToString()
                     </td>
                     <td>
-                        @if (services.Key == ServiceType.DataCollect && service.Item2 == ServiceStatusEnum.Idle)
+                        @if (services.Key == ServiceType.DataCollect)
                         {
                             <a href="/Service/StartDataCollect?ServiceId=@service.Item1">开始数据采集</a>
+                            <a href="/Service/StopDataCollect?ServiceId=@service.Item1">开始数据采集</a>
                         }
                         <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service.Item1">停止</a>
                     </td>

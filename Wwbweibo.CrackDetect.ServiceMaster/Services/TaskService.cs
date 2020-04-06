@@ -64,7 +64,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                     IsCrack = p.IsCrack,
                     Area =  p.Area,
                     Position = new Position() { Longitude = p.Longitude, Latitude = p.Latitude},
-                    TaskItemId = p.Id
+                    TaskItemId = p.Id,
+                    MarkedImageData =  p.MarkedData
                 }).ToList();
             }
 
@@ -81,7 +82,14 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var result = new Dictionary<TaskType, List<string>>();
 
             var tasks = ZkClient.ListChildren(ConstData.TodoTaskPath);
-            return tasks.Select(p => p.Item1).ToList();
+            if (tasks != null)
+            {
+                return tasks.Select(p => p.Item1).ToList();
+            }
+            else
+            {
+                return new List<string>();
+            }
         }
 
         /// <summary>
