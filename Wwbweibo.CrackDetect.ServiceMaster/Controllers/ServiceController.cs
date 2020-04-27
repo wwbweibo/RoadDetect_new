@@ -27,6 +27,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Controllers
             return Json(new Dictionary<string, string>() { { "Result", _masterService.StopService(serviceType, serviceId).ToString() } });
         }
 
+        public IActionResult StartService(string serviceId, ServiceType serviceType)
+        {
+            _masterService.StartService(serviceType, serviceId);
+            return Redirect("/Service");
+        }
+
         public IActionResult StartDataCollect(string serviceId)
         {
             _masterService.StartDataCollect(serviceId);

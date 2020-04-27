@@ -135,6 +135,11 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
             zkClient.deleteAsync(inprogressPath);
         }
 
+        public void DeleteNode(string path)
+        {
+            zkClient.deleteAsync(path);
+        }
+
         public void Disconnect()
         {
             zkClient.closeAsync();

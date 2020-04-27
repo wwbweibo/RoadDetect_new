@@ -29,7 +29,7 @@
                     <td>
                         @if(services.Key == ServiceType.MasterService)
                         {
-                            <label>Master主服务</label>
+                            <label>管理服务</label>
                         }else if(services.Key == ServiceType.DataCalc)
                         {
                             <label>Python图像计算服务</label>
@@ -44,10 +44,23 @@
                     <td>
                         @if (services.Key == ServiceType.DataCollect)
                         {
-                            <a href="/Service/StartDataCollect?ServiceId=@service.Item1">开始数据采集</a>
-                            <a href="/Service/StopDataCollect?ServiceId=@service.Item1">开始数据采集</a>
+                            if (service.Item2 == ServiceStatusEnum.Idle)
+                            {
+                                <a href="/Service/StartDataCollect?ServiceId=@service.Item1">开始数据采集</a>
+                            }
+                            else if(service.Item2 == ServiceStatusEnum.Running)
+                            {
+                                <a href="/Service/StopDataCollect?ServiceId=@service.Item1">停止数据采集</a>
+                            }
                         }
-                        <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service.Item1">停止</a>
+                        @if (service.Item2 == ServiceStatusEnum.Idle || service.Item2 == ServiceStatusEnum.Running)
+                        {
+                            <a href="/Service/StopService?ServiceType=@services.Key&ServiceId=@service.Item1">停止</a>
+                        }
+                        else
+                        {
+                            <a href="/Service/StartService?ServiceType=@services.Key&ServiceId=@service.Item1">启动</a>
+                        }
                     </td>
                 </tr>
             }

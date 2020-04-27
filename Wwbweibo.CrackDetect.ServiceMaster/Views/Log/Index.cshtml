@@ -30,6 +30,9 @@
                     @if (log.OriginServiceType == ServiceType.DataCalc)
                     {
                         <label>图像计算服务</label>
+                    }else if (log.OriginServiceType == ServiceType.DataCollect)
+                    {
+                        <label>数据采集服务</label>
                     }
 
                 </td>

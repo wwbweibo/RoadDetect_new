@@ -13,18 +13,14 @@
         <thead>
         <td>#</td>
         <td>任务ID</td>
-        <td>子任务数量</td>
-        <td>详情</td>
         </thead>
         @{ int index = 0;}
-        @foreach (var task in ViewData["tasks"] as Dictionary<string, int>)
+        @foreach (var task in ViewData["tasks"] as List<string>)
         {
             index = index + 1;
             <tr>
                 <td>@index</td>
-                <td>@task.Key</td>
-                <td>@task.Value</td>
-                <td><a href="/task/@task.Key">详情</a></td>
+                <td>@task</td>
             </tr>
         }
     </table>
