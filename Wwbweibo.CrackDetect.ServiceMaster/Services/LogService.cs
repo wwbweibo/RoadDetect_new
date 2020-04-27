@@ -22,7 +22,8 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
                 }
             }
 
-            return data.Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).ToArray();
+            return data.Select(p => LogModel.Parser.ParseFrom(Encoding.UTF8.GetBytes(p))).OrderBy(p => p.LogTime).ToArray();
+
         }
 
         public LogModel[] GetSpecifyLog(int logLevel, int serviceType)

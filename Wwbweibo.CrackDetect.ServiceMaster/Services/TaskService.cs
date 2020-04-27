@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using StackExchange.Redis;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
@@ -77,19 +78,25 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public  List<string> ListAllTodoTask()
+        public  Dictionary<string, int> ListAllTodoTask()
         {
-            var result = new Dictionary<TaskType, List<string>>();
+            var result = new Dictionary<string, int>();
 
             var tasks = ZkClient.ListChildren(ConstData.TodoTaskPath);
             if (tasks != null)
             {
-                return tasks.Select(p => p.Item1).ToList();
+                tasks.ForEach(p =>
+                {
+                    result.Add(p.Item1, ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + p.Item1).Count);
+                });
             }
-            else
-            {
-                return new List<string>();
-            }
+
+            return result;
+        }
+
+        public List<string> GetTodoTask(string id)
+        {
+            return ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + id)?.Select(p => p.Item1).ToList();
         }
 
         /// <summary>
@@ -97,14 +104,16 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         /// </summary>
         /// <param name="taskType"></param>
         /// <returns></returns>
-        public List<string> ListUndoingTask()
+        public Dictionary<string, List<string>> ListUndoingTask()
         {
-            var result = ListAllTodoTask();
-            if (result.Any())
+            var data = ListAllTodoTask();
+            var result = new Dictionary<string, List<string>>();
+            foreach (var keyValuePair in result)
             {
-                var inProgressTask =
-                    ZkClient.ListChildren(ConstData.InProgressPath).Select(p => p.Item1);
-                return result.Except(inProgressTask).ToList();
+                var inProgress = ZkClient.ListChildren(ConstData.InProgressPath + "/" + keyValuePair.Key)
+                    .Select(p => p.Item1);
+                var todo = ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + keyValuePair.Key).Select(p => p.Item1);
+                result.Add(keyValuePair.Key, todo.Except(inProgress).ToList());
             }
             return result;
         }
@@ -115,9 +124,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         public void DistributeTask(TaskType taskType)
         {
             var taskList = ListUndoingTask();
-            foreach (var task in taskList)
+            foreach (var tasks in taskList)
             {
-                KafkaService.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", task).GetAwaiter().GetResult();
+                foreach (var task in tasks.Value)
+                {
+                    KafkaService.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", task).GetAwaiter().GetResult();
+                }
             }
         }
 

@@ -29,6 +29,11 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
                         MajorTaskId = Guid.Parse(taskModel.MajorTaskId),
                         MarkedData = ""
                     });
+                    if (ZookeeperClient.ListChildren(ConstData.TodoTaskPath + "/" + taskModel.MajorTaskId).Count <= 0)
+                    {
+                        ZookeeperClient.DeleteNode(ConstData.TodoTaskPath + "/" +taskModel.MajorTaskId);
+                        ZookeeperClient.DeleteNode(ConstData.InProgressPath + "/" + taskModel.MajorTaskId);
+                    }
                     dbContext.SaveChanges();
                 }
             }
