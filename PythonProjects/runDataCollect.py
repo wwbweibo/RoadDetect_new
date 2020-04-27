@@ -33,15 +33,15 @@ def OnControllMessage(message):
             print(model.receiveServiceId)
             taskCancellationToken.cancel_task()
             zkClient.stop_service()
-            logManager.info("Python 图像计算服务下线", serviceId, ServiceType.DataCalc)
+            logManager.info("Python 图像采集服务下线", serviceId, ServiceType.DataCollect)
         if model.data == "START":
             taskCancellationToken.start_task()
-            kafkaClient.start_listen_message([MessageTopicEnum.TaskItemData], onMessage, "python-crackcalc-"+serviceId, taskCancellationToken)
-            zkClient.register_service(serviceId, ServiceType.DataCalc)
+            logManager.info("Python 图像采集服务上线", serviceId, ServiceType.DataCollect)
+            zkClient.start_service()
 
 
 if __name__ == "__main__":
-    logManager.info("Python 图像采集服务上线", serviceId, ServiceType.DataCalc)
+    logManager.info("Python 图像采集服务上线", serviceId, ServiceType.DataCollect)
     # 接受控制消息
     kafkaClient.start_listen_message([MessageTopicEnum.ControlMessage], OnControllMessage, "DataCollect-"+serviceId, None)
     # 注册该服务
