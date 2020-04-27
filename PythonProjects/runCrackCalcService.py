@@ -31,6 +31,7 @@ def onMessage(message):
                     resultModel.isCrack = False
                 zkClient.finish_task(model.majorTaskId, model.subTaskId)
                 kafkaClient.send_message(MessageTopicEnum.TaskCalc, encode_bytes_data_b64(resultModel.SerializeToString()))
+                zkClient.idle_service()
                 print("calc finished:", model.majorTaskId, model.subTaskId)
             except Exception as e:
                 zkClient.task_execute_error(model.majorTaskId, model.subTaskId)

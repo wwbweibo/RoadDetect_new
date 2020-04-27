@@ -28,6 +28,7 @@ def OnControllMessage(message):
         if model.data == "STOP_DATA_COLLECT":
             print("revice message to stop data collect")
             taskCancellationToken.cancel_task()
+            zkClient.idle_service()
             logManager.info("图像采集结束", serviceId, ServiceType.DataCollect)
         if model.data == 'STOP':
             print(model.receiveServiceId)

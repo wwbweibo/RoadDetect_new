@@ -34,6 +34,12 @@ class CollectService:
             picture = self.cameraService.capture_picture()
             self.data_sender(picture, location)
             time.sleep(interval)
+        # 发送任务停止消息
+        taskControlModel = TaskControlModel()
+        taskControlModel.id = self.majorTaskId
+        taskControlModel.action = "STOP"
+        taskControlModel.time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+        self.kafkaService.send_message(MessageTopicEnum.TaskControl, encode_bytes_data_b64(taskControlModel.SerializeToString()))
             
 
     def start_data_collect(self, cancelationToken:CancellationToken, interval:int):

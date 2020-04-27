@@ -100,7 +100,8 @@ class ZkClient:
     def stop_service(self):
         # 停止服务其实只是把节点状态设置为了服务下线
         self.zk.set(self.__service_node, str(ServiceStatusEnum.Offline).encode("utf-8"))
-
+    def idle_service(self):
+        self.start_service()
 
 if __name__ == "__main__":
     from threading import Thread
