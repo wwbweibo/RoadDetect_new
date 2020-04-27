@@ -51,7 +51,8 @@ def OnControllMessage(message):
         if model.data == "START":
             taskCancellationToken.start_task()
             kafkaClient.start_listen_message([MessageTopicEnum.TaskItemData], onMessage, "python-crackcalc-"+service_id, taskCancellationToken)
-            zkClient.start_service(service_id, ServiceType.DataCalc)
+            logManager.info("Python 图像计算服务上线", service_id, ServiceType.DataCalc)
+            zkClient.start_service()
 
 
 if __name__ == "__main__":
