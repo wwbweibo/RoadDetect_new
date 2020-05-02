@@ -1,0 +1,55 @@
+﻿@using Wwbweibo.CrackDetect.Models
+<tr>
+    <td>@Index</td>
+    <td>
+        @Service.Item1
+    </td>
+    <td>
+        @if(ServiceType == ServiceType.MasterService)
+        {
+            <label>管理服务</label>
+        }else if(ServiceType == ServiceType.DataCalc)
+        {
+            <label>Python图像计算服务</label>
+        }else if (ServiceType == ServiceType.DataCollect)
+        {
+            <label>数据采集服务</label>
+        }
+    </td>
+    <td>
+        @Service.Item2.ToString()
+    </td>
+    <td>
+        @if (ServiceType == ServiceType.DataCollect)
+        {
+            if (Service.Item2 == ServiceStatusEnum.Idle)
+            {
+                <a href="/Service/StartDataCollect?ServiceId=@Service.Item1">开始数据采集</a>
+            }
+            else if(Service.Item2 == ServiceStatusEnum.Running)
+            {
+                <a href="/Service/StopDataCollect?ServiceId=@Service.Item1">停止数据采集</a>
+            }
+        }
+        @if (Service.Item2 == ServiceStatusEnum.Idle || Service.Item2 == ServiceStatusEnum.Running)
+        {
+            <a href="/Service/StopService?ServiceType=@ServiceType&ServiceId=@Service.Item1">停止</a>
+        }
+        else
+        {
+            <a href="/Service/StartService?ServiceType=@ServiceType&ServiceId=@Service.Item1">启动</a>
+        }
+    </td>
+</tr>
+
+@code {
+
+    [Parameter]
+    public ServiceType ServiceType { get; set; }
+
+    [Parameter]
+    public Tuple<string, ServiceStatusEnum> Service { get; set; }
+
+    [Parameter]
+    public int Index { get; set; }
+}

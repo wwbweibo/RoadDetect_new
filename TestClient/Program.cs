@@ -1,11 +1,5 @@
-﻿using System;
-using System.IO;
-using Wwbweibo.CrackDetect.Libs.Kafka;
-using Wwbweibo.CrackDetect.Libs.Redis;
-using Wwbweibo.CrackDetect.Libs.Tools;
+﻿using System.IO;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
-using Wwbweibo.CrackDetect.Libs.Zookeeper;
-using Wwbweibo.CrackDetect.Models;
 
 namespace TestClient
 {

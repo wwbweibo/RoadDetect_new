@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wwbweibo.CrackDetect.Libs.Redis
+﻿namespace Wwbweibo.CrackDetect.Libs.Redis
 {
     public interface IRedisClient
     {

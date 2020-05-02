@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Models
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wwbweibo.CrackDetect.Libs", "Wwbweibo.CrackDetect.Libs\Wwbweibo.CrackDetect.Libs.csproj", "{C0D088C4-1A5B-4DA7-81B3-9E88AF7BDB6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.MasterWeb", "Wwbweibo.CrackDetect.MasterWeb\Wwbweibo.CrackDetect.MasterWeb.csproj", "{10316345-E578-4022-A6FA-FD2921329D1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wwbweibo.CrackDetect.MasterService", "Wwbweibo.CrackDetect.MasterService\Wwbweibo.CrackDetect.MasterService.csproj", "{04555D51-EDFC-4991-BB9C-DF9A36FB647C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{C0D088C4-1A5B-4DA7-81B3-9E88AF7BDB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0D088C4-1A5B-4DA7-81B3-9E88AF7BDB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0D088C4-1A5B-4DA7-81B3-9E88AF7BDB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10316345-E578-4022-A6FA-FD2921329D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10316345-E578-4022-A6FA-FD2921329D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10316345-E578-4022-A6FA-FD2921329D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10316345-E578-4022-A6FA-FD2921329D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04555D51-EDFC-4991-BB9C-DF9A36FB647C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04555D51-EDFC-4991-BB9C-DF9A36FB647C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04555D51-EDFC-4991-BB9C-DF9A36FB647C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04555D51-EDFC-4991-BB9C-DF9A36FB647C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

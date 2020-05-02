@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using StackExchange.Redis;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.MySql;
-using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
@@ -82,12 +80,12 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
         {
             var result = new Dictionary<string, int>();
 
-            var tasks = ZkClient.ListChildren(ConstData.TodoTaskPath);
+            var tasks = ZkClient.ListChildren(ConstData.TodoTaskPath).Result;
             if (tasks != null)
             {
                 tasks.ForEach(p =>
                 {
-                    result.Add(p.Item1, ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + p.Item1).Count);
+                    result.Add(p.Item1, ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + p.Item1).Result.Count);
                 });
             }
 
@@ -96,7 +94,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
 
         public List<string> GetTodoTask(string id)
         {
-            return ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + id)?.Select(p => p.Item1).ToList();
+            return ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + id).Result?.Select(p => p.Item1).ToList();
         }
 
         /// <summary>
@@ -110,9 +108,10 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             var result = new Dictionary<string, List<string>>();
             foreach (var keyValuePair in result)
             {
-                var inProgress = ZkClient.ListChildren(ConstData.InProgressPath + "/" + keyValuePair.Key)
+                var inProgress = ZkClient.ListChildren(ConstData.InProgressPath + "/" + keyValuePair.Key).Result
                     .Select(p => p.Item1);
-                var todo = ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + keyValuePair.Key).Select(p => p.Item1);
+                var todo = ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + keyValuePair.Key).Result
+                    .Select(p => p.Item1);
                 result.Add(keyValuePair.Key, todo.Except(inProgress).ToList());
             }
             return result;

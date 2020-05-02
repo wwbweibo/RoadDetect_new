@@ -1,0 +1,55 @@
+﻿@page "/Service"
+
+@using System.Threading
+@using Wwbweibo.CrackDetect.MasterWeb.Components.Service;
+@using Wwbweibo.CrackDetect.Models
+@using Timer = System.Timers.Timer
+@inject Wwbweibo.CrackDetect.MasterService.Services.MasterService MasterService
+<h3>Service</h3>
+
+
+<h3>服务管理</h3>
+@if (services == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>服务名</th>
+                <th>服务类型</th>
+                <th>服务状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <TableBody @bind-TableData="services" />
+        </tbody>
+    </table>
+}
+@code {
+    [Parameter]
+    public Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>> services { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        services = await MasterService.ListAllRegisteredService();
+
+        Timer timer = new Timer(1000);
+        timer.Enabled = true;
+        timer.Elapsed += async (sender, e) =>
+        {
+            await this.InvokeAsync(async () =>
+            {
+                services = await MasterService.ListAllRegisteredService();
+                this.StateHasChanged();
+            });
+        };
+
+        timer.Start();
+    }
+
+}

@@ -74,7 +74,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.Services
             {
                 var servicePath = ConstData.ServicePath.Format((int)serviceType + "", "");
                 servicePath = servicePath.Remove(servicePath.LastIndexOf('/'));
-                var services = zkClient.ListChildren(servicePath);
+                var services = zkClient.ListChildren(servicePath).Result;
                 if (services == null)
                     continue;
                 result.Add(serviceType,

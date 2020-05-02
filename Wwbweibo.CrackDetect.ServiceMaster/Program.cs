@@ -1,11 +1,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using Wwbweibo.CrackDetect.Libs.Redis;
-using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Services;

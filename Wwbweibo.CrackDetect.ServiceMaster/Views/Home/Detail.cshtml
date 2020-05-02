@@ -1,4 +1,5 @@
-﻿
+﻿@using Wwbweibo.CrackDetect.ServiceMaster.Utils;
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -24,6 +25,7 @@
                                                     @item.OriginImageData
                                                 }" class="card-img" />
                 <p>任务ID:<a href="">@item.TaskItemId</a></p>
+                <p>位置：@await BaiduMapUtils.LocationConvert(item.Position.Latitude, item.Position.Longitude)</p>
                 <p>是否裂缝图像：@item.IsCrack.ToString()</p>
             </div>
         }

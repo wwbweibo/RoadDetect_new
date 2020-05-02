@@ -1,0 +1,25 @@
+﻿@using Wwbweibo.CrackDetect.MasterWeb.Components.Service;
+@using Wwbweibo.CrackDetect.Models
+
+@{
+    Index = 0;
+    foreach (var item in TableData)
+    {
+        foreach (var data in item.Value)
+        {
+            Index += 1;
+            <TableRow Index="@Index" Service="@data" ServiceType="@item.Key"/>
+        }
+    }
+}
+
+
+@code {
+    private int Index = 0;
+    [Parameter]
+    public Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>> TableData { get; set; }
+
+    [Parameter]
+    public EventCallback<Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>>> TableDataChanged { get; set; }
+
+}

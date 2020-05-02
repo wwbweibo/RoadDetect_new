@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Models;
 
@@ -135,9 +136,9 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
             zkClient.deleteAsync(inprogressPath);
         }
 
-        public void DeleteNode(string path)
+        public async Task DeleteNode(string path)
         {
-            zkClient.deleteAsync(path);
+            await zkClient.deleteAsync(path);
         }
 
         public void Disconnect()
@@ -146,16 +147,16 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
             zkClient = null;
         }
 
-        public List<Tuple<string, string>> ListChildren(string path)
+        public async Task<List<Tuple<string, string>>> ListChildren(string path)
         {
             try
             {
                 var data = new List<Tuple<string,string>>();
-                var children = zkClient.getChildrenAsync(path).Result.Children;
-                foreach (var child in children)
+                var children = await zkClient.getChildrenAsync(path);
+                foreach (var child in children.Children)
                 {
-                    var nodeData = zkClient.getDataAsync(path + "/" + child).Result.Data.DecodeBytesToString();
-                    data.Add(new Tuple<string, string>(child, nodeData));
+                    var nodeData = await zkClient.getDataAsync(path + "/" + child);
+                    data.Add(new Tuple<string, string>(child, nodeData.Data.DecodeBytesToString()));
                 }
 
                 return data;

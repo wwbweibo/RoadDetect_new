@@ -2,10 +2,8 @@
 using Autofac;
 using Microsoft.Extensions.Configuration;
 using Wwbweibo.CrackDetect.Libs.Kafka;
-using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Redis;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
-using Wwbweibo.CrackDetect.ServiceMaster.Services;
 
 namespace Wwbweibo.CrackDetect.ServiceMaster
 {
