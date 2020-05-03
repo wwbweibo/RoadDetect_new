@@ -23,7 +23,7 @@ else
 @code{
     private TaskViewModel data;
 
-    protected override async Task OnInitializedAsync()
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
         var id = QueryHelpers.ParseQuery(uri.Query)["id"];

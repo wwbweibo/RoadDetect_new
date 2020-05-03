@@ -22,7 +22,7 @@ else
 @code{
     private List<TaskViewModel> tasks;
 
-    protected override async Task OnInitializedAsync()
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
         tasks = await TaskService.GetAllTasks();
     }

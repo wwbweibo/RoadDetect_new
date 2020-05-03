@@ -1,0 +1,18 @@
+﻿@using Wwbweibo.CrackDetect.Models
+
+<tr>
+    <td>@Index</td>
+    <td>@TaskId</td>
+    <td>@TaskCount</td>
+    <td><a href="/task/@TaskId">详情</a></td>
+</tr>
+
+@code {
+    [Parameter]
+    public string TaskId { get; set; }
+    [Parameter]
+    public int TaskCount { get; set; }
+
+    [Parameter]
+    public int Index { get; set; }
+}

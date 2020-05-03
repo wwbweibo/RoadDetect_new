@@ -1,0 +1,27 @@
+﻿@using Wwbweibo.CrackDetect.MasterWeb.Components.Task;
+@using Wwbweibo.CrackDetect.Models
+
+@{
+    if (TableData == null)
+    {
+        Index = 0;
+    }
+    else
+    {
+        foreach (var item in TableData)
+        {
+            <Wwbweibo.CrackDetect.MasterWeb.Components.Task.TableRow Index="Index" TaskId="@item.Key" TaskCount="item.Value" />
+        }
+    }
+}
+
+
+@code {
+    private int Index = 0;
+    [Parameter]
+    public Dictionary<string, int> TableData { get; set; }
+
+    [Parameter]
+    public EventCallback<Dictionary<string, int>> TableDataChanged { get; set; }
+
+}

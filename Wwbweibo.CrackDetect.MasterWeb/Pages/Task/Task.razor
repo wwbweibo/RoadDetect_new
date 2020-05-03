@@ -1,0 +1,39 @@
+﻿@page "/Task"
+
+@using Wwbweibo.CrackDetect.MasterWeb.Components.Task;
+@using System.Timers;
+@inject Wwbweibo.CrackDetect.MasterService.Services.TaskService TaskService
+
+<h3>任务管理</h3>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>任务ID</th>
+            <th>子任务数量</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <TableBody @bind-TableData="tasks" />
+</table>
+
+@code {      
+    private Dictionary<string, int> tasks;
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        tasks = await TaskService.ListAllTodoTask();
+        Timer timer = new Timer(10000);
+        timer.Enabled = true;
+        timer.Elapsed += async (sender, e) =>
+        {
+            await this.InvokeAsync(async () =>
+            {
+                tasks = await TaskService.ListAllTodoTask();
+                this.StateHasChanged();
+            });
+        };
+
+        timer.Start();
+    }
+}

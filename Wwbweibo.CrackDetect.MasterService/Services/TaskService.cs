@@ -102,10 +102,11 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
             var tasks = await ZkClient.ListChildren(ConstData.TodoTaskPath);
             if (tasks != null)
             {
-                tasks.ForEach(async p =>
+                foreach(var item in tasks)
                 {
-                    result.Add(p.Item1, (await ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + p.Item1)).Count);
-                });
+                    var count = await ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + item.Item1);
+                    result.Add(item.Item1, count.Count);
+                }
             }
 
             return result;

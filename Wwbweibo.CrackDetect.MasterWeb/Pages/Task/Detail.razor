@@ -1,0 +1,23 @@
+﻿@page "/Task/{Id}"
+<h3>Detail</h3>
+
+<table class="table table-striped table-bordered">
+    @*<thead>
+    <td>#</td>
+    <td>任务ID</td>
+    </thead>
+    @{ int index = 0;}
+    @foreach (var task in ViewData["tasks"] as List<string>)
+    {
+        index = index + 1;
+        <tr>
+            <td>@index</td>
+            <td>@task</td>
+        </tr>
+    }*@
+</table>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+}

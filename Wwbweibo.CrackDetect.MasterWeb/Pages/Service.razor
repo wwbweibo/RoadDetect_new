@@ -34,7 +34,7 @@ else
     [Parameter]
     public Dictionary<ServiceType, List<Tuple<string, ServiceStatusEnum>>> services { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
         services = await MasterService.ListAllRegisteredService();
 
