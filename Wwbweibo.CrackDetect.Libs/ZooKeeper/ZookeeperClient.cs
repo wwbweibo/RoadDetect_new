@@ -60,6 +60,7 @@ namespace Wwbweibo.CrackDetect.Libs.Zookeeper
                 return;
             }
             zkClient = new ZooKeeper(connectionString, zkTimeOut, watcher);
+            Thread.Sleep(zkTimeOut);
             sessionId = zkClient.getSessionId();
         }
 

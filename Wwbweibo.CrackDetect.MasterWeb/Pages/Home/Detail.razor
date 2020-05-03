@@ -1,0 +1,33 @@
+﻿@page "/Home/detail"
+
+@using Microsoft.AspNetCore.WebUtilities
+@using Wwbweibo.CrackDetect.ServiceMaster.Models
+@using Wwbweibo.CrackDetect.MasterWeb.Components.Home;、
+
+@inject NavigationManager NavigationManager
+@inject TaskService TaskService
+
+@if (data == null)
+{
+    <label>loading...</label>
+}
+else
+{
+<div class="row">
+    @foreach (var taskItem in data.TaskItemList)
+    {
+        <TaskDetailItem Item="@taskItem"></TaskDetailItem>
+    }
+</div>
+}
+@code{
+    private TaskViewModel data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var id = QueryHelpers.ParseQuery(uri.Query)["id"];
+        data = await TaskService.GetTaskDetails(Guid.Parse(id));
+    }
+
+}

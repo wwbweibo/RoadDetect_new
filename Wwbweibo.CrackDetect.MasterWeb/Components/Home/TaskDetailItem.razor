@@ -1,0 +1,32 @@
+﻿@using Wwbweibo.CrackDetect.ServiceMaster.Models
+@using Wwbweibo.CrackDetect.ServiceMaster.Utils
+
+    <div class="col-sm-3 image-block">
+        @{
+            if (Item.IsCrack)
+            {
+                <img src="data:image/jpg;base64,@Item.MarkedImageData" class="card-img" />
+            }
+            else
+            {
+                <img src="data:image/jpg;base64,@Item.OriginImageData" class="card-img" />
+            }
+        }
+
+        <p>任务ID:@Item.TaskItemId</p>
+        
+        <p>位置：@location</p>
+        <p>是否裂缝图像：@Item.IsCrack.ToString()</p>
+    </div>
+
+@code {
+    [Parameter]
+    public TaskItemViewModel Item { get; set; }
+
+    private string location = "";
+    protected override async Task OnInitializedAsync()
+    {
+        location = await BaiduMapUtils.LocationConvert(Item.Position.Latitude, Item.Position.Longitude);
+    }
+
+}

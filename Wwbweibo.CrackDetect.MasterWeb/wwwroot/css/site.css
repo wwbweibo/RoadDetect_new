@@ -181,3 +181,12 @@ app {
         display: block;
     }
 }
+
+/*×Ô¶¨Òå*/
+.image-block {
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    background: #efefef;
+    margin: 5px
+}

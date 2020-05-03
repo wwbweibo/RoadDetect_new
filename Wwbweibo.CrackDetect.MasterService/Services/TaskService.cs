@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.MySql;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
@@ -20,27 +21,35 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
         /// 获取所有任务
         /// </summary>
         /// <returns></returns>
-        public List<TaskViewModel> GetAllTasks()
+        public async Task<List<TaskViewModel>> GetAllTasks()
         {
-            List<TaskViewModel> tasks = new List<TaskViewModel>();
-            foreach (var task in DbContext.Tasks.ToList())
+            var t = Task.Run(() =>
             {
-                var taskViewModel = new TaskViewModel();
-                taskViewModel.StartTime = task.CreateTime;
-                taskViewModel.EndTime = task.EndTime;
-                taskViewModel.MajorTaskId = task.Id;
-                var firstItem = DbContext.TaskItems.First(p => p.MajorTaskId == task.Id);
-                if (firstItem != null)
+                List<TaskViewModel> tasks = new List<TaskViewModel>();
+                lock (DbContext.obj)
                 {
-                    taskViewModel.Position = new Position()
-                        {Longitude = firstItem.Longitude, Latitude = firstItem.Latitude};
-                    taskViewModel.ImageData = firstItem.Data;
+                    foreach (var task in DbContext.Tasks.ToList())
+                    {
+                        var taskViewModel = new TaskViewModel();
+                        taskViewModel.StartTime = task.CreateTime;
+                        taskViewModel.EndTime = task.EndTime;
+                        taskViewModel.MajorTaskId = task.Id;
+                        var firstItem = DbContext.TaskItems.First(p => p.MajorTaskId == task.Id);
+                        if (firstItem != null)
+                        {
+                            taskViewModel.Position = new Position()
+                                { Longitude = firstItem.Longitude, Latitude = firstItem.Latitude };
+                            taskViewModel.ImageData = firstItem.Data;
+                        }
+
+                        tasks.Add(taskViewModel);
+                    }
                 }
 
-                tasks.Add(taskViewModel);
-            }
+                return tasks;
+            });
 
-            return tasks;
+            return await t;
         }
 
         /// <summary>
@@ -48,28 +57,37 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public TaskViewModel GetTaskDetails(Guid taskId)
+        public async Task<TaskViewModel> GetTaskDetails(Guid taskId)
         {
-            var taskViewModel = new TaskViewModel();
-            var dbModel = DbContext.Tasks.First(p => p.Id == taskId);
-            if (dbModel != null)
+            var t = Task.Run( () =>
             {
-                taskViewModel.StartTime = dbModel.CreateTime;
-                taskViewModel.EndTime = dbModel.EndTime;
-                taskViewModel.MajorTaskId = dbModel.Id;
-                taskViewModel.TaskItemList = DbContext.TaskItems.Where(p => p.MajorTaskId == taskId).Select(p => new TaskItemViewModel()
+                var taskViewModel = new TaskViewModel();
+                lock (DbContext.obj)
                 {
-                    MajorTaskId = taskId,
-                    OriginImageData = p.Data,
-                    IsCrack = p.IsCrack,
-                    Area =  p.Area,
-                    Position = new Position() { Longitude = p.Longitude, Latitude = p.Latitude},
-                    TaskItemId = p.Id,
-                    MarkedImageData =  p.MarkedData
-                }).ToList();
-            }
+                    var dbModel = DbContext.Tasks.FirstOrDefault(p => p.Id == taskId);
+                    if (dbModel != null || dbModel.Id!=Guid.Empty)
+                    {
+                        taskViewModel.StartTime = dbModel.CreateTime;
+                        taskViewModel.EndTime = dbModel.EndTime;
+                        taskViewModel.MajorTaskId = dbModel.Id;
+                        taskViewModel.TaskItemList = DbContext.TaskItems.Where(p => p.MajorTaskId == taskId).Select(p =>
+                            new TaskItemViewModel()
+                            {
+                                MajorTaskId = taskId,
+                                OriginImageData = p.Data,
+                                IsCrack = p.IsCrack,
+                                Area = p.Area,
+                                Position = new Position() {Longitude = p.Longitude, Latitude = p.Latitude},
+                                TaskItemId = p.Id,
+                                MarkedImageData = p.MarkedData
+                            }).ToList();
+                    }
+                }
 
-            return taskViewModel;
+                return taskViewModel;
+            });
+
+            return await t;
         }
 
         /// <summary>

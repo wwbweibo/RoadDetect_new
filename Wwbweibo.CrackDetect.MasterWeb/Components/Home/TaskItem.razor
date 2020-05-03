@@ -1,0 +1,13 @@
+﻿@using Wwbweibo.CrackDetect.ServiceMaster.Models
+
+<div class="col-sm-3 image-block">
+    <img src="data:image/jpg;base64,@TaskViewModel.ImageData" class="card-img" />
+    <p>任务ID:<a href="/home/detail?id=@TaskViewModel.MajorTaskId">@TaskViewModel.MajorTaskId</a></p>
+    <p>开始时间：@TaskViewModel.StartTime.ToLocalTime()</p>
+</div>
+
+@code {
+    [Parameter]
+    public TaskViewModel TaskViewModel { get; set; }
+
+}
