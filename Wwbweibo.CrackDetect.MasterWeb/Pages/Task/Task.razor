@@ -6,6 +6,12 @@
 
 <h3>任务管理</h3>
 
+@if (tasks == null)
+{
+    <label>loading...</label>
+}
+else
+{
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -17,6 +23,7 @@
     </thead>
     <TableBody @bind-TableData="tasks" />
 </table>
+}
 
 @code {      
     private Dictionary<string, int> tasks;
