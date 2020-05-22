@@ -1,6 +1,7 @@
 Flask<1
 pykafka
 opencv-python
+tensorflow==1.14.0
 keras==2.2.4
 redis
 protobuf
