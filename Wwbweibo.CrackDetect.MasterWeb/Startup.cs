@@ -24,6 +24,7 @@ namespace Wwbweibo.CrackDetect.MasterWeb
         {
             services.AddDbContext<CrackDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("CrackDetect")));
+            services.AddSingleton<Microsoft.JSInterop.IJSRuntime>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
         }

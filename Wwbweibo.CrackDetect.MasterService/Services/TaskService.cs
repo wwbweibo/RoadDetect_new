@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wwbweibo.CrackDetect.Libs.Kafka;
 using Wwbweibo.CrackDetect.Libs.MySql;
+using Wwbweibo.CrackDetect.Libs.Tools.String;
 using Wwbweibo.CrackDetect.Libs.Zookeeper;
 using Wwbweibo.CrackDetect.Models;
 using Wwbweibo.CrackDetect.ServiceMaster.Models;
@@ -34,8 +35,8 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
                         taskViewModel.StartTime = task.CreateTime;
                         taskViewModel.EndTime = task.EndTime;
                         taskViewModel.MajorTaskId = task.Id;
-                        var firstItem = DbContext.TaskItems.First(p => p.MajorTaskId == task.Id);
-                        if (firstItem != null)
+                        var firstItem = DbContext.TaskItems.FirstOrDefault(p => p.MajorTaskId == task.Id);
+                        if (firstItem != null && firstItem.Id != Guid.Empty)
                         {
                             taskViewModel.Position = new Position()
                                 { Longitude = firstItem.Longitude, Latitude = firstItem.Latitude };
@@ -124,15 +125,27 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
         /// <returns></returns>
         public async Task<Dictionary<string, List<string>>> ListUndoingTask()
         {
-            var data = ListAllTodoTask();
+            var data = await ListAllTodoTask();
             var result = new Dictionary<string, List<string>>();
-            foreach (var keyValuePair in result)
+            foreach (var keyValuePair in data)
             {
-                var inProgress = (await ZkClient.ListChildren(ConstData.InProgressPath + "/" + keyValuePair.Key))
-                    .Select(p => p.Item1);
-                var todo = (await ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + keyValuePair.Key))
-                    .Select(p => p.Item1);
-                result.Add(keyValuePair.Key, todo.Except(inProgress).ToList());
+                var inProgressTask = await ZkClient.ListChildren(ConstData.InProgressPath + "/" + keyValuePair.Key);
+                var inProgress = new List<string>();
+                if(inProgressTask != null && inProgressTask.Count > 0)
+                {
+                    inProgress = inProgressTask.Select(p => p.Item1).ToList() ;
+                }
+                var todoTask = await ZkClient.ListChildren(ConstData.TodoTaskPath + "/" + keyValuePair.Key);
+                var todo = new List<string>();
+                if(todoTask.Count > 0)
+                {
+                    todo = todoTask.Select(p => p.Item1).ToList();
+                }
+                if(todo.Count > 0)
+                {
+                    result.Add(keyValuePair.Key, todo.Except(inProgress).ToList());
+                }
+                
             }
             return result;
         }
@@ -149,6 +162,25 @@ namespace Wwbweibo.CrackDetect.MasterService.Services
                 {
                     KafkaService.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", task).GetAwaiter().GetResult();
                 }
+            }
+        }
+
+       public async Task DistributeTask(string majorTaskId)
+        {
+            var taskList = await ListUndoingTask();
+            if (taskList.ContainsKey(majorTaskId))
+            {
+                foreach (var task in taskList[majorTaskId])
+                {
+                    await KafkaService.SendMessageAsync((int)MessageTopicEnum.TaskItemData + "", new TaskItemModel() { 
+                        MajorTaskId = majorTaskId, SubTaskId = task
+                    }.ToB64Data());
+                }
+             
+            }
+            else
+            {
+                throw new ApplicationException("该任务下没有待处理的数据");
             }
         }
 

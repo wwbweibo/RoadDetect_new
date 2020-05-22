@@ -1,4 +1,6 @@
 ﻿@using Wwbweibo.CrackDetect.Models
+@inject Wwbweibo.CrackDetect.MasterService.Services.MasterService MasterService;
+@inject IJSRuntime JSRuntime;
 <tr>
     <td>@Index</td>
     <td>
@@ -24,20 +26,20 @@
         {
             if (Service.Item2 == ServiceStatusEnum.Idle)
             {
-                <a href="/Service/StartDataCollect?ServiceId=@Service.Item1">开始数据采集</a>
+                <button class="btn btn-primary" @onclick="() => { StartDataCollect(Service.Item1); }" >开始数据采集</button>
             }
-            else if(Service.Item2 == ServiceStatusEnum.Running)
+            else if (Service.Item2 == ServiceStatusEnum.Running)
             {
-                <a href="/Service/StopDataCollect?ServiceId=@Service.Item1">停止数据采集</a>
+                <button class="btn btn-primary" @onclick="() => { StopDataCollect(Service.Item1); }" >停止数据采集</button>
             }
         }
         @if (Service.Item2 == ServiceStatusEnum.Idle || Service.Item2 == ServiceStatusEnum.Running)
         {
-            <a href="/Service/StopService?ServiceType=@ServiceType&ServiceId=@Service.Item1">停止</a>
+            <button class="btn btn-primary" @onclick="()=> { StopService(ServiceType, Service.Item1); }">停止</button>
         }
         else
         {
-            <a href="/Service/StartService?ServiceType=@ServiceType&ServiceId=@Service.Item1">启动</a>
+            <button class="btn btn-primary" @onclick="() => { StartService(ServiceType, Service.Item1); }">启动</button>
         }
     </td>
 </tr>
@@ -52,4 +54,34 @@
 
     [Parameter]
     public int Index { get; set; }
+
+    private void StopService(ServiceType serviceType, string serviceId)
+    {
+        if(serviceType == ServiceType.MasterService)
+        {
+            JSRuntime.InvokeVoidAsync("show_alter", "不能停止管理服务");
+            return;
+        }
+        MasterService.StopService(serviceType, serviceId);
+        JSRuntime.InvokeVoidAsync("show_alter", "命令发送成功");
+    }
+
+    private void StartService(ServiceType serviceType, string serviceId)
+    {
+        MasterService.StartService(serviceType, serviceId);
+        JSRuntime.InvokeVoidAsync("show_alter", "命令发送成功");
+    }
+
+    private void StartDataCollect(string serviceId)
+    {
+        MasterService.StartDataCollect(serviceId);
+        JSRuntime.InvokeVoidAsync("show_alter", "命令发送成功");
+    }
+
+    private void StopDataCollect(string serviceId)
+    {
+
+        MasterService.StopDataCollect(serviceId);
+        JSRuntime.InvokeVoidAsync("show_alter", "命令发送成功");
+    }
 }

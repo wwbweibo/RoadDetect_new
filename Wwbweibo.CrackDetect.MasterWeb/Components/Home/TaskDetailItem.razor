@@ -26,7 +26,7 @@
     private string location = "";
     protected override async Task OnInitializedAsync()
     {
-        location = await BaiduMapUtils.LocationConvert(Item.Position.Latitude, Item.Position.Longitude);
+        location = await BaiduMapUtils.LocationConvert(Item.Position.Longitude, Item.Position.Latitude);
     }
 
 }

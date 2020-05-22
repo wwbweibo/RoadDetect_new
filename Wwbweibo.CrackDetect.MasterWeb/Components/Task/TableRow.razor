@@ -1,8 +1,10 @@
-﻿<tr>
+﻿@inject CrackDetect.MasterService.Services.TaskService TaskService
+@inject IJSRuntime JSRuntime
+<tr>
     <td>@Index</td>
     <td>@TaskId</td>
     <td>@TaskCount</td>
-    <td><a href="/task/@TaskId">详情</a></td>
+    <td><button class="btn btn-primary" @onclick="async () => { await ReDistributeTask(TaskId); }">重新分发任务</button></td>
 </tr>
 
 @code {
@@ -13,4 +15,19 @@
 
     [Parameter]
     public int Index { get; set; }
+
+    public async Task ReDistributeTask(string majorTaskId)
+    {
+        try
+        {
+            await TaskService.DistributeTask(majorTaskId);
+            await JSRuntime.InvokeVoidAsync("show_alter", "任务已经重新分发");
+        }
+        catch(ApplicationException ex)
+        {
+            await JSRuntime.InvokeVoidAsync("show_alter", ex.Message);
+        }
+
+
+    }
 }

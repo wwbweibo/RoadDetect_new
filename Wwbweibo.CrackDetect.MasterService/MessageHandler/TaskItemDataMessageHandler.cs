@@ -18,6 +18,10 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
             {
                 if (dbContext.Tasks.Any(p => p.Id.ToString() == taskModel.MajorTaskId))
                 {
+                    if(dbContext.TaskItems.Any(p => p.Id.ToString() == taskModel.SubTaskId) || taskModel.Position == null)
+                    {
+                        return;
+                    }
                     dbContext.TaskItems.Add(new TaskItem()
                     {
                         Area = 0,
@@ -28,7 +32,7 @@ namespace Wwbweibo.CrackDetect.ServiceMaster.MessageHandler
                         MajorTaskId = Guid.Parse(taskModel.MajorTaskId),
                         MarkedData = ""
                     });
-                    if (ZookeeperClient.ListChildren(ConstData.TodoTaskPath + "/" + taskModel.MajorTaskId).Result.Count <= 0)
+                    if (ZookeeperClient.ListChildren(ConstData.TodoTaskPath + "/" + taskModel.MajorTaskId).Result?.Count <= 0)
                     {
                         ZookeeperClient.DeleteNode(ConstData.TodoTaskPath + "/" +taskModel.MajorTaskId);
                         ZookeeperClient.DeleteNode(ConstData.InProgressPath + "/" + taskModel.MajorTaskId);

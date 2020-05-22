@@ -2,8 +2,13 @@
 @{
 
     foreach (var item in TableData)
-    { Index += 1;
-        <TableRow Index="Index" TaskId="@item.Key" TaskCount="item.Value" />
+    {
+        if (item.Value > 0)
+        {
+
+            Index += 1;
+            <TableRow Index="Index" TaskId="@item.Key" TaskCount="item.Value" />
+        }
     }
 
 }
