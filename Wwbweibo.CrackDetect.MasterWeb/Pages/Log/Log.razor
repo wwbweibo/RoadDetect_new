@@ -1,0 +1,41 @@
+﻿@page "/Log"
+
+@using Wwbweibo.CrackDetect.MasterWeb.Components.Log
+@using System.Timers
+@inject LogService LogService
+
+<h3>日志查看</h3>
+
+@if (logModels == null)
+{
+    <label>loading...</label>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <TableHeader />
+        </thead>
+        <TableBody @bind-Logs="logModels" />
+    </table>
+}
+
+@code {
+    private Wwbweibo.CrackDetect.Models.LogModel[] logModels;
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        logModels = await LogService.GetAllLogMessages();
+        Timer timer = new Timer(10000);
+        timer.Enabled = true;
+        timer.Elapsed += async (sender, e) =>
+        {
+            await this.InvokeAsync(async () =>
+            {
+                logModels = await LogService.GetAllLogMessages();
+                this.StateHasChanged();
+            });
+        };
+
+        timer.Start();
+    }
+}

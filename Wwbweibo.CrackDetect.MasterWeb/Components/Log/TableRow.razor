@@ -1,0 +1,35 @@
+﻿@using Wwbweibo.CrackDetect.Models;
+
+<tr>
+    <td>@Index</td>
+    <td>
+        @LogLevel.ToString()
+    </td>
+    <td>
+        @if (ServiceType == ServiceType.DataCalc)
+        {
+            <label>图像计算服务</label>
+        }
+        else if (ServiceType == ServiceType.DataCollect)
+        {
+            <label>数据采集服务</label>
+        }
+
+    </td>
+    <td>
+        @LogMessage
+    </td>
+    <td>@LogTime</td>
+</tr>
+@code {
+    [Parameter]
+    public int Index { get; set; }
+    [Parameter]
+    public LogLevel LogLevel { get; set; }
+    [Parameter]
+    public Wwbweibo.CrackDetect.Models.ServiceType ServiceType { get; set; }
+    [Parameter]
+    public string LogMessage { get; set; }
+    [Parameter]
+    public string LogTime { get; set; }
+}
