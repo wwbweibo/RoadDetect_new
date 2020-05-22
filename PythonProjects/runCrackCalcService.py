@@ -19,11 +19,11 @@ def onMessage(message):
             print("receive message start to calc:", model.majorTaskId, model.subTaskId)
             try:
                 image_block, image = preProcessService.execute_workflow(model)
-                isCrack,im = calcService.execute_calc(image_block, image)
+                isCrack,im, area = calcService.execute_calc(image_block, image)
                 resultModel = TaskResultModel_pb2.TaskResultModel()
                 resultModel.majorTaskId = model.majorTaskId
                 resultModel.subTaskId = model.subTaskId
-                resultModel.crackArea = 3.0
+                resultModel.crackArea = area
                 if isCrack:
                     redisClient.hset(model.majorTaskId, "result-"+model.subTaskId, encode_image_b64(im))
                     resultModel.isCrack = True

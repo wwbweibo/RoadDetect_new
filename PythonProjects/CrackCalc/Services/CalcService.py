@@ -14,7 +14,7 @@ class CalcService:
         idx = np.where(result == 0)[0]
         if len(idx) > 0:
             im = self.draw_bounding_box(image, idx)
-            return True, im
+            return True, im, len(idx) / 2
         return False, None
 
     def draw_bounding_box(self, image, idx):
