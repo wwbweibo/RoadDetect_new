@@ -26,7 +26,8 @@ namespace Wwbweibo.CrackDetect.MasterWeb
                 )
             ).AsImplementedInterfaces().SingleInstance();
             // 注册Zookeeper
-            builder.Register(c => ZookeeperClient.InitClientConnection(new string[] { "192.168.199.195" }, new string[] {"2182"}))
+            builder.Register(c => ZookeeperClient.InitClientConnection( c.Resolve<IConfiguration>().GetValue<string>("ZooKeeperHost").Split(","), 
+                c.Resolve<IConfiguration>().GetValue<string>("ZooKeeperPort").Split(","))) 
                 .As<ZookeeperClient>().SingleInstance();
 
             var masterServiceAssembly = Assembly.Load("Wwbweibo.CrackDetect.MasterService");
